@@ -31,7 +31,7 @@
 
 # PhotoCaptureDelegate.swift の Xamarin.iOS への移植 #
 
-##　クラス本体
+##　クラス本体 ##
 
 <code>PhotoCaptureDelegate.cs</code>ファイルを作成します。
 
@@ -40,11 +40,11 @@
 
 それでは<code>PhotoCaptureDelegate.swift</code>ファイルのコードを見てみましょう。
 
-### using
+### using ###
 
 importを確認すると
 
-Swift
+####　Swift ####
 ```swift
 import AVFoundation
 import Photos
@@ -59,17 +59,17 @@ using AVFoundation;
 using Photos;
 ```
 
-### クラス定義
+### クラス定義 ###
 
 次にクラスの定義部分に注目すると、以下のようにクラスの定義とエクステンションがあります。
 
-Swift
+####　Swift ####
 ```swift
 class PhotoCaptureProcessor: NSObject {
 ```
 
 
-Swift
+####　Swift ####
 ```swift
 extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
 ```
@@ -78,7 +78,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
 Swift で<code>AVCapturePhotoCaptureDelegate</code>のように定義済みのプロトコルが利用されている場合、基本的には Xamarin.iOS 側には対応する interface および class が準備されています。
 よって、<code>AVCapturePhotoCaptureDelegate</code>のメタ情報を確認すると
 
-C#
+####　C# ####
 ```csharp
 public class AVCapturePhotoCaptureDelegate : NSObject, IAVCapturePhotoCaptureDelegate, INativeObject, IDisposable
 ```
@@ -86,7 +86,7 @@ public class AVCapturePhotoCaptureDelegate : NSObject, IAVCapturePhotoCaptureDel
 とありますので、<code>AVCapturePhotoCaptureDelegate</code>を継承すれば、<code>NSObject</code>を継承し、<code>AVCapturePhotoCaptureDelegate</code>を実装するクラスになります。
 よって、以下のようにクラスを定義します。
 
-C#
+####　C# ####
 ```csharp
 using System;
 using AVFoundation;
@@ -101,11 +101,11 @@ namespace AVCamSample
 }
 ```
 
-### フィールド
+### フィールド ###
 
 次に、インスタンス変数（C#ではフィールド）を移植します。
 
-Swift
+####　Swift ####
 ```swift
 private(set) var requestedPhotoSettings: AVCapturePhotoSettings
 
@@ -138,7 +138,7 @@ Swift では[アクセス修飾子] [var or let] [変数名] : [型名] の順�
 
 これらを考慮するとフィールド定義は以下のようになります。
 
-C#
+####　C# ####
 ```csharp
 using System;
 using AVFoundation;
@@ -161,11 +161,11 @@ namespace AVCamSample
 }
 ```
 
-### コンストラクタ
+### コンストラクタ ###
 
 次に、イニシャライザ（C#ではコンストラクタ）を移植します。
 
-Swift
+####　Swift ####
 ```swift
 init(with requestedPhotoSettings: AVCapturePhotoSettings,
 	 willCapturePhotoAnimation: @escaping () -> Void,
@@ -186,7 +186,7 @@ init(with requestedPhotoSettings: AVCapturePhotoSettings,
 
 これらを考慮しコンストラクタを追加すると以下のようになります。
 
-C#
+####　C# ####
 ```csharp
 using System;
 using AVFoundation;
@@ -221,11 +221,11 @@ namespace AVCamSample
 }
 ```
 
-### メソッド
+### メソッド ###
 
 次に、メソッドを移植します。
 
-Swift
+####　Swift ####
 ```swift
 private func didFinish() {
 	if let livePhotoCompanionMoviePath = livePhotoCompanionMovieURL?.path {
@@ -253,14 +253,14 @@ Swift をそのまま移植できず、若干表現を変えなければなら�
 <code>FileManager</code>は、Xamarin.iOS では<code>NSFileManager</code>です。
 このNSがつくかどうかの件については、慣れるとだんだん迷わなくなります。
 
-最初のうちは「型が見つからない」とエラーが出る場合は、まずは using を確認、
-次に、NSをつけてみるという手順を取るとつまづきにくいです。
+最初のうちは「型が見つからない」とエラーが出る場合は、まずは<code>using</code>を確認、
+次に、<code>NS</code>をつけてみるという手順を取るとつまづきにくいです。
 
 後は、インテリセンスを利用して<code>NSFileManager</code>のAPIにあわせて、書き換えていきます。
 
 これらを考慮し<code>DidFinish()</code>を追加すると以下のようになります。
 
-C#
+####　C# ####
 ```csharp
 using System;
 using AVFoundation;
