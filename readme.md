@@ -31,7 +31,8 @@
 
 # PhotoCaptureDelegate.swift の Xamarin.iOS への移植 #
 
-##　クラス本体 ##
+
+## クラス本体の移植 ##
 
 <code>PhotoCaptureDelegate.cs</code>ファイルを作成します。
 
@@ -313,6 +314,193 @@ namespace AVCamSample
 ```
 
 これでクラス本体部分の移植が完了しました！
+
+
+## エクステンションの移植 ##
+
+それでは<code>PhotoCaptureDelegate.swift</code>のエクステンション部分のコードを見てみましょう。
+
+###　コールバックメソッドの定義　###
+
+プロトコルの実装部分を確認してみると以下のようにコールバックのメソッドが定義されています。
+※実装の中身は省略しています。
+
+Swift
+```swift
+extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
+    /*
+     This extension includes all the delegate callbacks for AVCapturePhotoCaptureDelegate protocol
+    */
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+    }
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+    }
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+    }
+
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishRecordingLivePhotoMovieForEventualFileAt outputFileURL: URL, resolvedSettings: AVCaptureResolvedPhotoSettings) {
+    }
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingLivePhotoToMovieFileAt outputFileURL: URL, duration: CMTime, photoDisplayTime: CMTime, resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
+    }
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
+    }
+```
+
+コールバックメソッドの名前が全て<code>photoOutput</code>と同じになっています。
+ここで、C#の対応するクラス<code>AVCapturePhotoCaptureDelegate</code>のコールバックメソッドのメタ情報を確認してみましょう。
+
+**C#**
+```csharp
+[CompilerGenerated]
+[Export("captureOutput:didCapturePhotoForResolvedSettings:")]
+public virtual void DidCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+
+[CompilerGenerated]
+[Export("captureOutput:didFinishCaptureForResolvedSettings:error:")]
+public virtual void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
+
+[CompilerGenerated]
+[Export("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:")]
+public virtual void DidFinishProcessingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
+
+[CompilerGenerated]
+[Export("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
+public virtual void DidFinishProcessingPhoto(AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
+
+[CompilerGenerated]
+[Export("captureOutput:didFinishProcessingRawPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
+public virtual void DidFinishProcessingRawPhoto(AVCapturePhotoOutput captureOutput, CMSampleBuffer rawSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
+
+[CompilerGenerated]
+[Export("captureOutput:didFinishRecordingLivePhotoMovieForEventualFileAtURL:resolvedSettings:")]
+public virtual void DidFinishRecordingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings);
+
+[CompilerGenerated]
+[Export("captureOutput:willBeginCaptureForResolvedSettings:")]
+public virtual void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+
+[CompilerGenerated]
+[Export("captureOutput:willCapturePhotoForResolvedSettings:")]
+public virtual void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+```
+
+メソッドは全て違う名前になっています。
+
+### コールバックメソッドの Swift, Xamarin.iOS の対応の判別　###
+
+ここで Swift と C# のメソッドの定義を良く見比べて下さい。Swiftの第2引数のラベル名に<code>willBeginCaptureFor</code>とあります。C# の<code>WillBeginCapture</code>メソッドの ExportAttribute を見ると、<code>[Export("captureOutput:willBeginCaptureForResolvedSettings:")]</code>とあります。どちらにも <code>willBeginCaptureFor</code>という文字列が含まれているので、このメソッドが対応しているメソッドになります。
+
+**Swift**
+```swift
+func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+}
+```
+
+**C#**
+```csharp
+[CompilerGenerated]
+[Export("captureOutput:willBeginCaptureForResolvedSettings:")]
+public virtual void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+```
+
+微妙に名前が違うのは、何度も言っていますが、Xamarin.iOS が、Objective-C に基づいているからです。
+
+試しに Objective-C のメソッド定義を確認してみましょう。
+
+**Objective-C**
+```objc
+- (void)captureOutput:(AVCapturePhotoOutput *)captureOutput willBeginCaptureForResolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings
+{
+}
+```
+
+C# の ExportAttribute <code>[Export("captureOutput:willBeginCaptureForResolvedSettings:")]</code>と、Objective-C のメソッド名<code>captureOutput</code>、第2引数ラベル名<code>willBeginCaptureForResolvedSettings</code>となっており見事に名称が一致しています。Swift では残念ながら名称が若干変更されているのでわかりにくくなってしまっています。
+
+これで、エクステンションのコールバックメソッドの部分の対応がわかりました。同じ要領で、全てのコールバックメソッドの定義を追加すると以下のようになります。
+
+**C#**
+```csharp
+using System;
+
+using Foundation;
+using AVFoundation;
+using CoreMedia;
+using Photos;
+
+namespace AVCamSample
+{
+	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+	{
+		public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
+
+		Action willCapturePhotoAnimation;
+		Action<bool> capturingLivePhoto;
+		Action<PhotoCaptureDelegate> completed;
+
+		NSData photoData;
+		NSUrl livePhotoCompanionMovieUrl;
+
+
+		public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
+									 Action willCapturePhotoAnimation,
+									 Action<bool> capturingLivePhoto,
+									 Action<PhotoCaptureDelegate> completed)
+		{
+			RequestedPhotoSettings = requestedPhotoSettings;
+			this.willCapturePhotoAnimation = willCapturePhotoAnimation;
+			this.capturingLivePhoto = capturingLivePhoto;
+			this.completed = completed;
+		}
+
+		void DidFinish()
+		{
+			var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
+			if (livePhotoCompanionMoviePath != null)
+			{
+				if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
+				{
+					NSError error;
+					if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
+						Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
+				}
+			}
+
+			completed(this);
+		}
+
+		public override void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+		{
+		}
+
+		public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+		{
+		}
+
+		public override void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
+		{
+		}
+
+		public override void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
+		{
+		}
+
+		public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+		{
+		}
+
+		public override void DidFinishCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+		{
+		}
+	}
+}
+```
+
+
 
 以下執筆中
 
