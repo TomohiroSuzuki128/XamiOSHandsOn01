@@ -44,7 +44,7 @@
 
 importを確認すると
 
-####　Swift ####
+**Swift**
 ```swift
 import AVFoundation
 import Photos
@@ -78,7 +78,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
 Swift で<code>AVCapturePhotoCaptureDelegate</code>のように定義済みのプロトコルが利用されている場合、基本的には Xamarin.iOS 側には対応する interface および class が準備されています。
 よって、<code>AVCapturePhotoCaptureDelegate</code>のメタ情報を確認すると
 
-####　C# ####
+**C#**
 ```csharp
 public class AVCapturePhotoCaptureDelegate : NSObject, IAVCapturePhotoCaptureDelegate, INativeObject, IDisposable
 ```
@@ -86,7 +86,7 @@ public class AVCapturePhotoCaptureDelegate : NSObject, IAVCapturePhotoCaptureDel
 とありますので、<code>AVCapturePhotoCaptureDelegate</code>を継承すれば、<code>NSObject</code>を継承し、<code>AVCapturePhotoCaptureDelegate</code>を実装するクラスになります。
 よって、以下のようにクラスを定義します。
 
-####　C# ####
+**C#**
 ```csharp
 using System;
 using AVFoundation;
@@ -105,7 +105,7 @@ namespace AVCamSample
 
 次に、インスタンス変数（C#ではフィールド）を移植します。
 
-####　Swift ####
+**Swift**
 ```swift
 private(set) var requestedPhotoSettings: AVCapturePhotoSettings
 
@@ -138,7 +138,7 @@ Swift では[アクセス修飾子] [var or let] [変数名] : [型名] の順�
 
 これらを考慮するとフィールド定義は以下のようになります。
 
-####　C# ####
+**C#**
 ```csharp
 using System;
 using AVFoundation;
@@ -165,7 +165,7 @@ namespace AVCamSample
 
 次に、イニシャライザ（C#ではコンストラクタ）を移植します。
 
-####　Swift ####
+**Swift**
 ```swift
 init(with requestedPhotoSettings: AVCapturePhotoSettings,
 	 willCapturePhotoAnimation: @escaping () -> Void,
@@ -186,7 +186,7 @@ init(with requestedPhotoSettings: AVCapturePhotoSettings,
 
 これらを考慮しコンストラクタを追加すると以下のようになります。
 
-####　C# ####
+**C#**
 ```csharp
 using System;
 using AVFoundation;
@@ -225,7 +225,7 @@ namespace AVCamSample
 
 次に、メソッドを移植します。
 
-####　Swift ####
+**Swift**
 ```swift
 private func didFinish() {
 	if let livePhotoCompanionMoviePath = livePhotoCompanionMovieURL?.path {
@@ -260,7 +260,7 @@ Swift をそのまま移植できず、若干表現を変えなければなら�
 
 これらを考慮し<code>DidFinish()</code>を追加すると以下のようになります。
 
-####　C# ####
+**C#**
 ```csharp
 using System;
 using AVFoundation;
