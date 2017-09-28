@@ -63,13 +63,13 @@ using Photos;
 
 次にクラスの定義部分に注目すると、以下のようにクラスの定義とエクステンションがあります。
 
-####　Swift ####
+**Swift**
 ```swift
 class PhotoCaptureProcessor: NSObject {
 ```
 
 
-####　Swift ####
+**Swift**
 ```swift
 extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
 ```
