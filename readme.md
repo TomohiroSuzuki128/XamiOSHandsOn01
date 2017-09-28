@@ -320,7 +320,7 @@ namespace AVCamSample
 
 それでは<code>PhotoCaptureDelegate.swift</code>のエクステンション部分のコードを見てみましょう。
 
-###　コールバックメソッドの定義　###
+### コールバックメソッドの定義 ###
 
 プロトコルの実装部分を確認してみると以下のようにコールバックのメソッドが定義されています。
 ※実装の中身は省略しています。
@@ -391,7 +391,7 @@ public virtual void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptu
 
 メソッドは全て違う名前になっています。
 
-### コールバックメソッドの Swift, Xamarin.iOS の対応の判別　###
+### コールバックメソッドの Swift, Xamarin.iOS の対応の判別 ###
 
 ここで Swift と C# のメソッドの定義を良く見比べて下さい。Swiftの第2引数のラベル名に<code>willBeginCaptureFor</code>とあります。C# の<code>WillBeginCapture</code>メソッドの ExportAttribute を見ると、<code>[Export("captureOutput:willBeginCaptureForResolvedSettings:")]</code>とあります。どちらにも <code>willBeginCaptureFor</code>という文字列が含まれているので、このメソッドが対応しているメソッドになります。
 
