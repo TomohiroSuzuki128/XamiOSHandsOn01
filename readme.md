@@ -1,10 +1,10 @@
-#準備
+# 準備 #
 
 今回はApple公式の写真撮影のサンプルアプリを題材にします。以下よりサンプルコードをダウンロードして下さい。
 
 [https://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html](ttps://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html "AVCam-iOS")
 
-#ソリューション作成
+## ソリューション作成 ##
 
 [ファイル]->[新しいソリューション]でソリューションを作成する
 
@@ -29,7 +29,7 @@
 以上で、ソリューションの作成は完了です。
 
 
-#PhotoCaptureDelegate.swift の Xamarin.iOS への移植
+# PhotoCaptureDelegate.swift の Xamarin.iOS への移植 #
 
 ##　クラス本体
 
