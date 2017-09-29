@@ -500,6 +500,443 @@ namespace AVCamSample
 }
 ```
 
+### コールバックメソッドの実装 ###
+
+#### WillBeginCapture ####
+
+では、早速、1つ目のコールバックの Swift のコードを見ていきましょう。
+
+**Swift**
+```swift
+func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+	if resolvedSettings.livePhotoMovieDimensions.width > 0 && resolvedSettings.livePhotoMovieDimensions.height > 0 {
+		livePhotoCaptureHandler(true)
+	}
+}
+```
+
+その1でご説明したように、<code>livePhotoCaptureHandler</code>に対応するC#のデリゲートは<code>capturingLivePhoto</code>ですので、そこだけ気をつけて書き換えれば、後はベタに移植するだけです。
+
+**C#**
+```csharp
+public override void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+{
+	if (resolvedSettings.LivePhotoMovieDimensions.Width > 0 && resolvedSettings.LivePhotoMovieDimensions.Height > 0)
+		capturingLivePhoto (true);
+}
+```
+
+#### WillCapturePhoto  ####
+
+2つ目です。1つ目同様にC#のデリゲートの対応だけ確認すれば後は簡単です。
+
+**Swift**
+```swift
+func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
+	willCapturePhotoAnimation()
+}
+```
+
+
+**C#**
+```csharp
+public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+{
+	willCapturePhotoAnimation ();
+}
+```
+
+
+#### DidFinishProcessingPhoto  ####
+
+3つ目ですが、これは Swift と Xamarin.iOS で既にAPIが違っています。Appleのリファレンスを確認したところ、Swift のサンプルは、iOS11 対応で、 Xamarin.iOS は iOS10 対応のためです。
+調べたところ<code>jpegPhotoDataRepresentation</code>は iOS11で Deprecated になっていました。
+
+**Swift**
+```swift
+func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+	if let error = error {
+		print("Error capturing photo: \(error)")
+	} else {
+		photoData = photo.fileDataRepresentation()
+	}
+}
+```
+
+このまま移植も可能ですが、わかりにくいので iOS10 対応のサンプルを探したところ以下のようになっていました。これで見比べるとAPIがそろっていますね。
+
+**Swift iOS10対応**
+```swift
+func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
+	if let photoSampleBuffer = photoSampleBuffer {
+		photoData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer)
+	}
+	else {
+		print("Error capturing photo: \(error)")
+		return
+	}
+}
+```
+
+わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは<code>nil</code>チェックです。<code>photoSampleBuffer</code>が<code>nil</code>でなければ、<code>{}</code>内部を実行します。
+あとはベタに移植すれば大丈夫です。
+
+**C#**
+```csharp
+public override void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
+{
+	if (photoSampleBuffer != null)
+		photoData = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation (photoSampleBuffer, previewPhotoSampleBuffer);
+	else
+		Console.WriteLine ($"Error capturing photo: {error.LocalizedDescription}");
+}
+```
+
+
+#### DidFinishRecordingLivePhotoMovie  ####
+
+4つ目です。<code>livePhotoCaptureHandler</code>に対応するC#のデリゲートは<code>capturingLivePhoto</code>です。
+
+**Swift**
+```swift
+func photoOutput(_ output: AVCapturePhotoOutput, didFinishRecordingLivePhotoMovieForEventualFileAt outputFileURL: URL, resolvedSettings: AVCaptureResolvedPhotoSettings) {
+	livePhotoCaptureHandler(false)
+}
+```
+
+**C#**
+```csharp
+public override void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
+{
+	capturingLivePhoto (false);
+}
+```
+
+#### DidFinishProcessingLivePhotoMovie  ####
+
+5つ目です。これもベタに移植するだけです。
+
+**Swift**
+```swift
+func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingLivePhotoToMovieFileAt outputFileURL: URL, duration: CMTime, photoDisplayTime: CMTime, resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
+	if error != nil {
+		print("Error processing live photo companion movie: \(String(describing: error))")
+		return
+	}
+	livePhotoCompanionMovieURL = outputFileURL
+}
+```
+
+**C#**
+```csharp
+public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+{
+	if (error != null)
+	{
+		Console.WriteLine ($"Error processing live photo companion movie: {error.LocalizedDescription})");
+		return;
+	}
+	livePhotoCompanionMovieUrl = outputFileUrl;
+}
+```
+
+#### DidFinishCapture ####
+
+6つ目です。こちらは<code>options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType.map { $0.rawValue }</code> で iOS11 からのAPI、processedFileTypeが使われていました。
+
+**Swift**
+```swift
+func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
+    if let error = error {
+        print("Error capturing photo: \(error)")
+        didFinish()
+        return
+    }
+    
+    guard let photoData = photoData else {
+        print("No photo data resource")
+        didFinish()
+        return
+    }
+    
+    PHPhotoLibrary.requestAuthorization { [unowned self] status in
+        if status == .authorized {
+            PHPhotoLibrary.shared().performChanges({ [unowned self] in
+                let options = PHAssetResourceCreationOptions()
+                let creationRequest = PHAssetCreationRequest.forAsset()
+                options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType.map { $0.rawValue }
+                creationRequest.addResource(with: .photo, data: photoData, options: options)
+                
+                if let livePhotoCompanionMovieURL = self.livePhotoCompanionMovieURL {
+                    let livePhotoCompanionMovieFileResourceOptions = PHAssetResourceCreationOptions()
+                    livePhotoCompanionMovieFileResourceOptions.shouldMoveFile = true
+                    creationRequest.addResource(with: .pairedVideo, fileURL: livePhotoCompanionMovieURL, options: livePhotoCompanionMovieFileResourceOptions)
+                }
+                
+                }, completionHandler: { [unowned self] _, error in
+                    if let error = error {
+                        print("Error occurered while saving photo to photo library: \(error)")
+                    }
+                    
+                    self.didFinish()
+                }
+            )
+        } else {
+            self.didFinish()
+        }
+    }
+}
+```
+
+iOS10 対応のサンプルを探したところ以下のようになっていましたので、こちらを移植していきます。
+
+**Swift iOS10対応**
+```swift
+func capture(_ captureOutput: AVCapturePhotoOutput, didFinishCaptureForResolvedSettings resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
+	if let error = error {
+		print("Error capturing photo: \(error)")
+		didFinish()
+		return
+	}
+	
+	guard let photoData = photoData else {
+		print("No photo data resource")
+		didFinish()
+		return
+	}
+	
+	PHPhotoLibrary.requestAuthorization { [unowned self] status in
+		if status == .authorized {
+			PHPhotoLibrary.shared().performChanges({ [unowned self] in
+					let creationRequest = PHAssetCreationRequest.forAsset()
+					creationRequest.addResource(with: .photo, data: photoData, options: nil)
+				
+					if let livePhotoCompanionMovieURL = self.livePhotoCompanionMovieURL {
+						let livePhotoCompanionMovieFileResourceOptions = PHAssetResourceCreationOptions()
+						livePhotoCompanionMovieFileResourceOptions.shouldMoveFile = true
+						creationRequest.addResource(with: .pairedVideo, fileURL: livePhotoCompanionMovieURL, options: livePhotoCompanionMovieFileResourceOptions)
+					}
+				
+				}, completionHandler: { [unowned self] success, error in
+					if let error = error {
+						print("Error occurered while saving photo to photo library: \(error)")
+					}
+					
+					self.didFinish()
+				}
+			)
+		}
+		else {
+			self.didFinish()
+		}
+	}
+}
+```
+
+いくつか、C#erにはなじみのない表現が使われています。
+
+まず、<code>guard</code>ですが、<code>guard let photoData = photoData else {}</code>は、アンラップとnilチェックを同時に行い、アンラップした<code>photoData</code>を<code>guard～else</code>ブロック外で使用できます。
+※アンラップとは、<code>nil</code>を代入できるオプショナル型から値を取り出すことです。
+
+もう一つ、<code>[unowned self]</code>は、非所有参照で<code>self</code>をキャプチャします。これを使うと、クロージャー内ではクロージャ外の<code>self</code>とは別の非所有参照のselfを使うのため循環参照が起こりません。
+
+これは、移植時にはメモリリーク防止のおまじないとでも認識しておけば十分です。
+
+<code>PerformChanges</code>メソッドを確認すると以下のようになっていますので、APIにあわせて実装していきます。
+
+
+**C#**
+```csharp
+public virtual void PerformChanges(Action changeHandler, Action<bool, NSError> completionHandler);
+```
+
+
+**C#**
+```csharp
+public override void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+{
+	if (error != null)
+	{
+		Console.WriteLine($"Error capturing photo: {error.LocalizedDescription})");
+		DidFinish();
+		return;
+	}
+
+	if (photoData == null)
+	{
+		Console.WriteLine("No photo data resource");
+		DidFinish();
+		return;
+	}
+
+	PHPhotoLibrary.RequestAuthorization(status => {
+		if (status == PHAuthorizationStatus.Authorized)
+		{
+			PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() => {
+				var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
+				creationRequest.AddResource(PHAssetResourceType.Photo, photoData, null);
+
+				var url = livePhotoCompanionMovieUrl;
+				if (url != null)
+				{
+					var livePhotoCompanionMovieFileResourceOptions = new PHAssetResourceCreationOptions
+					{
+						ShouldMoveFile = true
+					};
+					creationRequest.AddResource(PHAssetResourceType.PairedVideo, url, livePhotoCompanionMovieFileResourceOptions);
+				}
+			}, (success, err) => {
+				if (err != null)
+					Console.WriteLine($"Error occurered while saving photo to photo library: {error.LocalizedDescription}");
+				DidFinish();
+			});
+		}
+		else
+		{
+			DidFinish();
+		}
+	});
+}
+```
+
+これで、コールバックメソッドの実装が完了しました。以上で<code>PhotoCaptureDelegate</code>の移植が完了です！
+お疲れさまでした。
+
+
+最後に完成した<code>PhotoCaptureDelegate.cs</code>のコードは以下のようになります。
+
+**C#**
+```csharp
+using System;
+
+using Foundation;
+using AVFoundation;
+using CoreMedia;
+using Photos;
+
+namespace AVCamSample
+{
+	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+	{
+		public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
+
+		Action willCapturePhotoAnimation;
+		Action<bool> capturingLivePhoto;
+		Action<PhotoCaptureDelegate> completed;
+
+		NSData photoData;
+		NSUrl livePhotoCompanionMovieUrl;
+
+
+		public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
+									 Action willCapturePhotoAnimation,
+									 Action<bool> capturingLivePhoto,
+									 Action<PhotoCaptureDelegate> completed)
+		{
+			RequestedPhotoSettings = requestedPhotoSettings;
+			this.willCapturePhotoAnimation = willCapturePhotoAnimation;
+			this.capturingLivePhoto = capturingLivePhoto;
+			this.completed = completed;
+		}
+
+		void DidFinish()
+		{
+			var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
+			if (livePhotoCompanionMoviePath != null)
+			{
+				if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
+				{
+					NSError error;
+					if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
+						Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
+				}
+			}
+
+			completed(this);
+		}
+
+		public override void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+		{
+			if (resolvedSettings.LivePhotoMovieDimensions.Width > 0 && resolvedSettings.LivePhotoMovieDimensions.Height > 0)
+				capturingLivePhoto (true);
+		}
+
+		public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+		{
+			willCapturePhotoAnimation ();
+		}
+
+		public override void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
+		{
+			if (photoSampleBuffer != null)
+				photoData = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation (photoSampleBuffer, previewPhotoSampleBuffer);
+			else
+				Console.WriteLine ($"Error capturing photo: {error.LocalizedDescription}");
+		}
+
+		public override void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
+		{
+			capturingLivePhoto (false);
+		}
+
+		public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+		{
+			if (error != null) {
+				Console.WriteLine ($"Error processing live photo companion movie: {error.LocalizedDescription})");
+				return;
+			}
+
+			livePhotoCompanionMovieUrl = outputFileUrl;
+		}
+
+		public override void DidFinishCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+		{
+			if (error != null)
+			{
+				Console.WriteLine($"Error capturing photo: {error.LocalizedDescription})");
+				DidFinish();
+				return;
+			}
+
+			if (photoData == null)
+			{
+				Console.WriteLine("No photo data resource");
+				DidFinish();
+				return;
+			}
+
+			PHPhotoLibrary.RequestAuthorization(status => {
+				if (status == PHAuthorizationStatus.Authorized)
+				{
+					PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() => {
+						var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
+						creationRequest.AddResource(PHAssetResourceType.Photo, photoData, null);
+
+						var url = livePhotoCompanionMovieUrl;
+						if (url != null)
+						{
+							var livePhotoCompanionMovieFileResourceOptions = new PHAssetResourceCreationOptions
+							{
+								ShouldMoveFile = true
+							};
+							creationRequest.AddResource(PHAssetResourceType.PairedVideo, url, livePhotoCompanionMovieFileResourceOptions);
+						}
+					}, (success, err) => {
+						if (err != null)
+							Console.WriteLine($"Error occurered while saving photo to photo library: {error.LocalizedDescription}");
+						DidFinish();
+					});
+				}
+				else
+				{
+					DidFinish();
+				}
+			});
+		}
+		
+	}
+}
+```
 
 
 以下執筆中
