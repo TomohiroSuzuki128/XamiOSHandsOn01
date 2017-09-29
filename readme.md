@@ -938,6 +938,53 @@ namespace AVCamSample
 }
 ```
 
+# PreviewView.swift の Xamarin.iOS への移植 #
+
+これはカメラのプレビューを表示するUIViewです。
+
+<code>View</code>フォルダを作成します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/005.png?raw=true)
+
+<code>PreviewView.cs</code>ファイルを作成します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/006.png?raw=true)
+
+
+それでは<code>PreviewView.swift</code>ファイルのコードを見てみましょう。
+
+**Swift**
+```swift
+import UIKit
+import AVFoundation
+
+class PreviewView: UIView {
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer {
+        guard let layer = layer as? AVCaptureVideoPreviewLayer else {
+            fatalError("Expected `AVCaptureVideoPreviewLayer` type for layer. Check PreviewView.layerClass implementation.")
+        }
+        
+        return layer
+    }
+	
+	var session: AVCaptureSession? {
+		get {
+			return videoPreviewLayer.session
+		}
+		set {
+			videoPreviewLayer.session = newValue
+		}
+	}
+	
+	// MARK: UIView
+	
+    override class var layerClass: AnyClass {
+		return AVCaptureVideoPreviewLayer.self
+	}
+}
+```
+
+
 
 以下執筆中
 
