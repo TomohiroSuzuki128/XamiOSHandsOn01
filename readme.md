@@ -408,7 +408,7 @@ func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSet
 public virtual void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
 ```
 
-微妙に名前が違うのは、何度も言っていますが、Xamarin.iOS が、Objective-C に基づいているからです。
+微妙に名前が違うのは、繰り返しになりますが、Xamarin.iOS が、Objective-C に基づいているからです。
 
 試しに Objective-C のメソッド定義を確認してみましょう。
 
