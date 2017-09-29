@@ -2,7 +2,7 @@
 
 今回はApple公式の写真撮影のサンプルアプリを題材にします。以下よりサンプルコードをダウンロードして下さい。
 
-[https://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html](ttps://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html "AVCam-iOS")
+[https://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html](https://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html "AVCam-iOS")
 
 ## ソリューション作成 ##
 
@@ -984,6 +984,14 @@ class PreviewView: UIView {
 }
 ```
 
+ここで、新しく出てきた内容は、<code>override class var layerClass: AnyClass {	 return AVCaptureVideoPreviewLayer.self }</code>です。
+
+通常、<code>UIView</code>の<code>Layer</code>は自動的に作成され割り当てられます。
+デフォルトでは<code>Layer</code>は<code>CALayer</code>のインスタンスになりますが、overrideすることで<code>CALayer</code>派生の任意の型を使用できます。
+
+Xamarin.iOSで同じことを実現するには、<code>CALayer</code>派生の任意の型を返す静的メソッド、またはプロパティを作成し、<code>[Export("layerClass")]</code>を設定します。
+
+このあたりを詳しくご理解したい方は[こちら](https://developer.xamarin.com/api/type/UIKit.UIView/#Changing_the_CALayer "Changing_the_CALayer")を参照してください。
 
 
 以下執筆中
