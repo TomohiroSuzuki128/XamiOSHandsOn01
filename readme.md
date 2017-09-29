@@ -989,7 +989,33 @@ class PreviewView: UIView {
 通常、<code>UIView</code>の<code>Layer</code>は自動的に作成され割り当てられます。
 デフォルトでは<code>Layer</code>は<code>CALayer</code>のインスタンスになりますが、overrideすることで<code>CALayer</code>派生の任意の型を使用できます。
 
-Xamarin.iOSで同じことを実現するには、<code>CALayer</code>派生の任意の型を返す静的メソッド、またはプロパティを作成し、<code>[Export("layerClass")]</code>を設定します。
+Xamarin.iOSで同じことを実現するには、<code>using ObjCRuntime;</code>を追加し、<code>CALayer</code>派生の任意の型を返す静的メソッド、またはプロパティを作成し、<code>[Export("layerClass")]</code>を設定します。
+
+具体的には下記のようになります。
+
+**C#**
+```csharp
+public static Class LayerClass
+{
+	[Export("layerClass")]
+	get
+	{
+		return layerClass = layerClass ?? new Class(typeof(AVCaptureVideoPreviewLayer));
+	}
+}
+```
+
+または
+
+```csharp
+[Export ("layerClass")]
+public static Class GetLayerClass ()
+{
+    return new Class(typeof(AVCaptureVideoPreviewLayer));
+}
+```
+
+あとは、そのまま移植するだけです。
 
 このあたりを詳しくご理解したい方は[こちら](https://developer.xamarin.com/api/type/UIKit.UIView/#Changing_the_CALayer "Changing_the_CALayer")を参照してください。
 
