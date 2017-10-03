@@ -1087,13 +1087,13 @@ namespace AVCamSample
 
 # UI の Xamarin.iOS への移植 #
 
-UIについては、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、どうしてもコードでUIを記述する場面が出てきます。
+UIについては、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、バインドするデータに応じて動的にUIをコントロールする場合など、どうしてもコードでUIを記述する場面が出てきます。
 
 ところが、Xamarin.iOSでUIをコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なのでUIをコードで作成してみましょう。具体的には、<code>storyboard</code>をXamarin.iOSに翻訳する作業になります。
 
 ## UI部品を割り当てるフィールドを追加 ##
 
-<code>CameraViewController.cs</code>にUI部品のフィールドを追加します。
+<code>CameraViewController.cs</code>にUI部品を割り当てるフィールドを追加します。
 
 **C#**
 ```csharp
@@ -1166,8 +1166,7 @@ xmlの各attributeに対応したプロパティを見つけ出し、設定し�
 
 わかりにくいプロパティはcolor関係とfontですが、それぞれ、colorは<code>public static UIColor FromRGBA(nfloat red, nfloat green, nfloat blue, nfloat alpha);</code>、fontは<code>public static UIFont SystemFontOfSize(nfloat size);</code>となります。
 
-全部変換すると以下のようになりますので、
-<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+全部移植すると以下のようになりますので、<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
 
 **C#**
 ```csharp
@@ -1189,9 +1188,147 @@ CameraUnavailableLabel = new UILabel
 };
 View.AddSubview(CameraUnavailableLabel);
 ```
+
 では、同じ要領で他のUI部品も追加していきましょう。
 
+### PreviewView ###
 
+**storyboard**
+```xml
+<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eR-Rn-XpZ" userLabel="Preview" customClass="PreviewView">
+    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <gestureRecognizers/>
+    <connections>
+        <outletCollection property="gestureRecognizers" destination="fY6-qX-ntV" appends="YES" id="G6D-dx-xU8"/>
+    </connections>
+</view>
+```
+
+<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+**C#**
+```csharp
+PreviewView = new PreviewView()
+{
+	ContentMode = UIViewContentMode.ScaleToFill,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
+};
+View.AddSubview(PreviewView);
+```
+
+### PhotoButton ###
+
+**storyboard**
+```xml
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCj-6P-mHF" userLabel="Still">
+    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+    <constraints>
+        <constraint firstAttribute="height" constant="30" id="NtC-UN-gTs"/>
+        <constraint firstAttribute="width" constant="80" id="dxU-UP-4Ae"/>
+    </constraints>
+    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+    <state key="normal" title="Photo">
+        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    </state>
+    <userDefinedRuntimeAttributes>
+        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+            <integer key="value" value="4"/>
+        </userDefinedRuntimeAttribute>
+    </userDefinedRuntimeAttributes>
+    <connections>
+        <action selector="capturePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o5K-SC-fYn"/>
+    </connections>
+</button>
+```
+
+わかりにくい箇所をご説明しますと、
+<code>buttonType="roundedRect"</code>はXamarin.iOSではコンストラクタでの設定となり、<code>PhotoButton = new UIButton(UIButtonType.RoundedRect)</code>となります。
+<code><constraint firstAttribute="height" constant="30" id="NtC-UN-gTs"/></code>は<code>View</code>に設定した仮想解像度、幅：375, 高さ：667に対し、<code>PhotoButton</code>の高さを30に設定しなさいという制約です。
+これは、Xamarin.iOSでは<code>NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 30)</code>となります。
+<code>width</code>も同じ要領で設定できます。
+
+<code><action selector="capturePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o5K-SC-fYn"/></code>はイベントハンドラの設定です。
+
+<code>CameraViewController.swift</code>の521行目を確認すると
+
+**Swift**
+```swift
+@IBAction private func capturePhoto(_ photoButton: UIButton) {
+```
+
+とありますので、これがイベントハンドラです。Xamarin.iOSではイベントが準備されていますので、C#側のハンドラメソッドの<code>CapturePhoto()</code>を設定すれば大丈夫です。
+
+全部移植すると以下のようになりますので、<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+**C#**
+```csharp
+PhotoButton = new UIButton(UIButtonType.RoundedRect)
+{
+	Opaque = false,
+	ContentMode = UIViewContentMode.ScaleToFill,
+	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+	VerticalAlignment = UIControlContentVerticalAlignment.Center,
+	LineBreakMode = UILineBreakMode.MiddleTruncation,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+	Font = UIFont.SystemFontOfSize(20f),
+};
+
+PhotoButton.SetTitle("Photo", UIControlState.Normal);
+PhotoButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1.0f), UIControlState.Normal);
+PhotoButton.Layer.CornerRadius = 4f;
+PhotoButton.TouchUpInside += (s, e) => CapturePhoto();
+PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 30));
+PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 80));
+View.AddSubview(PhotoButton);
+```
+
+### CameraButton ###
+
+これも同じ要領で移植できます。
+
+**storyboard**
+```xml
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUJ-G6-RPv" userLabel="Camera">
+    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+    <state key="normal" title="Camera">
+        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    </state>
+    <userDefinedRuntimeAttributes>
+        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+            <integer key="value" value="4"/>
+        </userDefinedRuntimeAttribute>
+    </userDefinedRuntimeAttributes>
+    <connections>
+        <action selector="changeCamera:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3W0-h3-6fc"/>
+    </connections>
+</button>
+```
+
+全部移植すると以下のようになりますので、<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+**C#**
+```csharp
+CameraButton = new UIButton(UIButtonType.RoundedRect)
+{
+	Opaque = false,
+	ContentMode = UIViewContentMode.ScaleToFill,
+	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+	VerticalAlignment = UIControlContentVerticalAlignment.Center,
+	LineBreakMode = UILineBreakMode.MiddleTruncation,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+	Font = UIFont.SystemFontOfSize(20f),
+};
+
+CameraButton.SetTitle("Camera", UIControlState.Normal);
+CameraButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1.0f), UIControlState.Normal);
+CameraButton.Layer.CornerRadius = 4f;
+CameraButton.TouchUpInside += (s, e) => ChangeCamera();
+View.AddSubview(CameraButton);
+```
 
 以下執筆中
 
