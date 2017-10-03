@@ -1153,6 +1153,14 @@ private void InitUI()
     <nil key="highlightedColor"/>
 </label>
 ```
+
+xmlの各attributeに対応したプロパティを見つけ出し、設定していきます。IntelliSenseをうまく使えば簡単に見つけることができます。
+
+例えば<code>hidden="YES"</code>なら、<code>Hidden = true</code>、<code>userInteractionEnabled="NO"</code>なら<code>UserInteractionEnabled = false</code>といった要領です。
+
+わかりにくいcolorは<code>public static UIColor FromRGBA(nfloat red, nfloat green, nfloat blue, nfloat alpha)</code>、fontは
+
+全部変換すると以下のようになりますので、
 <code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
 
 **C#**
@@ -1169,9 +1177,9 @@ CameraUnavailableLabel = new UILabel
 	BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
 	AdjustsFontSizeToFitWidth = false,
 	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1.0f),
 	Font = UIFont.SystemFontOfSize(24f),
-	TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1f),
+	TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
 };
 View.AddSubview(CameraUnavailableLabel);
 ```
