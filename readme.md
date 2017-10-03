@@ -1091,7 +1091,7 @@ UIについては、<code>storyboard</code>をそのまま利用できます。�
 
 ところが、Xamarin.iOSでUIをコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なのでUIをコードで作成してみましょう。具体的には、<code>storyboard</code>をXamarin.iOSに翻訳する作業になります。
 
-## UI部品を割り当てるフィールド追加 ##
+## UI部品を割り当てるフィールドを追加 ##
 
 <code>CameraViewController.cs</code>にUI部品のフィールドを追加します。
 
@@ -1112,7 +1112,7 @@ public class CameraViewController : UIViewController, IAVCaptureFileOutputRecord
 
 ```
 
-## フィールド追加 ##
+## UI部品を構築するメソッドを追加 ##
 
 UIを構築するメソッドを作成します。
 
@@ -1122,6 +1122,9 @@ private void InitUI()
 {
 }
 ```
+
+### View ###
+
 <code>InitUI()</code>に<code>storyboard</code>　15行目～18行目の<code>View</code>に関する設定を移植します。
 
 **storyboard**
@@ -1141,6 +1144,9 @@ private void InitUI()
 	View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 }
 ```
+
+### CameraUnavailableLabel ###
+
 <code>storyboard</code>　15行目～18行目の<code>CameraUnavailableLabel</code>に関する設定を移植します。
 
 **storyboard**
@@ -1184,6 +1190,8 @@ CameraUnavailableLabel = new UILabel
 View.AddSubview(CameraUnavailableLabel);
 ```
 では、同じ要領で他のUI部品も追加していきましょう。
+
+
 
 以下執筆中
 
