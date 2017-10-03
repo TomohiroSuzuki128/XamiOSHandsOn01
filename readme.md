@@ -989,7 +989,7 @@ class PreviewView: UIView {
 通常、<code>UIView</code>の<code>Layer</code>は自動的に作成され割り当てられます。
 デフォルトでは<code>Layer</code>は<code>CALayer</code>のインスタンスになりますが、overrideすることで<code>CALayer</code>派生の任意の型を使用できます。
 
-Xamarin.iOSで同じことを実現するには、<code>using ObjCRuntime;</code>を追加し、<code>CALayer</code>派生の任意の型を返す静的メソッド、またはプロパティを作成し、<code>[Export("layerClass")]</code>を設定します。
+Xamarin.iOSで同じことを実現するには、<code>using ObjCRuntime;</code>を追加し、<code>CALayer</code>派生の任意の型を返す静的メソッド、または静的プロパティを作成し、<code>[Export("layerClass")]</code>を設定します。
 
 具体的には下記のようになります。
 
@@ -1018,6 +1018,163 @@ public static Class GetLayerClass ()
 あとは、そのまま移植するだけです。
 
 このあたりを詳しくご理解したい方は[こちら](https://developer.xamarin.com/api/type/UIKit.UIView/#Changing_the_CALayer "Changing_the_CALayer")を参照してください。
+
+
+
+あとは、そのまま移植するだけです。
+
+**C#**
+```csharp
+using System;
+
+using UIKit;
+using Foundation;
+using AVFoundation;
+using ObjCRuntime;
+
+namespace AVCamSample
+{
+	[Register("PreviewView")]
+	public class PreviewView : UIView
+	{
+		static Class layerClass;
+
+		public static Class LayerClass
+		{
+			[Export("layerClass")]
+			get
+			{
+				return layerClass = layerClass ?? new Class(typeof(AVCaptureVideoPreviewLayer));
+			}
+		}
+
+		public AVCaptureSession Session
+		{
+			get
+			{
+				return VideoPreviewLayer.Session;
+			}
+			set
+			{
+				VideoPreviewLayer.Session = value;
+			}
+		}
+
+		public AVCaptureVideoPreviewLayer VideoPreviewLayer
+		{
+			get
+			{
+				return (AVCaptureVideoPreviewLayer)Layer;
+			}
+		}
+
+		public PreviewView()
+			: base()
+		{
+		}
+
+	}
+}
+```
+
+
+# CameraViewController.swift の Xamarin.iOS への移植 #
+
+<code>CameraViewController.swift</code>では、撮影処理や録画処理を行います。この処理はとても量が多いので、今回は一部機能以外翻訳済みのcsファイルを準備しましたのでそちらをお使い下さい。
+
+（ここにCameraViewController.csファイルの情報が入る：後日準備）
+※メソッド1つくらいは移植するようにする
+
+# UI の Xamarin.iOS への移植 #
+
+UIについては、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、どうしてもコードでUIを記述する場面が出てきます。
+
+ところが、Xamarin.iOSでUIをコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なのでUIをコードで作成してみましょう。具体的には、<code>storyboard</code>をXamarin.iOSに翻訳する作業になります。
+
+## UI部品を割り当てるフィールド追加 ##
+
+<code>CameraViewController.cs</code>にUI部品のフィールドを追加します。
+
+**C#**
+```csharp
+public class CameraViewController : UIViewController, IAVCaptureFileOutputRecordingDelegate
+{
+
+	PreviewView PreviewView { get; set; }
+	UILabel CameraUnavailableLabel { get; set; }
+	UIButton ResumeButton { get; set; }
+	UIButton RecordButton { get; set; }
+	UIButton CameraButton { get; set; }
+	UIButton PhotoButton { get; set; }
+	UIButton LivePhotoModeButton { get; set; }
+	UISegmentedControl CaptureModeControl { get; set; }
+	UILabel CapturingLivePhotoLabel { get; set; }
+
+```
+
+## フィールド追加 ##
+
+UIを構築するメソッドを作成します。
+
+**C#**
+```csharp
+private void InitUI()
+{
+}
+```
+<code>InitUI()</code>に<code>storyboard</code>　15行目～18行目の<code>View</code>に関する設定を移植します。
+
+**storyboard**
+```xml
+<viewController id="BYZ-38-t0r" customClass="CameraViewController" customModule="AVCam" customModuleProvider="target" sceneMemberID="viewController">
+    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+```
+
+**C#**
+```csharp
+private void InitUI()
+{
+	View.ContentMode = UIViewContentMode.ScaleToFill;
+	View.Frame = new CGRect(0, 0, 375, 667);
+	View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+}
+```
+<code>storyboard</code>　15行目～18行目の<code>CameraUnavailableLabel</code>に関する設定を移植します。
+
+**storyboard**
+```xml
+<label hidden="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera Unavailable" 
+    textAlignment ="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zf0-db-esM" userLabel="Camera Unavailable">
+    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <nil key="highlightedColor"/>
+</label>
+```
+<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+**C#**
+```csharp
+CameraUnavailableLabel = new UILabel
+{
+	Hidden = true,
+	UserInteractionEnabled = false,
+	ContentMode = UIViewContentMode.Left,
+	Text = "Camera Unavailable",
+	TextAlignment = UITextAlignment.Center,
+	LineBreakMode = UILineBreakMode.TailTruncation,
+	Lines = 0,
+	BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
+	AdjustsFontSizeToFitWidth = false,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
+	Font = UIFont.SystemFontOfSize(24f),
+	TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1f),
+};
+View.AddSubview(CameraUnavailableLabel);
+```
 
 
 以下執筆中
