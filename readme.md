@@ -1158,7 +1158,7 @@ xmlの各attributeに対応したプロパティを見つけ出し、設定し�
 
 例えば<code>hidden="YES"</code>なら、<code>Hidden = true</code>、<code>userInteractionEnabled="NO"</code>なら<code>UserInteractionEnabled = false</code>といった要領です。
 
-わかりにくいcolorは<code>public static UIColor FromRGBA(nfloat red, nfloat green, nfloat blue, nfloat alpha)</code>、fontは
+わかりにくいプロパティはcolor関係とfontですが、それぞれ、colorは<code>public static UIColor FromRGBA(nfloat red, nfloat green, nfloat blue, nfloat alpha);</code>、fontは<code>public static UIFont SystemFontOfSize(nfloat size);</code>となります。
 
 全部変換すると以下のようになりますので、
 <code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
@@ -1183,7 +1183,7 @@ CameraUnavailableLabel = new UILabel
 };
 View.AddSubview(CameraUnavailableLabel);
 ```
-
+では、同じ要領で他のUI部品も追加していきましょう。
 
 以下執筆中
 
