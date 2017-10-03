@@ -1366,6 +1366,7 @@ RecordButton = new UIButton(UIButtonType.RoundedRect)
 	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
 	Font = UIFont.SystemFontOfSize(20f),
 };
+
 RecordButton.SetTitle("Record", UIControlState.Normal);
 RecordButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
 RecordButton.Layer.CornerRadius = 4f;
@@ -1422,11 +1423,13 @@ CaptureModeControl = new UISegmentedControl
 	VerticalAlignment = UIControlContentVerticalAlignment.Top,
 	TranslatesAutoresizingMaskIntoConstraints = false,
 };
+
 CaptureModeControl.InsertSegment("Photo", 0, true);
 CaptureModeControl.InsertSegment("Movie", 1, true);
 CaptureModeControl.SelectedSegment = 0;
-CaptureModeControl.ValueChanged += (s, e) => ToggleCaptureMode(CaptureModeControl);
+CaptureModeControl.ValueChanged += (s, e) => ToggleCaptureMode();
 View.AddSubview(CaptureModeControl);
+
 ```
 
 
@@ -1434,6 +1437,4 @@ View.AddSubview(CaptureModeControl);
 
 
 以下執筆中
-
-
 
