@@ -1068,11 +1068,6 @@ namespace AVCamSample
 			}
 		}
 
-		public PreviewView()
-			: base()
-		{
-		}
-
 	}
 }
 ```
@@ -1328,6 +1323,50 @@ CameraButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1.0f), UICon
 CameraButton.Layer.CornerRadius = 4f;
 CameraButton.TouchUpInside += (s, e) => ChangeCamera();
 View.AddSubview(CameraButton);
+```
+
+### RecordButton ###
+
+これも同じ要領で移植できます。
+
+**storyboard**
+```xml
+<button opaque = "NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRT-dK-6dM" userLabel="Record">
+    <color key = "backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+    <fontDescription key = "fontDescription" type="system" pointSize="20"/>
+    <state key = "normal" title="Record">
+        <color key = "titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    </state>
+    <userDefinedRuntimeAttributes>
+        <userDefinedRuntimeAttribute type = "number" keyPath="layer.cornerRadius">
+            <integer key = "value" value="4"/>
+        </userDefinedRuntimeAttribute>
+    </userDefinedRuntimeAttributes>
+    <connections>
+        <action selector = "toggleMovieRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9R7-Ok-FpB"/>
+    </connections>
+</button>
+```
+
+全部移植すると以下のようになりますので、<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+**C#**
+```csharp
+RecordButton = new UIButton(UIButtonType.RoundedRect)
+{
+	Opaque = false,
+	ContentMode = UIViewContentMode.ScaleToFill,
+	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+	VerticalAlignment = UIControlContentVerticalAlignment.Center,
+	LineBreakMode = UILineBreakMode.MiddleTruncation,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+};
+RecordButton.SetTitle("Record", UIControlState.Normal);
+RecordButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+RecordButton.Layer.CornerRadius = 4f;
+RecordButton.TouchUpInside += (s, e) => ToggleMovieRecording();
+View.AddSubview(RecordButton);
 ```
 
 以下執筆中
