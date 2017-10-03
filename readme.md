@@ -1212,6 +1212,7 @@ PreviewView = new PreviewView()
 View.AddSubview(PreviewView);
 ```
 
+
 ### PhotoButton ###
 
 **storyboard**
@@ -1279,6 +1280,7 @@ PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribu
 View.AddSubview(PhotoButton);
 ```
 
+
 ### CameraButton ###
 
 これも同じ要領で移植できます。
@@ -1325,6 +1327,7 @@ CameraButton.TouchUpInside += (s, e) => ChangeCamera();
 View.AddSubview(CameraButton);
 ```
 
+
 ### RecordButton ###
 
 これも同じ要領で移植できます。
@@ -1361,6 +1364,7 @@ RecordButton = new UIButton(UIButtonType.RoundedRect)
 	LineBreakMode = UILineBreakMode.MiddleTruncation,
 	TranslatesAutoresizingMaskIntoConstraints = false,
 	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+	Font = UIFont.SystemFontOfSize(20f),
 };
 RecordButton.SetTitle("Record", UIControlState.Normal);
 RecordButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
@@ -1368,6 +1372,67 @@ RecordButton.Layer.CornerRadius = 4f;
 RecordButton.TouchUpInside += (s, e) => ToggleMovieRecording();
 View.AddSubview(RecordButton);
 ```
+
+
+### CaptureModeControl ###
+
+今度は<code>SegmentedControl</code>ですが、要領は同じです。
+
+**storyboard**
+```xml
+<segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FAC-co-10c">
+    <segments>
+        <segment title="Photo"/>
+        <segment title="Movie"/>
+    </segments>
+    <connections>
+        <action selector="toggleCaptureMode:" destination="BYZ-38-t0r" eventType="valueChanged" id="SKd-67-ZHh"/>
+    </connections>
+</segmentedControl>
+```
+
+ちょっとわかりにくい箇所としては、
+
+```xml
+<segments>
+    <segment title="Photo"/>
+    <segment title="Movie"/>
+</segments>
+```
+
+の部分は、<code>InsertSegment</code>メソッドが準備されているので、それを使うと以下のようになります。
+
+```csharp
+CaptureModeControl.InsertSegment("Photo", 0, true);
+CaptureModeControl.InsertSegment("Movie", 1, true);
+```
+
+慣れてくるとパターンがわかりますが、コンストラクタ、プロパティ、メソッドを調べれば大体設定手段が用意されています。
+このあたりのプロパティなのか、メソッドなのかというさじ加減もなれると迷わなくなります。
+
+全部移植すると以下のようになりますので、<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+**C#**
+```csharp
+CaptureModeControl = new UISegmentedControl
+{
+	Opaque = false,
+	ContentMode = UIViewContentMode.ScaleToFill,
+	HorizontalAlignment = UIControlContentHorizontalAlignment.Left,
+	ControlStyle = UISegmentedControlStyle.Plain,
+	VerticalAlignment = UIControlContentVerticalAlignment.Top,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+};
+CaptureModeControl.InsertSegment("Photo", 0, true);
+CaptureModeControl.InsertSegment("Movie", 1, true);
+CaptureModeControl.SelectedSegment = 0;
+CaptureModeControl.ValueChanged += (s, e) => ToggleCaptureMode(CaptureModeControl);
+View.AddSubview(CaptureModeControl);
+```
+
+
+
+
 
 以下執筆中
 
