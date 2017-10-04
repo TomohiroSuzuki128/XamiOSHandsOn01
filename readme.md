@@ -1080,15 +1080,123 @@ namespace AVCamSample
 （ここにCameraViewController.csファイルの情報が入る：後日準備）
 ※メソッド1つくらいは移植するようにする
 
+<code>CameraViewController.swift</code>　521行目～611行目の写真撮影の処理<code>capturePhoto</code>を移植します。
+
+
+**Swift**
+```swift
+@IBAction private func capturePhoto(_ photoButton: UIButton) {
+    /*
+		Retrieve the video preview layer's video orientation on the main queue before
+		entering the session queue. We do this to ensure UI elements are accessed on
+		the main thread and session configuration is done on the session queue.
+	*/
+    let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection?.videoOrientation
+	
+	sessionQueue.async {
+		// Update the photo output's connection to match the video orientation of the video preview layer.
+        if let photoOutputConnection = self.photoOutput.connection(with: AVMediaType.video) {
+            photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
+		}
+		
+        var photoSettings = AVCapturePhotoSettings()
+        // Capture HEIF photo when supported, with flash set to auto and high resolution photo enabled.
+        if  self.photoOutput.availablePhotoCodecTypes.contains(AVVideoCodecType(rawValue: AVVideoCodecType.hevc.rawValue)) {
+            
+        photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
+
+        }
+        
+        if self.videoDeviceInput.device.isFlashAvailable {
+            photoSettings.flashMode = .auto
+        }
+        
+		photoSettings.isHighResolutionPhotoEnabled = true
+		if !photoSettings.availablePreviewPhotoPixelFormatTypes.isEmpty {
+			photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.availablePreviewPhotoPixelFormatTypes.first!]
+		}
+		if self.livePhotoMode == .on && self.photoOutput.isLivePhotoCaptureSupported { // Live Photo capture is not supported in movie mode.
+			let livePhotoMovieFileName = NSUUID().uuidString
+			let livePhotoMovieFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((livePhotoMovieFileName as NSString).appendingPathExtension("mov")!)
+			photoSettings.livePhotoMovieFileURL = URL(fileURLWithPath: livePhotoMovieFilePath)
+		}
+        
+        if self.depthDataDeliveryMode == .on && self.photoOutput.isDepthDataDeliverySupported {
+            photoSettings.isDepthDataDeliveryEnabled = true
+        } else {
+            photoSettings.isDepthDataDeliveryEnabled = false
+        }
+		
+		// Use a separate object for the photo capture delegate to isolate each capture life cycle.
+		let photoCaptureProcessor = PhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
+				DispatchQueue.main.async { [unowned self] in
+					self.previewView.videoPreviewLayer.opacity = 0
+					UIView.animate(withDuration: 0.25) { [unowned self] in
+						self.previewView.videoPreviewLayer.opacity = 1
+					}
+				}
+			}, livePhotoCaptureHandler: { capturing in
+				/*
+					Because Live Photo captures can overlap, we need to keep track of the
+					number of in progress Live Photo captures to ensure that the
+					Live Photo label stays visible during these captures.
+				*/
+				self.sessionQueue.async { [unowned self] in
+					if capturing {
+						self.inProgressLivePhotoCapturesCount += 1
+					} else {
+						self.inProgressLivePhotoCapturesCount -= 1
+					}
+					
+					let inProgressLivePhotoCapturesCount = self.inProgressLivePhotoCapturesCount
+					DispatchQueue.main.async { [unowned self] in
+						if inProgressLivePhotoCapturesCount > 0 {
+							self.capturingLivePhotoLabel.isHidden = false
+						} else if inProgressLivePhotoCapturesCount == 0 {
+							self.capturingLivePhotoLabel.isHidden = true
+						} else {
+							print("Error: In progress live photo capture count is less than 0")
+						}
+					}
+				}
+			}, completionHandler: { [unowned self] photoCaptureProcessor in
+				// When the capture is complete, remove a reference to the photo capture delegate so it can be deallocated.
+				self.sessionQueue.async { [unowned self] in
+					self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = nil
+				}
+			}
+		)
+		
+		/*
+			The Photo Output keeps a weak reference to the photo capture delegate so
+			we store it in an array to maintain a strong reference to this object
+			until the capture is completed.
+		*/
+		self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = photoCaptureProcessor
+		self.photoOutput.capturePhoto(with: photoSettings, delegate: photoCaptureProcessor)
+	}
+}
+```
+
+
+
+**Swift**
+```swift
+@IBAction private func capturePhoto(_ photoButton: UIButton) {
+```
+
+<>@IBAction<>
+
+
 # UI の Xamarin.iOS への移植 #
 
 UIについては、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、バインドするデータに応じて動的にUIをコントロールする場合など、どうしてもコードでUIを記述する場面が出てきます。
 
 ところが、Xamarin.iOSでUIをコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なのでUIをコードで作成してみましょう。具体的には、<code>Main.storyboard</code>をXamarin.iOSに翻訳する作業になります。
 
-## UI部品を割り当てるフィールドを追加 ##
+## UIエレメントを割り当てるフィールドを追加 ##
 
-<code>CameraViewController.cs</code>にUI部品を割り当てるフィールドを追加します。
+<code>CameraViewController.cs</code>にUIエレメントを割り当てるフィールドを追加します。
 
 **C#**
 ```csharp
@@ -1107,7 +1215,7 @@ public class CameraViewController : UIViewController, IAVCaptureFileOutputRecord
 
 ```
 
-## UI部品を構築するメソッドを追加 ##
+## UIエレメントを構築するメソッドを追加 ##
 
 UIを構築するメソッドを作成します。
 
@@ -1185,7 +1293,7 @@ CameraUnavailableLabel = new UILabel
 View.AddSubview(CameraUnavailableLabel);
 ```
 
-では、同じ要領で他のUI部品も追加していきましょう。
+では、同じ要領で他のUIエレメントも追加していきましょう。
 
 ### PreviewView ###
 
@@ -1496,7 +1604,7 @@ LivePhotoModeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), 
 LivePhotoModeButton.Layer.CornerRadius = 4f;
 LivePhotoModeButton.TouchUpInside += (s, e) => ToggleLivePhotoMode();
 
-LivePhotoModeButton.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 200));
+LivePhotoModeButton.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 25));
 
 View.AddSubview(LivePhotoModeButton);
 ```
@@ -1558,9 +1666,43 @@ View.AddSubview(CapturingLivePhotoLabel);
 
 ## 制約の移植 ##
 
-次に制約を移植します。個別のUI部品で完結する制約はUI部品を生成する箇所に記載していますので、ここでは、複数のUI部品の関係性の
+次に制約を移植します。個別のUIエレメント内で完結する制約はUIエレメントを生成する箇所に記載していますので、ここでは、複数のUIエレメントの関係性の制約を移植します。
+
+複数のUIエレメントの関係性の制約は161行目～188行目に記述されています。
+
+1つ目の制約を見てみましょう。
+
+```xml
+<constraint firstItem="3eR-Rn-XpZ" firstAttribute="centerX" secondItem="nyU-fN-aJh" secondAttribute="centerX" id="125-kC-WZF"/>
+```
+<code>firstItem</code>, <code>secondItem<code>にそれぞれ文字列が入っていますが、これはそれぞれ特定のUIエレメントを指し示しています。
+
+<code>firstItem</code>の<code>3eR-Rn-XpZ</code>を検索すると、20行目に、<code>id="3eR-Rn-XpZ"</code>とあります。
+
+```xml
+<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eR-Rn-XpZ" userLabel="Preview" customClass="PreviewView" customModule="AVCam" customModuleProvider="target">
+```
+
+よって<code>3eR-Rn-XpZ</code>は<code>PreviewView</code>を指し示しています。
+
+同様に<code>secondItem</code>の<code>nyU-fN-aJh</code>を検索すると、189行目に、<code>id="nyU-fN-aJh"</code>とあります。
+
+```xml
+<viewLayoutGuide key="safeArea" id="nyU-fN-aJh"/>
+```
+
+<code>safeArea</code>とはiPhone Xを考慮した上下左右のマージンを取った領域です。今回はiOS10対応なので、<code>centerX</code>つまり、左右の中心点を考える上では、<code>View</code>と同じ領域と考えて差し支えありません。
+
+よって<code>id</code>をUIエレメントに置き換えて記述すると、以下のようになります。
+
+**C#**
+```csharp
+View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+```
 
 
+
+以下、執筆中です。
 
 
 
