@@ -1075,117 +1075,9 @@ namespace AVCamSample
 
 # CameraViewController.swift の Xamarin.iOS への移植 #
 
-<code>CameraViewController.swift</code>では、撮影処理や録画処理を行います。この処理はとても量が多いので、今回は一部機能以外翻訳済みのcsファイルを準備しましたのでそちらをお使い下さい。
+<code>CameraViewController.swift</code>では、撮影処理や録画処理を行います。この処理はとても量が多いので、今回は時間の都合上翻訳済みのcsファイルを準備しましたのでそちらをお使い下さい。
 
-（ここにCameraViewController.csファイルの情報が入る：後日準備）
-※メソッド1つくらいは移植するようにする
-
-<code>CameraViewController.swift</code>　521行目～611行目の写真撮影の処理<code>capturePhoto</code>を移植します。
-
-
-**Swift**
-```swift
-@IBAction private func capturePhoto(_ photoButton: UIButton) {
-    /*
-		Retrieve the video preview layer's video orientation on the main queue before
-		entering the session queue. We do this to ensure UI elements are accessed on
-		the main thread and session configuration is done on the session queue.
-	*/
-    let videoPreviewLayerOrientation = previewView.videoPreviewLayer.connection?.videoOrientation
-	
-	sessionQueue.async {
-		// Update the photo output's connection to match the video orientation of the video preview layer.
-        if let photoOutputConnection = self.photoOutput.connection(with: AVMediaType.video) {
-            photoOutputConnection.videoOrientation = videoPreviewLayerOrientation!
-		}
-		
-        var photoSettings = AVCapturePhotoSettings()
-        // Capture HEIF photo when supported, with flash set to auto and high resolution photo enabled.
-        if  self.photoOutput.availablePhotoCodecTypes.contains(AVVideoCodecType(rawValue: AVVideoCodecType.hevc.rawValue)) {
-            
-        photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
-
-        }
-        
-        if self.videoDeviceInput.device.isFlashAvailable {
-            photoSettings.flashMode = .auto
-        }
-        
-		photoSettings.isHighResolutionPhotoEnabled = true
-		if !photoSettings.availablePreviewPhotoPixelFormatTypes.isEmpty {
-			photoSettings.previewPhotoFormat = [kCVPixelBufferPixelFormatTypeKey as String: photoSettings.availablePreviewPhotoPixelFormatTypes.first!]
-		}
-		if self.livePhotoMode == .on && self.photoOutput.isLivePhotoCaptureSupported { // Live Photo capture is not supported in movie mode.
-			let livePhotoMovieFileName = NSUUID().uuidString
-			let livePhotoMovieFilePath = (NSTemporaryDirectory() as NSString).appendingPathComponent((livePhotoMovieFileName as NSString).appendingPathExtension("mov")!)
-			photoSettings.livePhotoMovieFileURL = URL(fileURLWithPath: livePhotoMovieFilePath)
-		}
-        
-        if self.depthDataDeliveryMode == .on && self.photoOutput.isDepthDataDeliverySupported {
-            photoSettings.isDepthDataDeliveryEnabled = true
-        } else {
-            photoSettings.isDepthDataDeliveryEnabled = false
-        }
-		
-		// Use a separate object for the photo capture delegate to isolate each capture life cycle.
-		let photoCaptureProcessor = PhotoCaptureProcessor(with: photoSettings, willCapturePhotoAnimation: {
-				DispatchQueue.main.async { [unowned self] in
-					self.previewView.videoPreviewLayer.opacity = 0
-					UIView.animate(withDuration: 0.25) { [unowned self] in
-						self.previewView.videoPreviewLayer.opacity = 1
-					}
-				}
-			}, livePhotoCaptureHandler: { capturing in
-				/*
-					Because Live Photo captures can overlap, we need to keep track of the
-					number of in progress Live Photo captures to ensure that the
-					Live Photo label stays visible during these captures.
-				*/
-				self.sessionQueue.async { [unowned self] in
-					if capturing {
-						self.inProgressLivePhotoCapturesCount += 1
-					} else {
-						self.inProgressLivePhotoCapturesCount -= 1
-					}
-					
-					let inProgressLivePhotoCapturesCount = self.inProgressLivePhotoCapturesCount
-					DispatchQueue.main.async { [unowned self] in
-						if inProgressLivePhotoCapturesCount > 0 {
-							self.capturingLivePhotoLabel.isHidden = false
-						} else if inProgressLivePhotoCapturesCount == 0 {
-							self.capturingLivePhotoLabel.isHidden = true
-						} else {
-							print("Error: In progress live photo capture count is less than 0")
-						}
-					}
-				}
-			}, completionHandler: { [unowned self] photoCaptureProcessor in
-				// When the capture is complete, remove a reference to the photo capture delegate so it can be deallocated.
-				self.sessionQueue.async { [unowned self] in
-					self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = nil
-				}
-			}
-		)
-		
-		/*
-			The Photo Output keeps a weak reference to the photo capture delegate so
-			we store it in an array to maintain a strong reference to this object
-			until the capture is completed.
-		*/
-		self.inProgressPhotoCaptureDelegates[photoCaptureProcessor.requestedPhotoSettings.uniqueID] = photoCaptureProcessor
-		self.photoOutput.capturePhoto(with: photoSettings, delegate: photoCaptureProcessor)
-	}
-}
-```
-
-
-
-**Swift**
-```swift
-@IBAction private func capturePhoto(_ photoButton: UIButton) {
-```
-
-<>@IBAction<>
+[こちら](https://raw.githubusercontent.com/TomohiroSuzuki128/XamiOSHandsOn01/master/codes/CameraViewController.cs "CameraViewController.cs")
 
 
 # UI の Xamarin.iOS への移植 #
@@ -1986,18 +1878,23 @@ private void InitUI()
 ```
 
 
+最後に<code>InitUI()</code>を<code>ViewDidLoad()</code>内でコールするようにします。
+
+**C#**
+```csharp
+public override void ViewDidLoad()
+{
+	base.ViewDidLoad();
+
+	View.BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f);
+
+	InitUI();
+```
+
+お疲れ様でした、これでコードは完成しました！それでは、実機で起動してみましょう。
 
 
-
-
-
-
-
-
-
-
-
-
+（必ず落ちるはず。info.plistの設定がないため）
 
 
 以下執筆中
