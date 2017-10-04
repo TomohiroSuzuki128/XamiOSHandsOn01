@@ -1701,15 +1701,289 @@ View.AddSubview(CapturingLivePhotoLabel);
 View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
 ```
 
+同様にその他の制約を移植すると以下のようになります。
+※一部制約変更しています。
 
 
+**storyboard**
+```xml
+<constraint firstItem="eI6-gV-W7d" firstAttribute="top" secondItem="9i1-NX-Qxg" secondAttribute="bottom" constant="8" id="6iA-0j-auu"/> /* iOS10対応のため変更あり */
+<constraint firstItem="eI6-gV-W7d" firstAttribute="centerX" secondItem="nyU-fN-aJh" secondAttribute="centerX" id="ACB-oH-2jU"/>
+<constraint firstItem="uCj-6P-mHF" firstAttribute="height" secondItem="eRT-dK-6dM" secondAttribute="height" id="AEV-ew-H4g"/>
+<constraint firstItem="Pii-2r-R2l" firstAttribute="top" secondItem="eI6-gV-W7d" secondAttribute="bottom" constant="8" id="B43-ME-uK5"/>
+<constraint firstItem="3eR-Rn-XpZ" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="Ice-47-M9N"/>
+<constraint firstItem="uCj-6P-mHF" firstAttribute="top" secondItem="rUJ-G6-RPv" secondAttribute="top" id="NFm-e8-abT"/>
+<constraint firstItem="FZr-Ip-7WL" firstAttribute="centerX" secondItem="nyU-fN-aJh" secondAttribute="centerX" id="OaZ-uO-vXY"/>
+<constraint firstItem="FAC-co-10c" firstAttribute="centerX" secondItem="nyU-fN-aJh" secondAttribute="centerX" id="Oow-A6-mDp"/>
+<constraint firstItem="9i1-NX-Qxg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="8" id="PNv-qh-VmU"/> /* 削除 */
+<constraint firstItem="zf0-db-esM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ris-mI-8lA"/>
+<constraint firstItem="Pii-2r-R2l" firstAttribute="centerX" secondItem="nyU-fN-aJh" secondAttribute="centerX" id="SXi-MU-H9D"/>
+<constraint firstItem="zf0-db-esM" firstAttribute="centerX" secondItem="nyU-fN-aJh" secondAttribute="centerX" id="W6q-xJ-jfF"/>
+<constraint firstItem="uCj-6P-mHF" firstAttribute="height" secondItem="rUJ-G6-RPv" secondAttribute="height" id="aQi-F7-E2b"/>
+<constraint firstItem="uCj-6P-mHF" firstAttribute="top" secondItem="FAC-co-10c" secondAttribute="bottom" constant="20" id="aSR-Je-0lW"/>
+<constraint firstItem="uCj-6P-mHF" firstAttribute="top" secondItem="eRT-dK-6dM" secondAttribute="top" id="bQd-ro-0Hw"/>
+<constraint firstItem="nyU-fN-aJh" firstAttribute="bottom" secondItem="uCj-6P-mHF" secondAttribute="bottom" constant="20" id="eWs-co-Aaz"/>
+<constraint firstItem="3eR-Rn-XpZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="igk-MQ-CGt"/>
+<constraint firstItem="rUJ-G6-RPv" firstAttribute="leading" secondItem="uCj-6P-mHF" secondAttribute="trailing" constant="20" id="lsk-Hm-rTd"/>
+<constraint firstItem="nyU-fN-aJh" firstAttribute="centerX" secondItem="uCj-6P-mHF" secondAttribute="centerX" id="m8a-cF-Rf0"/>
+<constraint firstItem="uCj-6P-mHF" firstAttribute="width" secondItem="rUJ-G6-RPv" secondAttribute="width" id="o8j-gw-35B"/>
+<constraint firstItem="3eR-Rn-XpZ" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="pSC-xP-dl0"/>
+<constraint firstItem="uCj-6P-mHF" firstAttribute="width" secondItem="eRT-dK-6dM" secondAttribute="width" id="s8u-Y8-n27"/>
+<constraint firstItem="FZr-Ip-7WL" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="sTY-i6-czN"/>
+<constraint firstItem="9i1-NX-Qxg" firstAttribute="centerX" secondItem="nyU-fN-aJh" secondAttribute="centerX" id="wWj-VD-34F"/> /* 削除 */
+<constraint firstItem="uCj-6P-mHF" firstAttribute="leading" secondItem="eRT-dK-6dM" secondAttribute="trailing" constant="20" id="zwj-TX-t6O"/>
 
-以下、執筆中です。
+```
 
 
+**C#**
+```csharp
+View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, View, NSLayoutAttribute.Top, 1.0f, 80f));// iOS10対応のため変更あり
+View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Height, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Top, NSLayoutRelation.Equal, LivePhotoModeButton, NSLayoutAttribute.Bottom, 1.0f, 8.0f));
+View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.Height, NSLayoutRelation.Equal, View, NSLayoutAttribute.Height, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, CameraButton, NSLayoutAttribute.Top, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(CaptureModeControl, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(CameraUnavailableLabel, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+View.AddConstraint(NSLayoutConstraint.Create(CameraUnavailableLabel, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, CameraButton, NSLayoutAttribute.Height, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, CaptureModeControl, NSLayoutAttribute.Bottom, 1.0f, 20f));
+View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Top, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(View, NSLayoutAttribute.Bottom, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.Bottom, 1.0f, 20f));
+View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(CameraButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
+View.AddConstraint(NSLayoutConstraint.Create(View, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.CenterX, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.Width, NSLayoutRelation.Equal, View, NSLayoutAttribute.Width, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
+```
 
+これで、<code>InitUI</code>メソッドは完成です。コード全体は以下のようになります。
 
+**C#**
+```csharp
+private void InitUI()
+{
 
+	View.ContentMode = UIViewContentMode.ScaleToFill;
+	View.Frame = new CGRect(0, 0, 375, 667);
+	View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+
+	CameraUnavailableLabel = new UILabel
+	{
+		Frame = new CGRect(83.5, 319, 208, 29),
+		Hidden = true,
+		UserInteractionEnabled = false,
+		ContentMode = UIViewContentMode.Left,
+		Text = "Camera Unavailable",
+		TextAlignment = UITextAlignment.Center,
+		LineBreakMode = UILineBreakMode.TailTruncation,
+		Lines = 0,
+		BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
+		AdjustsFontSizeToFitWidth = false,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1.0f),
+		Font = UIFont.SystemFontOfSize(24f),
+		TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
+	};
+	View.AddSubview(CameraUnavailableLabel);
+
+	PreviewView = new PreviewView()
+	{
+		Frame = new CGRect(0, 0, 375, 667),
+		ContentMode = UIViewContentMode.ScaleToFill,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
+	};
+	View.AddSubview(PreviewView);
+
+	PhotoButton = new UIButton(UIButtonType.RoundedRect)
+	{
+		Frame = new CGRect(147.5, 617, 80, 30),
+		Opaque = false,
+		ContentMode = UIViewContentMode.ScaleToFill,
+		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+		VerticalAlignment = UIControlContentVerticalAlignment.Center,
+		LineBreakMode = UILineBreakMode.MiddleTruncation,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+		Font = UIFont.SystemFontOfSize(20f),
+	};
+	PhotoButton.SetTitle("Photo", UIControlState.Normal);
+	PhotoButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+	PhotoButton.Layer.CornerRadius = 4f;
+	PhotoButton.TouchUpInside += (s, e) => CapturePhoto();
+	PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 30));
+	PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 80));
+	View.AddSubview(PhotoButton);
+
+	IntervalButton = new UIButton(UIButtonType.RoundedRect)
+	{
+		Opaque = false,
+		ContentMode = UIViewContentMode.ScaleToFill,
+		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+		VerticalAlignment = UIControlContentVerticalAlignment.Center,
+		LineBreakMode = UILineBreakMode.MiddleTruncation,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+	};
+	IntervalButton.SetTitle("Interval", UIControlState.Normal);
+	IntervalButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+	IntervalButton.Layer.CornerRadius = 4f;
+	IntervalButton.TouchUpInside += (s, e) => TimerCapturePhoto(IntervalButton);
+	IntervalButton.AddConstraint(NSLayoutConstraint.Create(IntervalButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 30));
+	IntervalButton.AddConstraint(NSLayoutConstraint.Create(IntervalButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 80));
+	View.AddSubview(IntervalButton);
+
+	CameraButton = new UIButton(UIButtonType.RoundedRect)
+	{
+		Frame = new CGRect(147.5, 617, 80, 30),
+		Opaque = false,
+		ContentMode = UIViewContentMode.ScaleToFill,
+		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+		VerticalAlignment = UIControlContentVerticalAlignment.Center,
+		LineBreakMode = UILineBreakMode.MiddleTruncation,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+		Font = UIFont.SystemFontOfSize(20f),
+	};
+	CameraButton.SetTitle("Camera", UIControlState.Normal);
+	CameraButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+	CameraButton.Layer.CornerRadius = 4f;
+	CameraButton.TouchUpInside += (s, e) => ChangeCamera();
+	View.AddSubview(CameraButton);
+
+	RecordButton = new UIButton(UIButtonType.RoundedRect)
+	{
+		Frame = new CGRect(47.5, 617, 80, 30),
+		Opaque = false,
+		ContentMode = UIViewContentMode.ScaleToFill,
+		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+		VerticalAlignment = UIControlContentVerticalAlignment.Center,
+		LineBreakMode = UILineBreakMode.MiddleTruncation,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+		Font = UIFont.SystemFontOfSize(20f),
+	};
+	RecordButton.SetTitle("Record", UIControlState.Normal);
+	RecordButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+	RecordButton.Layer.CornerRadius = 4f;
+	RecordButton.TouchUpInside += (s, e) => ToggleMovieRecording();
+	View.AddSubview(RecordButton);
+
+	ResumeButton = new UIButton(UIButtonType.RoundedRect)
+	{
+		Frame = new CGRect(105, 314, 165, 39),
+		Hidden = true,
+		Opaque = false,
+		ContentMode = UIViewContentMode.ScaleToFill,
+		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+		VerticalAlignment = UIControlContentVerticalAlignment.Center,
+		LineBreakMode = UILineBreakMode.MiddleTruncation,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+		Font = UIFont.SystemFontOfSize(24f),
+	};
+	ResumeButton.SetTitle("Tap to resume", UIControlState.Normal);
+	ResumeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+	ResumeButton.Layer.CornerRadius = 4f;
+	ResumeButton.TouchUpInside += (s, e) => ResumeInterruptedSession();
+	View.AddSubview(ResumeButton);
+
+	CaptureModeControl = new UISegmentedControl
+	{
+		Frame = new CGRect(136, 569, 103, 29),
+		Opaque = false,
+		ContentMode = UIViewContentMode.ScaleToFill,
+		HorizontalAlignment = UIControlContentHorizontalAlignment.Left,
+		ControlStyle = UISegmentedControlStyle.Plain,
+		VerticalAlignment = UIControlContentVerticalAlignment.Top,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+	};
+	CaptureModeControl.InsertSegment("Photo", 0, true);
+	CaptureModeControl.InsertSegment("Movie", 1, true);
+	CaptureModeControl.SelectedSegment = 0;
+	CaptureModeControl.ValueChanged += (s, e) => ToggleCaptureMode();
+	View.AddSubview(CaptureModeControl);
+
+	LivePhotoModeButton = new UIButton(UIButtonType.RoundedRect)
+	{
+		Frame = new CGRect(96.5, 41, 182, 25),
+		Opaque = false,
+		ContentMode = UIViewContentMode.ScaleToFill,
+		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+		VerticalAlignment = UIControlContentVerticalAlignment.Center,
+		LineBreakMode = UILineBreakMode.MiddleTruncation,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+		Font = UIFont.SystemFontOfSize(20f),
+	};
+
+	LivePhotoModeButton.SetTitle("Live Photo Mode: On", UIControlState.Normal);
+	LivePhotoModeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+	LivePhotoModeButton.Layer.CornerRadius = 4f;
+	LivePhotoModeButton.TouchUpInside += (s, e) => ToggleLivePhotoMode();
+
+	LivePhotoModeButton.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 25));
+
+	View.AddSubview(LivePhotoModeButton);
+
+	CapturingLivePhotoLabel = new UILabel
+	{
+		Frame = new CGRect(172, 74, 31, 20.5),
+		Hidden = true,
+		Opaque = false,
+		UserInteractionEnabled = false,
+		ContentMode = UIViewContentMode.Left,
+		Text = "Live",
+		TextAlignment = UITextAlignment.Center,
+		LineBreakMode = UILineBreakMode.TailTruncation,
+		Lines = 0,
+		BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
+		AdjustsFontSizeToFitWidth = false,
+		TranslatesAutoresizingMaskIntoConstraints = false,
+		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+		Font = UIFont.SystemFontOfSize(17f),
+		TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
+	};
+	CapturingLivePhotoLabel.Layer.CornerRadius = 4f;
+
+	CapturingLivePhotoLabel.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 25));
+	CapturingLivePhotoLabel.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 40));
+
+	View.AddSubview(CapturingLivePhotoLabel);
+
+	View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+	View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, View, NSLayoutAttribute.Top, 1.0f, 80f));
+	View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Height, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Top, NSLayoutRelation.Equal, LivePhotoModeButton, NSLayoutAttribute.Bottom, 1.0f, 8.0f));
+	View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.Height, NSLayoutRelation.Equal, View, NSLayoutAttribute.Height, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, CameraButton, NSLayoutAttribute.Top, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(CaptureModeControl, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(CameraUnavailableLabel, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+	View.AddConstraint(NSLayoutConstraint.Create(CameraUnavailableLabel, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, CameraButton, NSLayoutAttribute.Height, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, CaptureModeControl, NSLayoutAttribute.Bottom, 1.0f, 20f));
+	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Top, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(View, NSLayoutAttribute.Bottom, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.Bottom, 1.0f, 20f));
+	View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(CameraButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
+	View.AddConstraint(NSLayoutConstraint.Create(View, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.CenterX, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.Width, NSLayoutRelation.Equal, View, NSLayoutAttribute.Width, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
+}
+```
 
 
 
