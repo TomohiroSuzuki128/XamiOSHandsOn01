@@ -1664,6 +1664,7 @@ View.AddSubview(CapturingLivePhotoLabel);
 ```
 
 
+
 ## 制約の移植 ##
 
 次に制約を移植します。個別のUIエレメント内で完結する制約はUIエレメントを生成する箇所に記載していますので、ここでは、複数のUIエレメントの関係性の制約を移植します。
@@ -1675,7 +1676,7 @@ View.AddSubview(CapturingLivePhotoLabel);
 ```xml
 <constraint firstItem="3eR-Rn-XpZ" firstAttribute="centerX" secondItem="nyU-fN-aJh" secondAttribute="centerX" id="125-kC-WZF"/>
 ```
-<code>firstItem</code>, <code>secondItem<code>にそれぞれ文字列が入っていますが、これはそれぞれ特定のUIエレメントを指し示しています。
+<code>firstItem</code>, <code>secondItem</code>にそれぞれ文字列が入っていますが、これはそれぞれ特定のUIエレメントを指し示しています。
 
 <code>firstItem</code>の<code>3eR-Rn-XpZ</code>を検索すると、20行目に、<code>id="3eR-Rn-XpZ"</code>とあります。
 
@@ -1699,6 +1700,7 @@ View.AddSubview(CapturingLivePhotoLabel);
 ```csharp
 View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
 ```
+
 
 
 
