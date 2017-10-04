@@ -1084,7 +1084,7 @@ namespace AVCamSample
 
 UIについては、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、バインドするデータに応じて動的にUIをコントロールする場合など、どうしてもコードでUIを記述する場面が出てきます。
 
-ところが、Xamarin.iOSでUIをコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なのでUIをコードで作成してみましょう。具体的には、<code>storyboard</code>をXamarin.iOSに翻訳する作業になります。
+ところが、Xamarin.iOSでUIをコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なのでUIをコードで作成してみましょう。具体的には、<code>Main.storyboard</code>をXamarin.iOSに翻訳する作業になります。
 
 ## UI部品を割り当てるフィールドを追加 ##
 
@@ -1120,7 +1120,7 @@ private void InitUI()
 
 ### View ###
 
-<code>InitUI()</code>に<code>storyboard</code>　15行目～18行目の<code>View</code>に関する設定を移植します。
+<code>InitUI()</code>に<code>Main.storyboard</code>　15行目～18行目の<code>View</code>に関する設定を移植します。
 
 **storyboard**
 ```xml
@@ -1142,12 +1142,12 @@ private void InitUI()
 
 ### CameraUnavailableLabel ###
 
-<code>storyboard</code>　15行目～18行目の<code>CameraUnavailableLabel</code>に関する設定を移植します。
+<code>Main.storyboard</code>　28行目～34行目の<code>CameraUnavailableLabel</code>に関する設定を移植します。
 
 **storyboard**
 ```xml
-<label hidden="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera Unavailable" 
-    textAlignment ="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zf0-db-esM" userLabel="Camera Unavailable">
+<label hidden="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera Unavailable" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zf0-db-esM" userLabel="Camera Unavailable">
+    <rect key="frame" x="83.5" y="319" width="208" height="29"/>
     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
     <fontDescription key="fontDescription" type="system" pointSize="24"/>
     <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1167,6 +1167,7 @@ xmlの各attributeに対応したプロパティを見つけ出し、設定し�
 ```csharp
 CameraUnavailableLabel = new UILabel
 {
+	Frame = new CGRect(83.5, 319, 208, 29),
 	Hidden = true,
 	UserInteractionEnabled = false,
 	ContentMode = UIViewContentMode.Left,
@@ -1188,9 +1189,12 @@ View.AddSubview(CameraUnavailableLabel);
 
 ### PreviewView ###
 
+<code>Main.storyboard</code>　20行目～27行目の<code>PreviewView</code>に関する設定を移植します。
+
 **storyboard**
 ```xml
-<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eR-Rn-XpZ" userLabel="Preview" customClass="PreviewView">
+<view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3eR-Rn-XpZ" userLabel="Preview" customClass="PreviewView" customModule="AVCam" customModuleProvider="target">
+    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     <gestureRecognizers/>
     <connections>
@@ -1205,6 +1209,7 @@ View.AddSubview(CameraUnavailableLabel);
 ```csharp
 PreviewView = new PreviewView()
 {
+	Frame = new CGRect(0, 0, 375, 667),
 	ContentMode = UIViewContentMode.ScaleToFill,
 	TranslatesAutoresizingMaskIntoConstraints = false,
 	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
@@ -1215,9 +1220,12 @@ View.AddSubview(PreviewView);
 
 ### PhotoButton ###
 
+<code>Main.storyboard</code>　68行目～87行目の<code>PhotoButton</code>に関する設定を移植します。
+
 **storyboard**
 ```xml
-<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCj-6P-mHF" userLabel="Still">
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uCj-6P-mHF" userLabel="Photo">
+    <rect key="frame" x="147.5" y="617" width="80" height="30"/>
     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
     <constraints>
         <constraint firstAttribute="height" constant="30" id="NtC-UN-gTs"/>
@@ -1261,6 +1269,7 @@ View.AddSubview(PreviewView);
 ```csharp
 PhotoButton = new UIButton(UIButtonType.RoundedRect)
 {
+	Frame = new CGRect(147.5, 617, 80, 30),
 	Opaque = false,
 	ContentMode = UIViewContentMode.ScaleToFill,
 	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
@@ -1283,11 +1292,12 @@ View.AddSubview(PhotoButton);
 
 ### CameraButton ###
 
-これも同じ要領で移植できます。
+<code>Main.storyboard</code>　88行目～103行目の<code>CameraButton</code>に関する設定を移植します。
 
 **storyboard**
 ```xml
 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rUJ-G6-RPv" userLabel="Camera">
+    <rect key="frame" x="247.5" y="617" width="80" height="30"/>
     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
     <fontDescription key="fontDescription" type="system" pointSize="20"/>
     <state key="normal" title="Camera">
@@ -1310,6 +1320,7 @@ View.AddSubview(PhotoButton);
 ```csharp
 CameraButton = new UIButton(UIButtonType.RoundedRect)
 {
+	Frame = new CGRect(147.5, 617, 80, 30),
 	Opaque = false,
 	ContentMode = UIViewContentMode.ScaleToFill,
 	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
@@ -1330,23 +1341,24 @@ View.AddSubview(CameraButton);
 
 ### RecordButton ###
 
-これも同じ要領で移植できます。
+<code>Main.storyboard</code>　52行目～67行目の<code>RecordButton</code>に関する設定を移植します。
 
 **storyboard**
 ```xml
-<button opaque = "NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRT-dK-6dM" userLabel="Record">
-    <color key = "backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-    <fontDescription key = "fontDescription" type="system" pointSize="20"/>
-    <state key = "normal" title="Record">
-        <color key = "titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eRT-dK-6dM" userLabel="Record">
+    <rect key="frame" x="47.5" y="617" width="80" height="30"/>
+    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+    <state key="normal" title="Record">
+        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
     </state>
     <userDefinedRuntimeAttributes>
-        <userDefinedRuntimeAttribute type = "number" keyPath="layer.cornerRadius">
-            <integer key = "value" value="4"/>
+        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+            <integer key="value" value="4"/>
         </userDefinedRuntimeAttribute>
     </userDefinedRuntimeAttributes>
     <connections>
-        <action selector = "toggleMovieRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9R7-Ok-FpB"/>
+        <action selector="toggleMovieRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9R7-Ok-FpB"/>
     </connections>
 </button>
 ```
@@ -1357,6 +1369,7 @@ View.AddSubview(CameraButton);
 ```csharp
 RecordButton = new UIButton(UIButtonType.RoundedRect)
 {
+	Frame = new CGRect(47.5, 617, 80, 30),
 	Opaque = false,
 	ContentMode = UIViewContentMode.ScaleToFill,
 	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
@@ -1374,14 +1387,16 @@ RecordButton.TouchUpInside += (s, e) => ToggleMovieRecording();
 View.AddSubview(RecordButton);
 ```
 
-
 ### CaptureModeControl ###
+
+<code>Main.storyboard</code>　104行目～113行目の<code>CaptureModeControl</code>に関する設定を移植します。
 
 今度は<code>SegmentedControl</code>ですが、要領は同じです。
 
 **storyboard**
 ```xml
-<segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FAC-co-10c">
+<segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="FAC-co-10c" userLabel="Capture Mode">
+    <rect key="frame" x="136" y="569" width="103" height="29"/>
     <segments>
         <segment title="Photo"/>
         <segment title="Movie"/>
@@ -1416,6 +1431,7 @@ CaptureModeControl.InsertSegment("Movie", 1, true);
 ```csharp
 CaptureModeControl = new UISegmentedControl
 {
+	Frame = new CGRect(136, 569, 103, 29),
 	Opaque = false,
 	ContentMode = UIViewContentMode.ScaleToFill,
 	HorizontalAlignment = UIControlContentHorizontalAlignment.Left,
@@ -1423,14 +1439,144 @@ CaptureModeControl = new UISegmentedControl
 	VerticalAlignment = UIControlContentVerticalAlignment.Top,
 	TranslatesAutoresizingMaskIntoConstraints = false,
 };
-
 CaptureModeControl.InsertSegment("Photo", 0, true);
 CaptureModeControl.InsertSegment("Movie", 1, true);
 CaptureModeControl.SelectedSegment = 0;
 CaptureModeControl.ValueChanged += (s, e) => ToggleCaptureMode();
 View.AddSubview(CaptureModeControl);
-
 ```
+
+
+### LivePhotoModeButton ###
+
+<code>Main.storyboard</code>　130行目～146行目の<code>LivePhotoModeButton</code>に関する設定を移植します。
+
+**storyboard**
+```xml
+<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eI6-gV-W7d" userLabel="Live Photo Mode">
+    <rect key="frame" x="96.5" y="41" width="182" height="25"/>
+    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+    <constraints>
+        <constraint firstAttribute="height" constant="25" id="om7-Gh-HVl"/>
+    </constraints>
+    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+    <state key="normal" title="Live Photo Mode: On"/>
+    <userDefinedRuntimeAttributes>
+        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+            <integer key="value" value="4"/>
+        </userDefinedRuntimeAttribute>
+    </userDefinedRuntimeAttributes>
+    <connections>
+        <action selector="toggleLivePhotoMode:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JqX-wJ-Xf1"/>
+    </connections>
+</button>
+```
+
+
+全部移植すると以下のようになりますので、<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+
+**C#**
+```csharp
+LivePhotoModeButton = new UIButton(UIButtonType.RoundedRect)
+{
+	Frame = new CGRect(96.5, 41, 182, 25),
+	Opaque = false,
+	ContentMode = UIViewContentMode.ScaleToFill,
+	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+	VerticalAlignment = UIControlContentVerticalAlignment.Center,
+	LineBreakMode = UILineBreakMode.MiddleTruncation,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+	Font = UIFont.SystemFontOfSize(20f),
+};
+
+LivePhotoModeButton.SetTitle("Live Photo Mode: On", UIControlState.Normal);
+LivePhotoModeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+LivePhotoModeButton.Layer.CornerRadius = 4f;
+LivePhotoModeButton.TouchUpInside += (s, e) => ToggleLivePhotoMode();
+
+LivePhotoModeButton.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 200));
+
+View.AddSubview(LivePhotoModeButton);
+```
+
+
+### CapturingLivePhotoLabel ###
+
+<code>Main.storyboard</code>　147行目～158行目の<code>LivePhotoModeButton</code>に関する設定を移植します。
+
+**storyboard**
+```xml
+<label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pii-2r-R2l" userLabel="Capturing Live Photo">
+    <rect key="frame" x="172" y="74" width="31" height="20.5"/>
+    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+    <color key="textColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <nil key="highlightedColor"/>
+    <userDefinedRuntimeAttributes>
+        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+            <integer key="value" value="4"/>
+        </userDefinedRuntimeAttribute>
+    </userDefinedRuntimeAttributes>
+</label>
+```
+
+
+全部移植すると以下のようになりますので、<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+
+**C#**
+```csharp
+CapturingLivePhotoLabel = new UILabel
+{
+	Frame = new CGRect(172, 74, 31, 20.5),
+	Hidden = true,
+	Opaque = false,
+	UserInteractionEnabled = false,
+	ContentMode = UIViewContentMode.Left,
+	Text = "Live",
+	TextAlignment = UITextAlignment.Center,
+	LineBreakMode = UILineBreakMode.TailTruncation,
+	Lines = 0,
+	BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
+	AdjustsFontSizeToFitWidth = false,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+	Font = UIFont.SystemFontOfSize(17f),
+	TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
+};
+
+CapturingLivePhotoLabel.Layer.CornerRadius = 4f;
+
+CapturingLivePhotoLabel.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 25));
+CapturingLivePhotoLabel.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 40));
+
+View.AddSubview(CapturingLivePhotoLabel);
+```
+
+
+## 制約の移植 ##
+
+次に制約を移植します。個別のUI部品で完結する制約はUI部品を生成する箇所に記載していますので、ここでは、複数のUI部品の関係性の
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
