@@ -1694,7 +1694,7 @@ private void InitUI()
 	};
 	View.AddSubview(CameraUnavailableLabel);
 
-	PreviewView = new PreviewView()
+	PreviewView = new PreviewView
 	{
 		Frame = new CGRect(0, 0, 375, 667),
 		ContentMode = UIViewContentMode.ScaleToFill,
