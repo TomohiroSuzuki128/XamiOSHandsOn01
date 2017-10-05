@@ -1919,6 +1919,8 @@ iOS10i以降で、カメラやフォトライブラリなどのユーザーデ�
 
 これで完了です。もう一度アプリをデバッグ実行してみましょう。今度は強制終了せず、起動できましたね。
 
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/009.png?raw=true)
+
 お疲れ様でした。これで本日のハンズオンは終了です。
 
 
