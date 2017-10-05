@@ -1994,6 +1994,14 @@ iOS10以降で、カメラやフォトライブラリなどのユーザーデー
 
 これで完了です。もう一度アプリをデバッグ実行してみましょう。今度は強制終了せず、起動できましたね。
 
+カメラへのアクセスの許可を求められるの「OK」を選択してください。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/012.png?raw=true)
+
+同様に、マイクロフォンとフォトライブラリへのアクセス許可も求められるので全て「OK」を選択してください。
+
+これで、アプリの移植は無事完成しました！
+
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/009.png?raw=true)
 
 お疲れ様でした。これで本日のハンズオンは終了です。
