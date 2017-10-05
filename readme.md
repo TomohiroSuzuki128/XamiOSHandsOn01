@@ -41,28 +41,9 @@
 
 それでは<code>PhotoCaptureDelegate.swift</code>ファイルのコードを見てみましょう。
 
-### using ###
-
-importを確認すると
-
-**Swift**
-```swift
-import AVFoundation
-import Photos
-```
-
-とありますので、追加します。
-
-C#
-```csharp
-using System;
-using AVFoundation;
-using Photos;
-```
-
 ### クラス定義 ###
 
-次にクラスの定義部分に注目すると、以下のようにクラスの定義とエクステンションがあります。
+クラスの定義部分に注目すると、以下のようにクラスの定義とエクステンションがあります。
 
 **Swift**
 ```swift
@@ -90,9 +71,11 @@ public class AVCapturePhotoCaptureDelegate : NSObject, IAVCapturePhotoCaptureDel
 **C#**
 ```csharp
 using System;
-using AVFoundation;
-using Photos;
+
 using Foundation;
+using AVFoundation;
+using CoreMedia;
+using Photos;
 
 namespace AVCamSample
 {
@@ -142,9 +125,11 @@ Swift では[アクセス修飾子] [var or let] [変数名] : [型名] の順�
 **C#**
 ```csharp
 using System;
-using AVFoundation;
-using Photos;
+
 using Foundation;
+using AVFoundation;
+using CoreMedia;
+using Photos;
 
 namespace AVCamSample
 {
@@ -190,9 +175,11 @@ init(with requestedPhotoSettings: AVCapturePhotoSettings,
 **C#**
 ```csharp
 using System;
-using AVFoundation;
-using Photos;
+
 using Foundation;
+using AVFoundation;
+using CoreMedia;
+using Photos;
 
 namespace AVCamSample
 {
@@ -264,9 +251,11 @@ Swift をそのまま移植できず、若干表現を変えなければなら�
 **C#**
 ```csharp
 using System;
-using AVFoundation;
-using Photos;
+
 using Foundation;
+using AVFoundation;
+using CoreMedia;
+using Photos;
 
 namespace AVCamSample
 {
