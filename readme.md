@@ -1075,9 +1075,15 @@ namespace AVCamSample
 
 # CameraViewController.swift の Xamarin.iOS への移植 #
 
-<code>CameraViewController.swift</code>では、撮影処理や録画処理を行います。この処理はとても量が多いので、今回は時間の都合上翻訳済みのcsファイルを準備しましたのでそちらをお使い下さい。
+<code>ViewController.cs</code>ファイルを削除します。
 
-[こちら](https://raw.githubusercontent.com/TomohiroSuzuki128/XamiOSHandsOn01/master/codes/CameraViewController.cs "CameraViewController.cs")
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/011.png?raw=true)
+
+<code>CameraViewController.cs</code>ファイルを作成します。
+
+<code>CameraViewController.swift</code>では、撮影処理や録画処理を行っています。この処理はとても量が多いので、今回は時間の都合上翻訳済みのcsファイルを準備しましたのでそちらをお使い下さい。
+
+[こちら](https://raw.githubusercontent.com/TomohiroSuzuki128/XamiOSHandsOn01/master/codes/CameraViewController.cs "CameraViewController.cs")の内容を<code>CameraViewController.cs</code>にペーストしてください。
 
 
 # UI の Xamarin.iOS への移植 #
