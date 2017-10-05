@@ -1090,7 +1090,7 @@ namespace AVCamSample
 
 # UI の Xamarin.iOS への移植 #
 
-UIについては、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、バインドするデータに応じて動的にUIをコントロールする場合など、どうしてもコードでUIを記述する場面が出てきます。
+UIについては、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、どうしてもコードでUIを記述する場面が出てきます。
 
 ところが、Xamarin.iOSでUIをコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なのでUIをコードで作成してみましょう。具体的には、<code>Main.storyboard</code>をXamarin.iOSに翻訳する作業になります。
 
@@ -1216,7 +1216,7 @@ View.AddSubview(CameraUnavailableLabel);
 
 **C#**
 ```csharp
-PreviewView = new PreviewView()
+PreviewView = new PreviewView
 {
 	Frame = new CGRect(0, 0, 375, 667),
 	ContentMode = UIViewContentMode.ScaleToFill,
