@@ -519,48 +519,6 @@ namespace AVCamSample
 		#endregion
 
 		#region Capturing Photos
-
-		//[Export("capturePhoto:")]
-		void TimerCapturePhoto(UIButton photoButton)
-		{
-			DispatchQueue.MainQueue.DispatchAsync(() =>
-			{
-				IntervalButton.Enabled = false;
-				PhotoButton.Enabled = false;
-				CameraButton.Enabled = false;
-				CaptureModeControl.Enabled = false;
-			});
-
-			timerCapturePhotoCount = 0;
-			timer = new Timer
-			{
-				Interval = 5000,
-				AutoReset = true,
-				Enabled = true,
-			};
-			timer.Elapsed += TimerCapturePhotoInternal;
-		}
-
-		void TimerCapturePhotoInternal(object sender, EventArgs args)
-		{
-			CapturePhoto();
-			timerCapturePhotoCount++;
-
-			if (timerCapturePhotoCount >= 5)
-			{
-				DispatchQueue.MainQueue.DispatchAsync(() =>
-				{
-					IntervalButton.Enabled = true;
-					PhotoButton.Enabled = true;
-					CameraButton.Enabled = true;
-					CaptureModeControl.Enabled = true;
-				});
-
-				timer.Enabled = false;
-				timer.Elapsed -= TimerCapturePhotoInternal;
-			}
-		}
-
 		void CapturePhoto()
 		{
 			// Retrieve the video preview layer's video orientation on the main queue before
