@@ -1388,6 +1388,57 @@ RecordButton.TouchUpInside += (s, e) => ToggleMovieRecording();
 View.AddSubview(RecordButton);
 ```
 
+
+### ResumeButton ###
+
+<code>Main.storyboard</code>　35行目～51行目の<code>ResumeButton</code>に関する設定を移植します。
+
+**storyboard**
+```xml
+<button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FZr-Ip-7WL" userLabel="Resume">
+    <rect key="frame" x="105" y="314" width="165" height="39"/>
+    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+    <inset key="contentEdgeInsets" minX="10" minY="5" maxX="10" maxY="5"/>
+    <state key="normal" title="Tap to resume">
+        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    </state>
+    <userDefinedRuntimeAttributes>
+        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+            <integer key="value" value="4"/>
+        </userDefinedRuntimeAttribute>
+    </userDefinedRuntimeAttributes>
+    <connections>
+        <action selector="resumeInterruptedSession:" destination="BYZ-38-t0r" eventType="touchUpInside" id="42K-1B-qJd"/>
+    </connections>
+</button>
+```
+
+全部移植すると以下のようになりますので、<code>InitUI()</code>の先ほど追加したコードの下に以下を追加します。
+
+**C#**
+```csharp
+ResumeButton = new UIButton(UIButtonType.RoundedRect)
+{
+	Frame = new CGRect(105, 314, 165, 39),
+	Hidden = true,
+	Opaque = false,
+	ContentMode = UIViewContentMode.ScaleToFill,
+	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+	VerticalAlignment = UIControlContentVerticalAlignment.Center,
+	LineBreakMode = UILineBreakMode.MiddleTruncation,
+	TranslatesAutoresizingMaskIntoConstraints = false,
+	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+	Font = UIFont.SystemFontOfSize(24f),
+};
+ResumeButton.SetTitle("Tap to resume", UIControlState.Normal);
+ResumeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+ResumeButton.Layer.CornerRadius = 4f;
+ResumeButton.TouchUpInside += (s, e) => ResumeInterruptedSession();
+View.AddSubview(ResumeButton);
+```
+
+
 ### CaptureModeControl ###
 
 <code>Main.storyboard</code>　104行目～113行目の<code>CaptureModeControl</code>に関する設定を移植します。
