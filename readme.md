@@ -1879,7 +1879,7 @@ private void InitUI()
 ```
 
 
-最後に<code>InitUI()</code>を<code>ViewDidLoad()</code>内でコールするようにします。
+<code>InitUI()</code>を<code>ViewDidLoad()</code>内でコールするようにします。
 
 **C#**
 ```csharp
@@ -1891,6 +1891,29 @@ public override void ViewDidLoad()
 
 	InitUI();
 ```
+
+
+# AppDelegate.cs　に起動処理を追加 #
+
+最後に<code>AppDelegate.cs</code>に起動処理を追加します。<code>FinishedLaunching</code>を書き換えてください。
+
+**C#**
+```csharp
+public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+{
+	Window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+	var controller = new CameraViewController();
+	var navController = new UINavigationController(controller);
+
+	Window.RootViewController = navController;
+	Window.MakeKeyAndVisible();
+	Window.TintColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f);
+
+	return true;
+}
+```
+
 
 お疲れ様でした、これでコードは完成しました！それでは、実機で起動してみましょう。
 
