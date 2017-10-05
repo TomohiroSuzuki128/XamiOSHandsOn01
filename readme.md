@@ -1894,8 +1894,33 @@ public override void ViewDidLoad()
 お疲れ様でした、これでコードは完成しました！それでは、実機で起動してみましょう。
 
 
-（必ず落ちるはず。info.plistの設定がないため）
+残念ながらアプリが強制終了してしまいましたね。
 
 
-以下執筆中
+# info.plist に使用目的を追加 #
+
+
+iOS10i以降で、カメラやフォトライブラリなどのユーザーデータへアクセスする場合、特定のキーと使用目的を Info.plist ファイルに記述する必要があります。
+
+記述しない場合、先ほどのようにアプリが強制終了します。
+
+では、早速<code>info.plist</code>に使用目的を追加しましょう。
+
+<code>info.plist</code>をXcodeで開いてください。
+
+<code>Camera Usage Description</code>を追加します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/007.png?raw=true)
+
+残りのキーも追加し、利用目的を入力してください。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/008.png?raw=true)
+
+
+これで完了です。もう一度アプリをデバッグ実行してみましょう。今度は強制終了せず、起動できましたね。
+
+お疲れ様でした。これで本日のハンズオンは終了です。
+
+
+
 
