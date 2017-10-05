@@ -1261,7 +1261,7 @@ View.AddSubview(PreviewView);
 これは、Xamarin.iOSでは<code>NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 30)</code>となります。
 <code>width</code>も同じ要領で設定できます。
 
-<code><action selector="capturePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o5K-SC-fYn"/></code>はイベントハンドラの設定です。
+<code>　<action selector="capturePhoto:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o5K-SC-fYn"/>　</code>はイベントハンドラの設定です。
 
 <code>CameraViewController.swift</code>の521行目を確認すると
 
