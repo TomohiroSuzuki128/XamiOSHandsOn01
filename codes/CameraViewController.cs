@@ -13,7 +13,7 @@ using AVFoundation;
 using Photos;
 using CoreVideo;
 
-namespace AVCapture
+namespace AVCamSample
 {
 	public enum AVCamSetupResult
 	{
