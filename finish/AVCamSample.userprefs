@@ -1,0 +1,19 @@
+﻿<Properties StartupConfiguration="{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AVCamSample/View/CameraViewController.cs">
+    <Files>
+      <File FileName="AVCamSample/AppDelegate.cs" Line="66" Column="1" />
+      <File FileName="AVCamSample/PhotoCaptureDelegate.cs" Line="130" Column="1" />
+      <File FileName="AVCamSample/View/PreviewView.cs" Line="45" Column="2" />
+      <File FileName="AVCamSample/View/CameraViewController.cs" Line="196" Column="34" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.AVCamSample PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.7ca20d043cae36c6ad9722cf1f8dc8d455a6ea06">
+    <MonoDevelop.MacDev.AppleDevelopmentTeam />
+  </MonoDevelop.Ide.ItemProperties.AVCamSample>
+  <MultiItemStartupConfigurations />
+</Properties>

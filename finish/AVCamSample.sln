@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AVCamSample", "AVCamSample\AVCamSample.csproj", "{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}.Release|iPhone.ActiveCfg = Release|iPhone
+		{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}.Release|iPhone.Build.0 = Release|iPhone
+		{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{36F50C2C-E33E-4EE8-BEAD-E4ACBF304302}.Debug|iPhone.Build.0 = Debug|iPhone
+	EndGlobalSection
+EndGlobal
