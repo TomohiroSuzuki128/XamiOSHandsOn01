@@ -4,9 +4,62 @@
 
 [https://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html](https://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html "AVCam-iOS")
 
-## ソリューション作成 ##
 
-[ファイル]->[新しいソリューション]でソリューションを作成する
+# XCodeでダミーアプリを実行 #
+
+プロビジョニングプロファイルや証明書の紐付けが自動で行われるようにXcodeでSwiftのダミーアプリを作成します。
+
+[File]->[New]->[Project]でプロジェクトを作成します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/020.png?raw=true)
+
+
+iOSのSingle View Applicationを選択し、[Next]を押します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/021.png?raw=true)
+
+Product Name は　AVCamSample にして下さい。
+Organization Identifier はユニークな名前になるようにしてください。
+[Next]を押します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/022.png?raw=true)
+
+<code>AVCamSampleXcode</code>というフォルダを作成し、その中にプロジェクトを保存してください。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/023.png?raw=true)
+
+Product Name と　Organization Identifier が正しく設定されているのを確認して下さい。
+Signingの部分が自動で修正されて、Provisioning ProfileとSigning　Certificateが下記のように設定されているのを確認してください。
+左上のデバッグ実行の部分にご自分のiPhoneが認識されているのを確認してください。
+全て確認できたらデバッグ実行します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/024.png?raw=true)
+
+以下の表示が出たら、[常に許可]を押します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/025.png?raw=true)
+
+
+以下の表示が出たら、[常に許可]を押します。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/026.png?raw=true)
+
+
+以下の表示が出たら、ご自分のiPhoneの中にAVCamSampleと言う名前のアプリが既にインストールされているか確認し、インストールされている場合、アンインストールしてください。
+
+![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/027.png?raw=true)
+
+無事アプリが起動し、真っ白な画面が表示されたら成功です。
+
+これで、準備作業は完了です。
+
+
+
+# ソリューション作成 #
+
+では、ここからが本題です。まずはソリューションを作成しましょう。
+
+[ファイル]->[新しいソリューション]でソリューションを作成します。
 
 [iOS]->[アプリ]->[単一ビューアプリ]->[次へ]
 
