@@ -1831,24 +1831,6 @@ private void InitUI()
 	PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 80));
 	View.AddSubview(PhotoButton);
 
-	IntervalButton = new UIButton(UIButtonType.RoundedRect)
-	{
-		Opaque = false,
-		ContentMode = UIViewContentMode.ScaleToFill,
-		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-		VerticalAlignment = UIControlContentVerticalAlignment.Center,
-		LineBreakMode = UILineBreakMode.MiddleTruncation,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-	};
-	IntervalButton.SetTitle("Interval", UIControlState.Normal);
-	IntervalButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
-	IntervalButton.Layer.CornerRadius = 4f;
-	IntervalButton.TouchUpInside += (s, e) => TimerCapturePhoto(IntervalButton);
-	IntervalButton.AddConstraint(NSLayoutConstraint.Create(IntervalButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 30));
-	IntervalButton.AddConstraint(NSLayoutConstraint.Create(IntervalButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 80));
-	View.AddSubview(IntervalButton);
-
 	CameraButton = new UIButton(UIButtonType.RoundedRect)
 	{
 		Frame = new CGRect(147.5, 617, 80, 30),
