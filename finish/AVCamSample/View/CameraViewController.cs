@@ -106,6 +106,8 @@ namespace AVCamSample
 				Font = UIFont.SystemFontOfSize(24f),
 				TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
 			};
+            CameraUnavailableLabel.SetContentHuggingPriority(251f, UILayoutConstraintAxis.Horizontal);
+            CameraUnavailableLabel.SetContentHuggingPriority(251f, UILayoutConstraintAxis.Vertical);
 			View.AddSubview(CameraUnavailableLabel);
 
 			PreviewView = new PreviewView
