@@ -7,12 +7,12 @@
       <File FileName="AVCamSample/View/CameraViewController.cs" Line="196" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhone" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.AVCamSample PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.7ca20d043cae36c6ad9722cf1f8dc8d455a6ea06">
+  <MonoDevelop.Ide.ItemProperties.AVCamSample PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.96A3DE5E-A681-4710-99BC-B8C98073AD6E">
     <MonoDevelop.MacDev.AppleDevelopmentTeam />
   </MonoDevelop.Ide.ItemProperties.AVCamSample>
   <MultiItemStartupConfigurations />
