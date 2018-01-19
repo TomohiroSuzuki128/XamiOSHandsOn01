@@ -18,6 +18,9 @@ namespace AVCamSample
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
+            #if ENABLE_TEST_CLOUD             Xamarin.Calabash.Start();
+            #endif
+
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			var controller = new CameraViewController();
