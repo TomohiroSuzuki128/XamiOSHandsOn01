@@ -42,7 +42,6 @@ namespace AVCamSample.UITest
         [Test]
         public void SampleTest()
         {
-            
             app.Screenshot("First screen.");
         }
 
