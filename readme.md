@@ -300,8 +300,13 @@ Swift をそのまま移植できず、若干表現を変えなければなら�
 
 ここは、仕方ないので Swift のコードの処理を理解し、同等の処理を Xamarin.iOS で書かなくてはいけません。
 
-まず<code>if let</code>ですがこれは、<code>nil</code> チェックです。
-<code>livePhotoCompanionMoviePath</code>が<code>nil</code>でなければ、<code>{}</code>内部を実行します
+まず<code>if let</code>ですがこれは、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。
+
+Optionalとは変数にnilの代入を許容するデータ型で、反対にNot Optionalはnilを代入できません。Optionalの変数にはデータ型の最後に「?」か「!」をつけます。
+
+UnwrapとはOptionalからNot Optionalな値を取り出す事です。
+
+右辺の<code>livePhotoCompanionMovieURL?.path</code>が<code>nil</code>でなければ、左辺の<code>livePhotoCompanionMoviePath</code>にNot Optionalな値が取り出され、<code>{}</code>内部を実行します
 
 <code>FileManager</code>は、Xamarin.iOS では<code>NSFileManager</code>です。
 このNSがつくかどうかの件については、慣れるとだんだん迷わなくなります。
@@ -632,7 +637,13 @@ func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSamp
 }
 ```
 
-わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは<code>nil</code>チェックです。<code>photoSampleBuffer</code>が<code>nil</code>でなければ、<code>{}</code>内部を実行します。
+わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは、先ほども出てきましたが、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。右辺の<code>photoSampleBuffer</code>が<code>nil</code>でなければ、左辺の<code>photoSampleBuffer</code>にNot Optionalな値が取り出され、<code>{}</code>内部を実行します。
+
+このように、<code>if let</code>で、同じ名前の定数を使う事をShadowingと呼びます。
+この時点で、右辺の変数<code>photoSampleBuffer</code>は、左辺の定数<code>photoSampleBuffer</code>の影に隠れて見えなくなります。もちろんOptionalではないことが保証されているので安全です。
+
+しかも<code>if let</code>を抜けた後では、photoSampleBufferはOptionalに戻っています。
+
 あとはベタに移植すれば大丈夫です。
 
 **C#**
@@ -789,8 +800,14 @@ func capture(_ captureOutput: AVCapturePhotoOutput, didFinishCaptureForResolvedS
 
 いくつか、C#erにはなじみのない表現が使われています。
 
-まず、<code>guard</code>ですが、<code>guard let photoData = photoData else {}</code>は、アンラップとnilチェックを同時に行い、アンラップした<code>photoData</code>を<code>guard～else</code>ブロック外で使用できます。
-※アンラップとは、<code>nil</code>を代入できるオプショナル型から値を取り出すことです。
+まず、<code>guard</code>ですが、これもOptional-Bindingです。
+<code>guard let photoData = photoData else {}</code>は、Unwrapを行い、Unwrapした<code>photoData</code>を<code>guard～else</code>ブロック外で使用できます。
+※<code>if</code>の場合は<code>if-else</code>ブロックを抜けると条件式でUnwrapされた変数は使えなくなります。
+※Unwrapとは、<code>nil</code>を代入できるOptionalからNot Optional（<code>nil</code>を許容しない）な値を取り出すことです。
+
+<code>guard</code>を使うとネストが浅くなるので、効果的に使うと読みやすくなります。
+
+
 
 もう一つ、<code>[unowned self]</code>は、非所有参照で<code>self</code>をキャプチャします。これを使うと、クロージャー内ではクロージャ外の<code>self</code>とは別の非所有参照のselfを使うのため循環参照が起こりません。
 
