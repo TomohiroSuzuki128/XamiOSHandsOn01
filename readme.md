@@ -639,7 +639,7 @@ func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSamp
 }
 ```
 
-わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは、繰り返しますが、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。右辺の<code>photoSampleBuffer</code>が<code>nil</code>でなければ、左辺の<code>photoSampleBuffer</code>にNot Optionalな値が取り出され、<code>{}</code>内部を実行します。
+わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは、繰り返しになりますが、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。右辺の<code>photoSampleBuffer</code>が<code>nil</code>でなければ、左辺の<code>photoSampleBuffer</code>にNot Optionalな値が取り出され、<code>{}</code>内部を実行します。
 
 このように、<code>if let</code>で、同じ名前の定数を使う事をShadowingと呼びます。
 この時点で、右辺の変数<code>photoSampleBuffer</code>は、左辺の定数<code>photoSampleBuffer</code>の影に隠れて見えなくなります。もちろんOptionalではないことが保証されているので安全です。
@@ -2012,7 +2012,7 @@ public override void ViewDidLoad()
 ```
 
 
-# AppDelegate.cs　に起動処理を追加 #
+# AppDelegate.cs に起動処理を追加 #
 
 最後に<code>AppDelegate.cs</code>に起動処理を追加します。<code>FinishedLaunching</code>を書き換えてください。
 
@@ -2037,7 +2037,7 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
 お疲れ様でした、これでコードは完成しました！それでは、実機で起動してみましょう。
 
 
-<span style="font-size: 200%><font color="crimson">**どうでしょうか？　残念ながらアプリが強制終了してしまいましたね。**</font></span>
+<font color="red">**どうでしょうか？　残念ながらアプリが強制終了してしまいましたね。**</font>
 
 
 # info.plist に使用目的を追加 #
