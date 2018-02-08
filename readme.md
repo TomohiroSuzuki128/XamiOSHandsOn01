@@ -82,6 +82,8 @@ Signingの部分が自動で修正されて、Provisioning ProfileとSigning　C
 下記を設定し、[次へ]を押す。
 
 組織の識別子は、com.<ユニークな自分だけの名前>になるようにしてください。
+**バンドル識別子はさきほどXcodeで設定されたBundle Identifierと一字一句違わぬようにしてください。**
+一文字でも違っているとアプリは起動しません！！
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/002.png?raw=true)
 
@@ -637,7 +639,7 @@ func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSamp
 }
 ```
 
-わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは、先ほども出てきましたが、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。右辺の<code>photoSampleBuffer</code>が<code>nil</code>でなければ、左辺の<code>photoSampleBuffer</code>にNot Optionalな値が取り出され、<code>{}</code>内部を実行します。
+わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは、繰り返しますが、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。右辺の<code>photoSampleBuffer</code>が<code>nil</code>でなければ、左辺の<code>photoSampleBuffer</code>にNot Optionalな値が取り出され、<code>{}</code>内部を実行します。
 
 このように、<code>if let</code>で、同じ名前の定数を使う事をShadowingと呼びます。
 この時点で、右辺の変数<code>photoSampleBuffer</code>は、左辺の定数<code>photoSampleBuffer</code>の影に隠れて見えなくなります。もちろんOptionalではないことが保証されているので安全です。
@@ -2035,7 +2037,7 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
 お疲れ様でした、これでコードは完成しました！それでは、実機で起動してみましょう。
 
 
-残念ながらアプリが強制終了してしまいましたね。
+<span style="font-size: 200%><font color="crimson">**どうでしょうか？　残念ながらアプリが強制終了してしまいましたね。**</font></span>
 
 
 # info.plist に使用目的を追加 #
