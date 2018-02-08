@@ -2037,7 +2037,7 @@ public override bool FinishedLaunching(UIApplication application, NSDictionary l
 お疲れ様でした、これでコードは完成しました！それでは、実機で起動してみましょう。
 
 
-<font color="red">**どうでしょうか？　残念ながらアプリが強制終了してしまいましたね。**</font>
+**どうでしょうか？　残念ながらアプリが強制終了してしまいましたね。**
 
 
 # info.plist に使用目的を追加 #
