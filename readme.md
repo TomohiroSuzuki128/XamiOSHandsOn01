@@ -691,7 +691,27 @@ public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput cap
 
 #### DidFinishCapture ####
 
-6つ目です。こちらは<code>options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType.map { $0.rawValue }</code> で iOS11 からのAPI、processedFileTypeが使われていました。
+6つ目です。ちょっと長いですが、頑張りましょう。
+
+また、いくつか、C#erにはなじみのない表現が使われています。
+
+まず、<code>guard</code>ですが、これもOptional-Bindingです。
+<code>guard let photoData = photoData else {}</code>は、Unwrapを行い、Unwrapした<code>photoData</code>を<code>guard～else</code>ブロック外で使用できます。
+※<code>if</code>の場合は<code>if-else</code>ブロックを抜けると条件式でUnwrapされた変数は使えなくなります。
+※Unwrapとは、<code>nil</code>を代入できるOptionalからNot Optional（<code>nil</code>を許容しない）な値を取り出すことです。
+
+<code>guard</code>を使うとネストが浅くなるので、効果的に使うと読みやすくなります。
+
+もう一つ、<code>[unowned self]</code>は、非所有参照で<code>self</code>をキャプチャします。これを使うと、クロージャー内ではクロージャ外の<code>self</code>とは別の非所有参照のselfを使うのため循環参照が起こりません。
+
+これは、移植時にはメモリリーク防止のおまじないとでも認識しておけば十分です。
+
+<code>PerformChanges</code>メソッドを確認すると以下のようになっていますので、APIにあわせて実装していきます。
+
+**C#**
+```csharp
+public virtual void PerformChanges(Action changeHandler, Action<bool, NSError> completionHandler);
+```
 
 **Swift**
 ```swift
@@ -735,29 +755,6 @@ func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSet
         }
     }
 }
-```
-
-いくつか、C#erにはなじみのない表現が使われています。
-
-まず、<code>guard</code>ですが、これもOptional-Bindingです。
-<code>guard let photoData = photoData else {}</code>は、Unwrapを行い、Unwrapした<code>photoData</code>を<code>guard～else</code>ブロック外で使用できます。
-※<code>if</code>の場合は<code>if-else</code>ブロックを抜けると条件式でUnwrapされた変数は使えなくなります。
-※Unwrapとは、<code>nil</code>を代入できるOptionalからNot Optional（<code>nil</code>を許容しない）な値を取り出すことです。
-
-<code>guard</code>を使うとネストが浅くなるので、効果的に使うと読みやすくなります。
-
-
-
-もう一つ、<code>[unowned self]</code>は、非所有参照で<code>self</code>をキャプチャします。これを使うと、クロージャー内ではクロージャ外の<code>self</code>とは別の非所有参照のselfを使うのため循環参照が起こりません。
-
-これは、移植時にはメモリリーク防止のおまじないとでも認識しておけば十分です。
-
-<code>PerformChanges</code>メソッドを確認すると以下のようになっていますので、APIにあわせて実装していきます。
-
-
-**C#**
-```csharp
-public virtual void PerformChanges(Action changeHandler, Action<bool, NSError> completionHandler);
 ```
 
 
