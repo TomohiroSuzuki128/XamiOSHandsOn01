@@ -417,37 +417,44 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
 
 **C#**
 ```csharp
-[CompilerGenerated]
-[Export("captureOutput:didCapturePhotoForResolvedSettings:")]
-public virtual void DidCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:didCapturePhotoForResolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishCaptureForResolvedSettings:error:")]
-public virtual void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
+[Export ("captureOutput:didFinishCaptureForResolvedSettings:error:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:")]
-public virtual void DidFinishProcessingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
+[Export ("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
-public virtual void DidFinishProcessingPhoto(AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
+[Export ("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
+[Deprecated (PlatformName.iOS, 11, 0, PlatformArchitecture.None, "Use the 'DidFinishProcessingPhoto' overload accepting a 'AVCapturePhoto' instead.")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishProcessingRawPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
-public virtual void DidFinishProcessingRawPhoto(AVCapturePhotoOutput captureOutput, CMSampleBuffer rawSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
+[Export ("captureOutput:didFinishProcessingPhoto:error:")]
+[Introduced (PlatformName.iOS, 11, 0, PlatformArchitecture.All, null)]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishProcessingPhoto (AVCapturePhotoOutput output, AVCapturePhoto photo, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishRecordingLivePhotoMovieForEventualFileAtURL:resolvedSettings:")]
-public virtual void DidFinishRecordingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:didFinishProcessingRawPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
+[Deprecated (PlatformName.iOS, 11, 0, PlatformArchitecture.None, "Use the 'DidFinishProcessingPhoto' overload accepting a 'AVCapturePhoto' instead.")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishProcessingRawPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer rawSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:willBeginCaptureForResolvedSettings:")]
-public virtual void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:didFinishRecordingLivePhotoMovieForEventualFileAtURL:resolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings);
 
-[CompilerGenerated]
-[Export("captureOutput:willCapturePhotoForResolvedSettings:")]
-public virtual void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:willBeginCaptureForResolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+
+[Export ("captureOutput:willCapturePhotoForResolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
 ```
 
 メソッドは全て違う名前になっています。
@@ -464,9 +471,9 @@ func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSet
 
 **C#**
 ```csharp
-[CompilerGenerated]
-[Export("captureOutput:willBeginCaptureForResolvedSettings:")]
-public virtual void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:willBeginCaptureForResolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
 ```
 
 微妙に名前が違うのは、繰り返しになりますが、Xamarin.iOS が、Objective-C に基づいているからです。
@@ -542,7 +549,7 @@ namespace AVCamSample
 		{
 		}
 
-		public override void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
+        public override void DidFinishProcessingPhoto(AVCapturePhotoOutput output, AVCapturePhoto photo, NSError error)
 		{
 		}
 
