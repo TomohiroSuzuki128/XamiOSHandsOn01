@@ -417,37 +417,44 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
 
 **C#**
 ```csharp
-[CompilerGenerated]
-[Export("captureOutput:didCapturePhotoForResolvedSettings:")]
-public virtual void DidCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:didCapturePhotoForResolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishCaptureForResolvedSettings:error:")]
-public virtual void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
+[Export ("captureOutput:didFinishCaptureForResolvedSettings:error:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:")]
-public virtual void DidFinishProcessingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
+[Export ("captureOutput:didFinishProcessingLivePhotoToMovieFileAtURL:duration:photoDisplayTime:resolvedSettings:error:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
-public virtual void DidFinishProcessingPhoto(AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
+[Export ("captureOutput:didFinishProcessingPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
+[Deprecated (PlatformName.iOS, 11, 0, PlatformArchitecture.None, "Use the 'DidFinishProcessingPhoto' overload accepting a 'AVCapturePhoto' instead.")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishProcessingRawPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
-public virtual void DidFinishProcessingRawPhoto(AVCapturePhotoOutput captureOutput, CMSampleBuffer rawSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
+[Export ("captureOutput:didFinishProcessingPhoto:error:")]
+[Introduced (PlatformName.iOS, 11, 0, PlatformArchitecture.All, null)]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishProcessingPhoto (AVCapturePhotoOutput output, AVCapturePhoto photo, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:didFinishRecordingLivePhotoMovieForEventualFileAtURL:resolvedSettings:")]
-public virtual void DidFinishRecordingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:didFinishProcessingRawPhotoSampleBuffer:previewPhotoSampleBuffer:resolvedSettings:bracketSettings:error:")]
+[Deprecated (PlatformName.iOS, 11, 0, PlatformArchitecture.None, "Use the 'DidFinishProcessingPhoto' overload accepting a 'AVCapturePhoto' instead.")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishProcessingRawPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer rawSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error);
 
-[CompilerGenerated]
-[Export("captureOutput:willBeginCaptureForResolvedSettings:")]
-public virtual void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:didFinishRecordingLivePhotoMovieForEventualFileAtURL:resolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings);
 
-[CompilerGenerated]
-[Export("captureOutput:willCapturePhotoForResolvedSettings:")]
-public virtual void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:willBeginCaptureForResolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+
+[Export ("captureOutput:willCapturePhotoForResolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
 ```
 
 メソッドは全て違う名前になっています。
@@ -464,9 +471,9 @@ func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSet
 
 **C#**
 ```csharp
-[CompilerGenerated]
-[Export("captureOutput:willBeginCaptureForResolvedSettings:")]
-public virtual void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
+[Export ("captureOutput:willBeginCaptureForResolvedSettings:")]
+[BindingImpl (BindingImplOptions.GeneratedCode | BindingImplOptions.Optimizable)]
+public virtual void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
 ```
 
 微妙に名前が違うのは、繰り返しになりますが、Xamarin.iOS が、Objective-C に基づいているからです。
@@ -495,69 +502,69 @@ using Photos;
 
 namespace AVCamSample
 {
-	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
-	{
-		public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
+    public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+    {
+        public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
 
-		Action willCapturePhotoAnimation;
-		Action<bool> capturingLivePhoto;
-		Action<PhotoCaptureDelegate> completed;
+        Action willCapturePhotoAnimation;
+        Action<bool> capturingLivePhoto;
+        Action<PhotoCaptureDelegate> completed;
 
-		NSData photoData;
-		NSUrl livePhotoCompanionMovieUrl;
+        NSData photoData;
+        NSUrl livePhotoCompanionMovieUrl;
 
 
-		public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
-									 Action willCapturePhotoAnimation,
-									 Action<bool> capturingLivePhoto,
-									 Action<PhotoCaptureDelegate> completed)
-		{
-			RequestedPhotoSettings = requestedPhotoSettings;
-			this.willCapturePhotoAnimation = willCapturePhotoAnimation;
-			this.capturingLivePhoto = capturingLivePhoto;
-			this.completed = completed;
-		}
+        public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
+                                    Action willCapturePhotoAnimation,
+                                    Action<bool> capturingLivePhoto,
+                                    Action<PhotoCaptureDelegate> completed)
+        {
+            RequestedPhotoSettings = requestedPhotoSettings;
+            this.willCapturePhotoAnimation = willCapturePhotoAnimation;
+            this.capturingLivePhoto = capturingLivePhoto;
+            this.completed = completed;
+        }
 
-		void DidFinish()
-		{
-			var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
-			if (livePhotoCompanionMoviePath != null)
-			{
-				if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
-				{
-					NSError error;
-					if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
-						Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
-				}
-			}
+        void DidFinish()
+        {
+            var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
+            if (livePhotoCompanionMoviePath != null)
+            {
+                if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
+                {
+                    NSError error;
+                    if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
+                        Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
+                }
+            }
 
-			completed(this);
-		}
+            completed(this);
+        }
 
-		public override void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-		}
+        public override void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+        }
 
-		public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-		}
+        public override void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+        }
 
-		public override void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
-		{
-		}
+        public override void DidFinishProcessingPhoto(AVCapturePhotoOutput output, AVCapturePhoto photo, NSError error)
+        {
+        }
 
-		public override void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-		}
+        public override void DidFinishRecordingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+        }
 
-		public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
-		{
-		}
+        public override void DidFinishProcessingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+        {
+        }
 
-		public override void DidFinishCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
-		{
-		}
-	}
+        public override void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+        {
+        }
+    }
 }
 ```
 
@@ -610,8 +617,14 @@ public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCap
 
 #### DidFinishProcessingPhoto  ####
 
-3つ目ですが、これは Swift と Xamarin.iOS で既にAPIが違っています。Appleのリファレンスを確認したところ、Swift のサンプルは、iOS11 対応で、 Xamarin.iOS は iOS10 対応のためです。
-調べたところ<code>jpegPhotoDataRepresentation</code>は iOS11で Deprecated になっていました。
+3つ目ですが、わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは、繰り返しになりますが、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。右辺の<code>error</code>が<code>nil</code>でなければ、左辺の<code>error</code>にNot Optionalな値が取り出され、<code>{}</code>内部を実行します。
+
+このように、<code>if let</code>で、同じ名前の定数を使う事をShadowingと呼びます。
+この時点で、右辺の変数<code>error</code>は、左辺の定数<code>error</code>の影に隠れて見えなくなります。もちろんOptionalではないことが保証されているので安全です。
+
+しかも<code>if let</code>を抜けた後では、<code>error</code>はOptionalに戻っています。
+
+あとはベタに移植すれば大丈夫です。
 
 **Swift**
 ```swift
@@ -624,38 +637,14 @@ func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo:
 }
 ```
 
-このまま移植も可能ですが、わかりにくいので iOS10 対応のサンプルを探したところ以下のようになっていました。これで見比べるとAPIがそろっていますね。
-
-**Swift iOS10対応**
-```swift
-func capture(_ captureOutput: AVCapturePhotoOutput, didFinishProcessingPhotoSampleBuffer photoSampleBuffer: CMSampleBuffer?, previewPhotoSampleBuffer: CMSampleBuffer?, resolvedSettings: AVCaptureResolvedPhotoSettings, bracketSettings: AVCaptureBracketedStillImageSettings?, error: Error?) {
-	if let photoSampleBuffer = photoSampleBuffer {
-		photoData = AVCapturePhotoOutput.jpegPhotoDataRepresentation(forJPEGSampleBuffer: photoSampleBuffer, previewPhotoSampleBuffer: previewPhotoSampleBuffer)
-	}
-	else {
-		print("Error capturing photo: \(error)")
-		return
-	}
-}
-```
-
-わかりにくいのは、前にも出てきた<code>if let</code>ですが、これは、繰り返しになりますが、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。右辺の<code>photoSampleBuffer</code>が<code>nil</code>でなければ、左辺の<code>photoSampleBuffer</code>にNot Optionalな値が取り出され、<code>{}</code>内部を実行します。
-
-このように、<code>if let</code>で、同じ名前の定数を使う事をShadowingと呼びます。
-この時点で、右辺の変数<code>photoSampleBuffer</code>は、左辺の定数<code>photoSampleBuffer</code>の影に隠れて見えなくなります。もちろんOptionalではないことが保証されているので安全です。
-
-しかも<code>if let</code>を抜けた後では、photoSampleBufferはOptionalに戻っています。
-
-あとはベタに移植すれば大丈夫です。
-
 **C#**
 ```csharp
-public override void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
+public override void DidFinishProcessingPhoto(AVCapturePhotoOutput output, AVCapturePhoto photo, NSError error)
 {
-	if (photoSampleBuffer != null)
-		photoData = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation (photoSampleBuffer, previewPhotoSampleBuffer);
-	else
-		Console.WriteLine ($"Error capturing photo: {error.LocalizedDescription}");
+    if (error != null)
+        Console.WriteLine($"Error capturing photo: {error.LocalizedDescription}");
+    else
+        photoData = photo.FileDataRepresentation;
 }
 ```
 
@@ -709,7 +698,27 @@ public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput cap
 
 #### DidFinishCapture ####
 
-6つ目です。こちらは<code>options.uniformTypeIdentifier = self.requestedPhotoSettings.processedFileType.map { $0.rawValue }</code> で iOS11 からのAPI、processedFileTypeが使われていました。
+6つ目です。ちょっと長いですが、頑張りましょう。
+
+また、いくつか、C#erにはなじみのない表現が使われています。
+
+まず、<code>guard</code>ですが、これもOptional-Bindingです。
+<code>guard let photoData = photoData else {}</code>は、Unwrapを行い、Unwrapした<code>photoData</code>を<code>guard～else</code>ブロック外で使用できます。
+※<code>if</code>の場合は<code>if-else</code>ブロックを抜けると条件式でUnwrapされた変数は使えなくなります。
+※Unwrapとは、<code>nil</code>を代入できるOptionalからNot Optional（<code>nil</code>を許容しない）な値を取り出すことです。
+
+<code>guard</code>を使うとネストが浅くなるので、効果的に使うと読みやすくなります。
+
+もう一つ、<code>[unowned self]</code>は、非所有参照で<code>self</code>をキャプチャします。これを使うと、クロージャー内ではクロージャ外の<code>self</code>とは別の非所有参照のselfを使うのため循環参照が起こりません。
+
+これは、移植時にはメモリリーク防止のおまじないとでも認識しておけば十分です。
+
+<code>PerformChanges</code>メソッドを確認すると以下のようになっていますので、APIにあわせて実装していきます。
+
+**C#**
+```csharp
+public virtual void PerformChanges(Action changeHandler, Action<bool, NSError> completionHandler);
+```
 
 **Swift**
 ```swift
@@ -755,74 +764,6 @@ func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSet
 }
 ```
 
-iOS10 対応のサンプルを探したところ以下のようになっていましたので、こちらを移植していきます。
-
-**Swift iOS10対応**
-```swift
-func capture(_ captureOutput: AVCapturePhotoOutput, didFinishCaptureForResolvedSettings resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
-	if let error = error {
-		print("Error capturing photo: \(error)")
-		didFinish()
-		return
-	}
-	
-	guard let photoData = photoData else {
-		print("No photo data resource")
-		didFinish()
-		return
-	}
-	
-	PHPhotoLibrary.requestAuthorization { [unowned self] status in
-		if status == .authorized {
-			PHPhotoLibrary.shared().performChanges({ [unowned self] in
-					let creationRequest = PHAssetCreationRequest.forAsset()
-					creationRequest.addResource(with: .photo, data: photoData, options: nil)
-				
-					if let livePhotoCompanionMovieURL = self.livePhotoCompanionMovieURL {
-						let livePhotoCompanionMovieFileResourceOptions = PHAssetResourceCreationOptions()
-						livePhotoCompanionMovieFileResourceOptions.shouldMoveFile = true
-						creationRequest.addResource(with: .pairedVideo, fileURL: livePhotoCompanionMovieURL, options: livePhotoCompanionMovieFileResourceOptions)
-					}
-				
-				}, completionHandler: { [unowned self] success, error in
-					if let error = error {
-						print("Error occurered while saving photo to photo library: \(error)")
-					}
-					
-					self.didFinish()
-				}
-			)
-		}
-		else {
-			self.didFinish()
-		}
-	}
-}
-```
-
-いくつか、C#erにはなじみのない表現が使われています。
-
-まず、<code>guard</code>ですが、これもOptional-Bindingです。
-<code>guard let photoData = photoData else {}</code>は、Unwrapを行い、Unwrapした<code>photoData</code>を<code>guard～else</code>ブロック外で使用できます。
-※<code>if</code>の場合は<code>if-else</code>ブロックを抜けると条件式でUnwrapされた変数は使えなくなります。
-※Unwrapとは、<code>nil</code>を代入できるOptionalからNot Optional（<code>nil</code>を許容しない）な値を取り出すことです。
-
-<code>guard</code>を使うとネストが浅くなるので、効果的に使うと読みやすくなります。
-
-
-
-もう一つ、<code>[unowned self]</code>は、非所有参照で<code>self</code>をキャプチャします。これを使うと、クロージャー内ではクロージャ外の<code>self</code>とは別の非所有参照のselfを使うのため循環参照が起こりません。
-
-これは、移植時にはメモリリーク防止のおまじないとでも認識しておけば十分です。
-
-<code>PerformChanges</code>メソッドを確認すると以下のようになっていますので、APIにあわせて実装していきます。
-
-
-**C#**
-```csharp
-public virtual void PerformChanges(Action changeHandler, Action<bool, NSError> completionHandler);
-```
-
 
 **C#**
 ```csharp
@@ -845,9 +786,15 @@ public override void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCapt
 	PHPhotoLibrary.RequestAuthorization(status => {
 		if (status == PHAuthorizationStatus.Authorized)
 		{
-			PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() => {
+			PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() =>
+			{
+				var options = new PHAssetResourceCreationOptions
+				{
+					UniformTypeIdentifier = RequestedPhotoSettings.ProcessedFileType,
+				};
+
 				var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
-				creationRequest.AddResource(PHAssetResourceType.Photo, photoData, null);
+				creationRequest.AddResource(PHAssetResourceType.Photo, photoData, options);
 
 				var url = livePhotoCompanionMovieUrl;
 				if (url != null)
@@ -858,7 +805,8 @@ public override void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCapt
 					};
 					creationRequest.AddResource(PHAssetResourceType.PairedVideo, url, livePhotoCompanionMovieFileResourceOptions);
 				}
-			}, (success, err) => {
+			}, (success, err) => 
+			{
 				if (err != null)
 					Console.WriteLine($"Error occurered while saving photo to photo library: {error.LocalizedDescription}");
 				DidFinish();
@@ -889,125 +837,132 @@ using Photos;
 
 namespace AVCamSample
 {
-	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
-	{
-		public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
+    public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+    {
+        public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
 
-		Action willCapturePhotoAnimation;
-		Action<bool> capturingLivePhoto;
-		Action<PhotoCaptureDelegate> completed;
+        Action willCapturePhotoAnimation;
+        Action<bool> capturingLivePhoto;
+        Action<PhotoCaptureDelegate> completed;
 
-		NSData photoData;
-		NSUrl livePhotoCompanionMovieUrl;
+        NSData photoData;
+        NSUrl livePhotoCompanionMovieUrl;
 
 
-		public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
-									 Action willCapturePhotoAnimation,
-									 Action<bool> capturingLivePhoto,
-									 Action<PhotoCaptureDelegate> completed)
-		{
-			RequestedPhotoSettings = requestedPhotoSettings;
-			this.willCapturePhotoAnimation = willCapturePhotoAnimation;
-			this.capturingLivePhoto = capturingLivePhoto;
-			this.completed = completed;
-		}
+        public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
+                                     Action willCapturePhotoAnimation,
+                                     Action<bool> capturingLivePhoto,
+                                     Action<PhotoCaptureDelegate> completed)
+        {
+            RequestedPhotoSettings = requestedPhotoSettings;
+            this.willCapturePhotoAnimation = willCapturePhotoAnimation;
+            this.capturingLivePhoto = capturingLivePhoto;
+            this.completed = completed;
+        }
 
-		void DidFinish()
-		{
-			var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
-			if (livePhotoCompanionMoviePath != null)
-			{
-				if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
-				{
-					NSError error;
-					if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
-						Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
-				}
-			}
+        void DidFinish()
+        {
+            var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
+            if (livePhotoCompanionMoviePath != null)
+            {
+                if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
+                {
+                    NSError error;
+                    if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
+                        Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
+                }
+            }
 
-			completed(this);
-		}
+            completed(this);
+        }
 
-		public override void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-			if (resolvedSettings.LivePhotoMovieDimensions.Width > 0 && resolvedSettings.LivePhotoMovieDimensions.Height > 0)
-				capturingLivePhoto (true);
-		}
+        public override void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+            if (resolvedSettings.LivePhotoMovieDimensions.Width > 0 && resolvedSettings.LivePhotoMovieDimensions.Height > 0)
+                capturingLivePhoto(true);
+        }
 
-		public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-			willCapturePhotoAnimation ();
-		}
+        public override void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+            willCapturePhotoAnimation();
+        }
 
-		public override void DidFinishProcessingPhoto (AVCapturePhotoOutput captureOutput, CMSampleBuffer photoSampleBuffer, CMSampleBuffer previewPhotoSampleBuffer, AVCaptureResolvedPhotoSettings resolvedSettings, AVCaptureBracketedStillImageSettings bracketSettings, NSError error)
-		{
-			if (photoSampleBuffer != null)
-				photoData = AVCapturePhotoOutput.GetJpegPhotoDataRepresentation (photoSampleBuffer, previewPhotoSampleBuffer);
-			else
-				Console.WriteLine ($"Error capturing photo: {error.LocalizedDescription}");
-		}
+        public override void DidFinishProcessingPhoto(AVCapturePhotoOutput output, AVCapturePhoto photo, NSError error)
+        {
+            if (error != null)
+                Console.WriteLine($"Error capturing photo: {error.LocalizedDescription}");
+            else
+                photoData = photo.FileDataRepresentation;
+        }
 
-		public override void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-			capturingLivePhoto (false);
-		}
+        public override void DidFinishRecordingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+            capturingLivePhoto(false);
+        }
 
-		public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
-		{
-			if (error != null) {
-				Console.WriteLine ($"Error processing live photo companion movie: {error.LocalizedDescription})");
-				return;
-			}
+        public override void DidFinishProcessingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+        {
+            if (error != null)
+            {
+                Console.WriteLine($"Error processing live photo companion movie: {error.LocalizedDescription})");
+                return;
+            }
+            livePhotoCompanionMovieUrl = outputFileUrl;
+        }
 
-			livePhotoCompanionMovieUrl = outputFileUrl;
-		}
+        public override void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+        {
+            if (error != null)
+            {
+                Console.WriteLine($"Error capturing photo: {error.LocalizedDescription})");
+                DidFinish();
+                return;
+            }
 
-		public override void DidFinishCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
-		{
-			if (error != null)
-			{
-				Console.WriteLine($"Error capturing photo: {error.LocalizedDescription})");
-				DidFinish();
-				return;
-			}
+            if (photoData == null)
+            {
+                Console.WriteLine("No photo data resource");
+                DidFinish();
+                return;
+            }
 
-			if (photoData == null)
-			{
-				Console.WriteLine("No photo data resource");
-				DidFinish();
-				return;
-			}
+            PHPhotoLibrary.RequestAuthorization(status => {
+                if (status == PHAuthorizationStatus.Authorized)
+                {
+                    PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() =>
+                    {
+                        var options = new PHAssetResourceCreationOptions
+                        {
+                            UniformTypeIdentifier = RequestedPhotoSettings.ProcessedFileType,
+                        };
 
-			PHPhotoLibrary.RequestAuthorization(status => {
-				if (status == PHAuthorizationStatus.Authorized)
-				{
-					PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() => {
-						var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
-						creationRequest.AddResource(PHAssetResourceType.Photo, photoData, null);
+                        var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
+                        creationRequest.AddResource(PHAssetResourceType.Photo, photoData, options);
 
-						var url = livePhotoCompanionMovieUrl;
-						if (url != null)
-						{
-							var livePhotoCompanionMovieFileResourceOptions = new PHAssetResourceCreationOptions
-							{
-								ShouldMoveFile = true
-							};
-							creationRequest.AddResource(PHAssetResourceType.PairedVideo, url, livePhotoCompanionMovieFileResourceOptions);
-						}
-					}, (success, err) => {
-						if (err != null)
-							Console.WriteLine($"Error occurered while saving photo to photo library: {error.LocalizedDescription}");
-						DidFinish();
-					});
-				}
-				else
-				{
-					DidFinish();
-				}
-			});
-		}
-		
-	}
+                        var url = livePhotoCompanionMovieUrl;
+                        if (url != null)
+                        {
+                            var livePhotoCompanionMovieFileResourceOptions = new PHAssetResourceCreationOptions
+                            {
+                                ShouldMoveFile = true
+                            };
+                            creationRequest.AddResource(PHAssetResourceType.PairedVideo, url, livePhotoCompanionMovieFileResourceOptions);
+                        }
+                    }, (success, err) =>
+                    {
+                        if (err != null)
+                            Console.WriteLine($"Error occurered while saving photo to photo library: {error.LocalizedDescription}");
+                        DidFinish();
+                    });
+                }
+                else
+                {
+                    DidFinish();
+                }
+            });
+        }
+
+    }
 }
 ```
 

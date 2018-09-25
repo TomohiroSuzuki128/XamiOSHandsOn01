@@ -8,15 +8,11 @@ namespace AVCamSample
 	[Register("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
+        // class-level declarations
 
-		public override UIWindow Window
-		{
-			get;
-			set;
-		}
+        public override UIWindow Window { get; set; }
 
-		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
+        public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
             #if ENABLE_TEST_CLOUD             Xamarin.Calabash.Start();
             #endif
@@ -24,9 +20,8 @@ namespace AVCamSample
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			var controller = new CameraViewController();
-			var navController = new UINavigationController(controller);
 
-			Window.RootViewController = navController;
+			Window.RootViewController = controller;
 			Window.MakeKeyAndVisible();
 			Window.TintColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f);
 
