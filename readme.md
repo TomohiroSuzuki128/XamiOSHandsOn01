@@ -502,69 +502,69 @@ using Photos;
 
 namespace AVCamSample
 {
-	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
-	{
-		public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
+    public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+    {
+        public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
 
-		Action willCapturePhotoAnimation;
-		Action<bool> capturingLivePhoto;
-		Action<PhotoCaptureDelegate> completed;
+        Action willCapturePhotoAnimation;
+        Action<bool> capturingLivePhoto;
+        Action<PhotoCaptureDelegate> completed;
 
-		NSData photoData;
-		NSUrl livePhotoCompanionMovieUrl;
+        NSData photoData;
+        NSUrl livePhotoCompanionMovieUrl;
 
 
-		public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
-									 Action willCapturePhotoAnimation,
-									 Action<bool> capturingLivePhoto,
-									 Action<PhotoCaptureDelegate> completed)
-		{
-			RequestedPhotoSettings = requestedPhotoSettings;
-			this.willCapturePhotoAnimation = willCapturePhotoAnimation;
-			this.capturingLivePhoto = capturingLivePhoto;
-			this.completed = completed;
-		}
+        public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
+                                    Action willCapturePhotoAnimation,
+                                    Action<bool> capturingLivePhoto,
+                                    Action<PhotoCaptureDelegate> completed)
+        {
+            RequestedPhotoSettings = requestedPhotoSettings;
+            this.willCapturePhotoAnimation = willCapturePhotoAnimation;
+            this.capturingLivePhoto = capturingLivePhoto;
+            this.completed = completed;
+        }
 
-		void DidFinish()
-		{
-			var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
-			if (livePhotoCompanionMoviePath != null)
-			{
-				if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
-				{
-					NSError error;
-					if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
-						Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
-				}
-			}
+        void DidFinish()
+        {
+            var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
+            if (livePhotoCompanionMoviePath != null)
+            {
+                if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
+                {
+                    NSError error;
+                    if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
+                        Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
+                }
+            }
 
-			completed(this);
-		}
+            completed(this);
+        }
 
-		public override void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-		}
+        public override void WillBeginCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+        }
 
-		public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-		}
+        public override void WillCapturePhoto(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+        }
 
         public override void DidFinishProcessingPhoto(AVCapturePhotoOutput output, AVCapturePhoto photo, NSError error)
-		{
-		}
+        {
+        }
 
-		public override void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
-		{
-		}
+        public override void DidFinishRecordingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
+        {
+        }
 
-		public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
-		{
-		}
+        public override void DidFinishProcessingLivePhotoMovie(AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+        {
+        }
 
-		public override void DidFinishCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
-		{
-		}
-	}
+        public override void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
+        {
+        }
+    }
 }
 ```
 
