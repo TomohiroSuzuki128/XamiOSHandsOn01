@@ -1963,16 +1963,15 @@ public override void ViewDidLoad()
 ```csharp
 public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 {
-	Window = new UIWindow(UIScreen.MainScreen.Bounds);
+    Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-	var controller = new CameraViewController();
-	var navController = new UINavigationController(controller);
+    var controller = new CameraViewController();
 
-	Window.RootViewController = navController;
-	Window.MakeKeyAndVisible();
-	Window.TintColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f);
+    Window.RootViewController = controller;
+    Window.MakeKeyAndVisible();
+    Window.TintColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f);
 
-	return true;
+    return true;
 }
 ```
 
