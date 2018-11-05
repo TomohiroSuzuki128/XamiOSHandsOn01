@@ -1665,13 +1665,13 @@ View.AddSubview(CapturingLivePhotoLabel);
 <viewLayoutGuide key="safeArea" id="nyU-fN-aJh"/>
 ```
 
-<code>safeArea</code>とはiPhone Xを考慮した上下左右のマージンを取った領域です。今回はiOS10対応なので、<code>centerX</code>つまり、左右の中心点を考える上では、<code>View</code>と同じ領域と考えて差し支えありません。
+<code>safeArea</code>とはiPhone Xを考慮した上下左右のマージンを取った領域です。<code>safeArea</code>は、コードにすると、<code>View.SafeAreaLayoutGuide</code>になります。
 
 よって<code>id</code>をUIエレメントに置き換えて記述すると、以下のようになります。
 
 **C#**
 ```csharp
-View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View.SafeAreaLayoutGuide, NSLayoutAttribute.CenterX, 1.0f, 0));
 ```
 
 同様にその他の制約を移植すると以下のようになります。

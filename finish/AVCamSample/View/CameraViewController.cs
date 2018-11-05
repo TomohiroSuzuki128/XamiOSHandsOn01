@@ -261,7 +261,7 @@ namespace AVCamSample
 
 			View.AddSubview(CapturingLivePhotoLabel);
 
-            View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+            View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View.SafeAreaLayoutGuide, NSLayoutAttribute.CenterX, 1.0f, 0));
 
 
 			View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, View, NSLayoutAttribute.Top, 1.0f, 80f));// iOS10対応のため変更あり
