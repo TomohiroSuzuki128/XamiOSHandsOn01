@@ -96,7 +96,8 @@ namespace AVCamSample
                 return;
             }
 
-            PHPhotoLibrary.RequestAuthorization(status => {
+            PHPhotoLibrary.RequestAuthorization(status =>
+            {
                 if (status == PHAuthorizationStatus.Authorized)
                 {
                     PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() =>
