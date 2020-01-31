@@ -287,8 +287,6 @@ namespace AVCamSample
             View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
             View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
             View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
-
-
         }
 
 
