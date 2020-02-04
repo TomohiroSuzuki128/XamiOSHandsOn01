@@ -146,9 +146,9 @@ using Photos;
 
 namespace AVCamSample
 {
-	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
-	{
-	}
+    public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+    {
+    }
 }
 ```
 
@@ -221,13 +221,13 @@ namespace AVCamSample
 **Swift**
 ```swift
 init(with requestedPhotoSettings: AVCapturePhotoSettings,
-	 willCapturePhotoAnimation: @escaping () -> Void,
-	 livePhotoCaptureHandler: @escaping (Bool) -> Void,
-	 completionHandler: @escaping (PhotoCaptureProcessor) -> Void) {
-	self.requestedPhotoSettings = requestedPhotoSettings
-	self.willCapturePhotoAnimation = willCapturePhotoAnimation
-	self.livePhotoCaptureHandler = livePhotoCaptureHandler
-	self.completionHandler = completionHandler
+     willCapturePhotoAnimation: @escaping () -> Void,
+     livePhotoCaptureHandler: @escaping (Bool) -> Void,
+     completionHandler: @escaping (PhotoCaptureProcessor) -> Void) {
+    self.requestedPhotoSettings = requestedPhotoSettings
+    self.willCapturePhotoAnimation = willCapturePhotoAnimation
+    self.livePhotoCaptureHandler = livePhotoCaptureHandler
+    self.completionHandler = completionHandler
 }
 ```
 
@@ -250,29 +250,29 @@ using Photos;
 
 namespace AVCamSample
 {
-	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
-	{
-		public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
+    public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+    {
+        public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
 
-		Action willCapturePhotoAnimation;
-		Action<bool> capturingLivePhoto;
-		Action<PhotoCaptureDelegate> completed;
+        Action willCapturePhotoAnimation;
+        Action<bool> capturingLivePhoto;
+        Action<PhotoCaptureDelegate> completed;
 
-		NSData photoData;
-		NSUrl livePhotoCompanionMovieUrl;
+        NSData photoData;
+        NSUrl livePhotoCompanionMovieUrl;
 
-		public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
-									 Action willCapturePhotoAnimation,
-									 Action<bool> capturingLivePhoto,
-									 Action<PhotoCaptureDelegate> completed)
-		{
-			RequestedPhotoSettings = requestedPhotoSettings;
-			this.willCapturePhotoAnimation = willCapturePhotoAnimation;
-			this.capturingLivePhoto = capturingLivePhoto;
-			this.completed = completed;
-		}
+        public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
+                                     Action willCapturePhotoAnimation,
+                                     Action<bool> capturingLivePhoto,
+                                     Action<PhotoCaptureDelegate> completed)
+        {
+            RequestedPhotoSettings = requestedPhotoSettings;
+            this.willCapturePhotoAnimation = willCapturePhotoAnimation;
+            this.capturingLivePhoto = capturingLivePhoto;
+            this.completed = completed;
+        }
 
-	}
+    }
 }
 ```
 
@@ -283,17 +283,17 @@ namespace AVCamSample
 **Swift**
 ```swift
 private func didFinish() {
-	if let livePhotoCompanionMoviePath = livePhotoCompanionMovieURL?.path {
-		if FileManager.default.fileExists(atPath: livePhotoCompanionMoviePath) {
-			do {
-				try FileManager.default.removeItem(atPath: livePhotoCompanionMoviePath)
-			} catch {
-				print("Could not remove file at url: \(livePhotoCompanionMoviePath)")
-			}
-		}
-	}
-	
-	completionHandler(self)
+    if let livePhotoCompanionMoviePath = livePhotoCompanionMovieURL?.path {
+        if FileManager.default.fileExists(atPath: livePhotoCompanionMoviePath) {
+            do {
+                try FileManager.default.removeItem(atPath: livePhotoCompanionMoviePath)
+            } catch {
+                print("Could not remove file at url: \(livePhotoCompanionMoviePath)")
+            }
+        }
+    }
+    
+    completionHandler(self)
 }
 ```
 
@@ -331,46 +331,46 @@ using Photos;
 
 namespace AVCamSample
 {
-	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
-	{
-		public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
+    public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+    {
+        public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
 
-		Action willCapturePhotoAnimation;
-		Action<bool> capturingLivePhoto;
-		Action<PhotoCaptureDelegate> completed;
+        Action willCapturePhotoAnimation;
+        Action<bool> capturingLivePhoto;
+        Action<PhotoCaptureDelegate> completed;
 
-		NSData photoData;
-		NSUrl livePhotoCompanionMovieUrl;
+        NSData photoData;
+        NSUrl livePhotoCompanionMovieUrl;
 
 
-		public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
-									 Action willCapturePhotoAnimation,
-									 Action<bool> capturingLivePhoto,
-									 Action<PhotoCaptureDelegate> completed)
-		{
-			RequestedPhotoSettings = requestedPhotoSettings;
-			this.willCapturePhotoAnimation = willCapturePhotoAnimation;
-			this.capturingLivePhoto = capturingLivePhoto;
-			this.completed = completed;
-		}
+        public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
+                                     Action willCapturePhotoAnimation,
+                                     Action<bool> capturingLivePhoto,
+                                     Action<PhotoCaptureDelegate> completed)
+        {
+            RequestedPhotoSettings = requestedPhotoSettings;
+            this.willCapturePhotoAnimation = willCapturePhotoAnimation;
+            this.capturingLivePhoto = capturingLivePhoto;
+            this.completed = completed;
+        }
 
-		void DidFinish()
-		{
-			var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
-			if (livePhotoCompanionMoviePath != null)
-			{
-				if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
-				{
-					NSError error;
-					if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
-						Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
-				}
-			}
+        void DidFinish()
+        {
+            var livePhotoCompanionMoviePath = livePhotoCompanionMovieUrl?.Path;
+            if (livePhotoCompanionMoviePath != null)
+            {
+                if (NSFileManager.DefaultManager.FileExists(livePhotoCompanionMoviePath))
+                {
+                    NSError error;
+                    if (!NSFileManager.DefaultManager.Remove(livePhotoCompanionMoviePath, out error))
+                        Console.WriteLine($"Could not remove file at url: {livePhotoCompanionMoviePath}");
+                }
+            }
 
-			completed(this);
-		}
+            completed(this);
+        }
 
-	}
+    }
 }
 ```
 
@@ -577,9 +577,9 @@ namespace AVCamSample
 **Swift**
 ```swift
 func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-	if resolvedSettings.livePhotoMovieDimensions.width > 0 && resolvedSettings.livePhotoMovieDimensions.height > 0 {
-		livePhotoCaptureHandler(true)
-	}
+    if resolvedSettings.livePhotoMovieDimensions.width > 0 && resolvedSettings.livePhotoMovieDimensions.height > 0 {
+        livePhotoCaptureHandler(true)
+    }
 }
 ```
 
@@ -589,8 +589,8 @@ func photoOutput(_ output: AVCapturePhotoOutput, willBeginCaptureFor resolvedSet
 ```csharp
 public override void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
 {
-	if (resolvedSettings.LivePhotoMovieDimensions.Width > 0 && resolvedSettings.LivePhotoMovieDimensions.Height > 0)
-		capturingLivePhoto (true);
+    if (resolvedSettings.LivePhotoMovieDimensions.Width > 0 && resolvedSettings.LivePhotoMovieDimensions.Height > 0)
+        capturingLivePhoto (true);
 }
 ```
 
@@ -601,7 +601,7 @@ public override void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCap
 **Swift**
 ```swift
 func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-	willCapturePhotoAnimation()
+    willCapturePhotoAnimation()
 }
 ```
 
@@ -610,7 +610,7 @@ func photoOutput(_ output: AVCapturePhotoOutput, willCapturePhotoFor resolvedSet
 ```csharp
 public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings)
 {
-	willCapturePhotoAnimation ();
+    willCapturePhotoAnimation ();
 }
 ```
 
@@ -629,11 +629,11 @@ public override void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCap
 **Swift**
 ```swift
 func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-	if let error = error {
-		print("Error capturing photo: \(error)")
-	} else {
-		photoData = photo.fileDataRepresentation()
-	}
+    if let error = error {
+        print("Error capturing photo: \(error)")
+    } else {
+        photoData = photo.fileDataRepresentation()
+    }
 }
 ```
 
@@ -656,7 +656,7 @@ public override void DidFinishProcessingPhoto(AVCapturePhotoOutput output, AVCap
 **Swift**
 ```swift
 func photoOutput(_ output: AVCapturePhotoOutput, didFinishRecordingLivePhotoMovieForEventualFileAt outputFileURL: URL, resolvedSettings: AVCaptureResolvedPhotoSettings) {
-	livePhotoCaptureHandler(false)
+    livePhotoCaptureHandler(false)
 }
 ```
 
@@ -664,7 +664,7 @@ func photoOutput(_ output: AVCapturePhotoOutput, didFinishRecordingLivePhotoMovi
 ```csharp
 public override void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, AVCaptureResolvedPhotoSettings resolvedSettings)
 {
-	capturingLivePhoto (false);
+    capturingLivePhoto (false);
 }
 ```
 
@@ -675,11 +675,11 @@ public override void DidFinishRecordingLivePhotoMovie (AVCapturePhotoOutput capt
 **Swift**
 ```swift
 func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingLivePhotoToMovieFileAt outputFileURL: URL, duration: CMTime, photoDisplayTime: CMTime, resolvedSettings: AVCaptureResolvedPhotoSettings, error: Error?) {
-	if error != nil {
-		print("Error processing live photo companion movie: \(String(describing: error))")
-		return
-	}
-	livePhotoCompanionMovieURL = outputFileURL
+    if error != nil {
+        print("Error processing live photo companion movie: \(String(describing: error))")
+        return
+    }
+    livePhotoCompanionMovieURL = outputFileURL
 }
 ```
 
@@ -687,12 +687,12 @@ func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingLivePhotoToM
 ```csharp
 public override void DidFinishProcessingLivePhotoMovie (AVCapturePhotoOutput captureOutput, NSUrl outputFileUrl, CMTime duration, CMTime photoDisplayTime, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
 {
-	if (error != null)
-	{
-		Console.WriteLine ($"Error processing live photo companion movie: {error.LocalizedDescription})");
-		return;
-	}
-	livePhotoCompanionMovieUrl = outputFileUrl;
+    if (error != null)
+    {
+        Console.WriteLine ($"Error processing live photo companion movie: {error.LocalizedDescription})");
+        return;
+    }
+    livePhotoCompanionMovieUrl = outputFileUrl;
 }
 ```
 
@@ -769,54 +769,54 @@ func photoOutput(_ output: AVCapturePhotoOutput, didFinishCaptureFor resolvedSet
 ```csharp
 public override void DidFinishCapture(AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings, NSError error)
 {
-	if (error != null)
-	{
-		Console.WriteLine($"Error capturing photo: {error.LocalizedDescription})");
-		DidFinish();
-		return;
-	}
+    if (error != null)
+    {
+        Console.WriteLine($"Error capturing photo: {error.LocalizedDescription})");
+        DidFinish();
+        return;
+    }
 
-	if (photoData == null)
-	{
-		Console.WriteLine("No photo data resource");
-		DidFinish();
-		return;
-	}
+    if (photoData == null)
+    {
+        Console.WriteLine("No photo data resource");
+        DidFinish();
+        return;
+    }
 
-	PHPhotoLibrary.RequestAuthorization(status => {
-		if (status == PHAuthorizationStatus.Authorized)
-		{
-			PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() =>
-			{
-				var options = new PHAssetResourceCreationOptions
-				{
-					UniformTypeIdentifier = RequestedPhotoSettings.ProcessedFileType,
-				};
+    PHPhotoLibrary.RequestAuthorization(status => {
+        if (status == PHAuthorizationStatus.Authorized)
+        {
+            PHPhotoLibrary.SharedPhotoLibrary.PerformChanges(() =>
+            {
+                var options = new PHAssetResourceCreationOptions
+                {
+                    UniformTypeIdentifier = RequestedPhotoSettings.ProcessedFileType,
+                };
 
-				var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
-				creationRequest.AddResource(PHAssetResourceType.Photo, photoData, options);
+                var creationRequest = PHAssetCreationRequest.CreationRequestForAsset();
+                creationRequest.AddResource(PHAssetResourceType.Photo, photoData, options);
 
-				var url = livePhotoCompanionMovieUrl;
-				if (url != null)
-				{
-					var livePhotoCompanionMovieFileResourceOptions = new PHAssetResourceCreationOptions
-					{
-						ShouldMoveFile = true
-					};
-					creationRequest.AddResource(PHAssetResourceType.PairedVideo, url, livePhotoCompanionMovieFileResourceOptions);
-				}
-			}, (success, err) => 
-			{
-				if (err != null)
-					Console.WriteLine($"Error occurered while saving photo to photo library: {error.LocalizedDescription}");
-				DidFinish();
-			});
-		}
-		else
-		{
-			DidFinish();
-		}
-	});
+                var url = livePhotoCompanionMovieUrl;
+                if (url != null)
+                {
+                    var livePhotoCompanionMovieFileResourceOptions = new PHAssetResourceCreationOptions
+                    {
+                        ShouldMoveFile = true
+                    };
+                    creationRequest.AddResource(PHAssetResourceType.PairedVideo, url, livePhotoCompanionMovieFileResourceOptions);
+                }
+            }, (success, err) => 
+            {
+                if (err != null)
+                    Console.WriteLine($"Error occurered while saving photo to photo library: {error.LocalizedDescription}");
+                DidFinish();
+            });
+        }
+        else
+        {
+            DidFinish();
+        }
+    });
 }
 ```
 
@@ -994,25 +994,25 @@ class PreviewView: UIView {
         
         return layer
     }
-	
-	var session: AVCaptureSession? {
-		get {
-			return videoPreviewLayer.session
-		}
-		set {
-			videoPreviewLayer.session = newValue
-		}
-	}
-	
-	// MARK: UIView
-	
+    
+    var session: AVCaptureSession? {
+        get {
+            return videoPreviewLayer.session
+        }
+        set {
+            videoPreviewLayer.session = newValue
+        }
+    }
+    
+    // MARK: UIView
+    
     override class var layerClass: AnyClass {
-		return AVCaptureVideoPreviewLayer.self
-	}
+        return AVCaptureVideoPreviewLayer.self
+    }
 }
 ```
 
-ここで、新しく出てきた内容は、<code>override class var layerClass: AnyClass {	 return AVCaptureVideoPreviewLayer.self }</code>です。
+ここで、新しく出てきた内容は、<code>override class var layerClass: AnyClass {     return AVCaptureVideoPreviewLayer.self }</code>です。
 
 通常、<code>UIView</code>の<code>Layer</code>は自動的に作成され割り当てられます。
 デフォルトでは<code>Layer</code>は<code>CALayer</code>のインスタンスになりますが、overrideすることで<code>CALayer</code>派生の任意の型を使用できます。
@@ -1025,11 +1025,11 @@ Xamarin.iOSで同じことを実現するには、<code>using ObjCRuntime;</code
 ```csharp
 public static Class LayerClass
 {
-	[Export("layerClass")]
-	get
-	{
-		return layerClass = layerClass ?? new Class(typeof(AVCaptureVideoPreviewLayer));
-	}
+    [Export("layerClass")]
+    get
+    {
+        return layerClass = layerClass ?? new Class(typeof(AVCaptureVideoPreviewLayer));
+    }
 }
 ```
 
@@ -1120,15 +1120,15 @@ UIについては、<code>storyboard</code>をそのまま利用できます。�
 public class CameraViewController : UIViewController, IAVCaptureFileOutputRecordingDelegate
 {
 
-	PreviewView PreviewView { get; set; }
-	UILabel CameraUnavailableLabel { get; set; }
-	UIButton ResumeButton { get; set; }
-	UIButton RecordButton { get; set; }
-	UIButton CameraButton { get; set; }
-	UIButton PhotoButton { get; set; }
-	UIButton LivePhotoModeButton { get; set; }
-	UISegmentedControl CaptureModeControl { get; set; }
-	UILabel CapturingLivePhotoLabel { get; set; }
+    PreviewView PreviewView { get; set; }
+    UILabel CameraUnavailableLabel { get; set; }
+    UIButton ResumeButton { get; set; }
+    UIButton RecordButton { get; set; }
+    UIButton CameraButton { get; set; }
+    UIButton PhotoButton { get; set; }
+    UIButton LivePhotoModeButton { get; set; }
+    UISegmentedControl CaptureModeControl { get; set; }
+    UILabel CapturingLivePhotoLabel { get; set; }
 
 ```
 
@@ -1159,9 +1159,9 @@ private void InitUI()
 ```csharp
 private void InitUI()
 {
-	View.ContentMode = UIViewContentMode.ScaleToFill;
-	View.Frame = new CGRect(0, 0, 375, 667);
-	View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+    View.ContentMode = UIViewContentMode.ScaleToFill;
+    View.Frame = new CGRect(0, 0, 375, 667);
+    View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 }
 ```
 
@@ -1192,20 +1192,20 @@ xmlの各attributeに対応したプロパティを見つけ出し、設定し�
 ```csharp
 CameraUnavailableLabel = new UILabel
 {
-	Frame = new CGRect(83.5, 319, 208, 29),
-	Hidden = true,
-	UserInteractionEnabled = false,
-	ContentMode = UIViewContentMode.Left,
-	Text = "Camera Unavailable",
-	TextAlignment = UITextAlignment.Center,
-	LineBreakMode = UILineBreakMode.TailTruncation,
-	Lines = 0,
-	BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
-	AdjustsFontSizeToFitWidth = false,
-	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1.0f),
-	Font = UIFont.SystemFontOfSize(24f),
-	TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
+    Frame = new CGRect(83.5, 319, 208, 29),
+    Hidden = true,
+    UserInteractionEnabled = false,
+    ContentMode = UIViewContentMode.Left,
+    Text = "Camera Unavailable",
+    TextAlignment = UITextAlignment.Center,
+    LineBreakMode = UILineBreakMode.TailTruncation,
+    Lines = 0,
+    BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
+    AdjustsFontSizeToFitWidth = false,
+    TranslatesAutoresizingMaskIntoConstraints = false,
+    BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1.0f),
+    Font = UIFont.SystemFontOfSize(24f),
+    TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
 };
 CameraUnavailableLabel.SetContentHuggingPriority(251f, UILayoutConstraintAxis.Horizontal);
 CameraUnavailableLabel.SetContentHuggingPriority(251f, UILayoutConstraintAxis.Vertical);
@@ -1236,10 +1236,10 @@ View.AddSubview(CameraUnavailableLabel);
 ```csharp
 PreviewView = new PreviewView
 {
-	Frame = new CGRect(0, 0, 375, 667),
-	ContentMode = UIViewContentMode.ScaleToFill,
-	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
+    Frame = new CGRect(0, 0, 375, 667),
+    ContentMode = UIViewContentMode.ScaleToFill,
+    TranslatesAutoresizingMaskIntoConstraints = false,
+    BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
 };
 View.AddSubview(PreviewView);
 ```
@@ -1299,15 +1299,15 @@ View.AddSubview(PreviewView);
 ```csharp
 PhotoButton = new UIButton(UIButtonType.RoundedRect)
 {
-	Frame = new CGRect(147.5, 617, 80, 30),
-	Opaque = false,
-	ContentMode = UIViewContentMode.ScaleToFill,
-	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-	VerticalAlignment = UIControlContentVerticalAlignment.Center,
-	LineBreakMode = UILineBreakMode.MiddleTruncation,
-	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-	Font = UIFont.SystemFontOfSize(20f),
+    Frame = new CGRect(147.5, 617, 80, 30),
+    Opaque = false,
+    ContentMode = UIViewContentMode.ScaleToFill,
+    HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+    VerticalAlignment = UIControlContentVerticalAlignment.Center,
+    LineBreakMode = UILineBreakMode.MiddleTruncation,
+    TranslatesAutoresizingMaskIntoConstraints = false,
+    BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+    Font = UIFont.SystemFontOfSize(20f),
 };
 
 PhotoButton.SetTitle("Photo", UIControlState.Normal);
@@ -1350,15 +1350,15 @@ View.AddSubview(PhotoButton);
 ```csharp
 CameraButton = new UIButton(UIButtonType.RoundedRect)
 {
-	Frame = new CGRect(147.5, 617, 80, 30),
-	Opaque = false,
-	ContentMode = UIViewContentMode.ScaleToFill,
-	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-	VerticalAlignment = UIControlContentVerticalAlignment.Center,
-	LineBreakMode = UILineBreakMode.MiddleTruncation,
-	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-	Font = UIFont.SystemFontOfSize(20f),
+    Frame = new CGRect(147.5, 617, 80, 30),
+    Opaque = false,
+    ContentMode = UIViewContentMode.ScaleToFill,
+    HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+    VerticalAlignment = UIControlContentVerticalAlignment.Center,
+    LineBreakMode = UILineBreakMode.MiddleTruncation,
+    TranslatesAutoresizingMaskIntoConstraints = false,
+    BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+    Font = UIFont.SystemFontOfSize(20f),
 };
 
 CameraButton.SetTitle("Camera", UIControlState.Normal);
@@ -1399,15 +1399,15 @@ View.AddSubview(CameraButton);
 ```csharp
 RecordButton = new UIButton(UIButtonType.RoundedRect)
 {
-	Frame = new CGRect(47.5, 617, 80, 30),
-	Opaque = false,
-	ContentMode = UIViewContentMode.ScaleToFill,
-	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-	VerticalAlignment = UIControlContentVerticalAlignment.Center,
-	LineBreakMode = UILineBreakMode.MiddleTruncation,
-	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-	Font = UIFont.SystemFontOfSize(20f),
+    Frame = new CGRect(47.5, 617, 80, 30),
+    Opaque = false,
+    ContentMode = UIViewContentMode.ScaleToFill,
+    HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+    VerticalAlignment = UIControlContentVerticalAlignment.Center,
+    LineBreakMode = UILineBreakMode.MiddleTruncation,
+    TranslatesAutoresizingMaskIntoConstraints = false,
+    BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+    Font = UIFont.SystemFontOfSize(20f),
 };
 
 RecordButton.SetTitle("Record", UIControlState.Normal);
@@ -1449,16 +1449,16 @@ View.AddSubview(RecordButton);
 ```csharp
 ResumeButton = new UIButton(UIButtonType.RoundedRect)
 {
-	Frame = new CGRect(105, 314, 165, 39),
-	Hidden = true,
-	Opaque = false,
-	ContentMode = UIViewContentMode.ScaleToFill,
-	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-	VerticalAlignment = UIControlContentVerticalAlignment.Center,
-	LineBreakMode = UILineBreakMode.MiddleTruncation,
-	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-	Font = UIFont.SystemFontOfSize(24f),
+    Frame = new CGRect(105, 314, 165, 39),
+    Hidden = true,
+    Opaque = false,
+    ContentMode = UIViewContentMode.ScaleToFill,
+    HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+    VerticalAlignment = UIControlContentVerticalAlignment.Center,
+    LineBreakMode = UILineBreakMode.MiddleTruncation,
+    TranslatesAutoresizingMaskIntoConstraints = false,
+    BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+    Font = UIFont.SystemFontOfSize(24f),
 };
 ResumeButton.SetTitle("Tap to resume", UIControlState.Normal);
 ResumeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
@@ -1512,13 +1512,13 @@ CaptureModeControl.InsertSegment("Movie", 1, true);
 ```csharp
 CaptureModeControl = new UISegmentedControl
 {
-	Frame = new CGRect(136, 569, 103, 29),
-	Opaque = false,
-	ContentMode = UIViewContentMode.ScaleToFill,
-	HorizontalAlignment = UIControlContentHorizontalAlignment.Left,
-	ControlStyle = UISegmentedControlStyle.Plain,
-	VerticalAlignment = UIControlContentVerticalAlignment.Top,
-	TranslatesAutoresizingMaskIntoConstraints = false,
+    Frame = new CGRect(136, 569, 103, 29),
+    Opaque = false,
+    ContentMode = UIViewContentMode.ScaleToFill,
+    HorizontalAlignment = UIControlContentHorizontalAlignment.Left,
+    ControlStyle = UISegmentedControlStyle.Plain,
+    VerticalAlignment = UIControlContentVerticalAlignment.Top,
+    TranslatesAutoresizingMaskIntoConstraints = false,
 };
 CaptureModeControl.InsertSegment("Photo", 0, true);
 CaptureModeControl.InsertSegment("Movie", 1, true);
@@ -1561,15 +1561,15 @@ View.AddSubview(CaptureModeControl);
 ```csharp
 LivePhotoModeButton = new UIButton(UIButtonType.RoundedRect)
 {
-	Frame = new CGRect(96.5, 41, 182, 25),
-	Opaque = false,
-	ContentMode = UIViewContentMode.ScaleToFill,
-	HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-	VerticalAlignment = UIControlContentVerticalAlignment.Center,
-	LineBreakMode = UILineBreakMode.MiddleTruncation,
-	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-	Font = UIFont.SystemFontOfSize(20f),
+    Frame = new CGRect(96.5, 41, 182, 25),
+    Opaque = false,
+    ContentMode = UIViewContentMode.ScaleToFill,
+    HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+    VerticalAlignment = UIControlContentVerticalAlignment.Center,
+    LineBreakMode = UILineBreakMode.MiddleTruncation,
+    TranslatesAutoresizingMaskIntoConstraints = false,
+    BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+    Font = UIFont.SystemFontOfSize(20f),
 };
 
 LivePhotoModeButton.SetTitle("Live Photo Mode: On", UIControlState.Normal);
@@ -1611,21 +1611,21 @@ View.AddSubview(LivePhotoModeButton);
 ```csharp
 CapturingLivePhotoLabel = new UILabel
 {
-	Frame = new CGRect(172, 74, 31, 20.5),
-	Hidden = true,
-	Opaque = false,
-	UserInteractionEnabled = false,
-	ContentMode = UIViewContentMode.Left,
-	Text = "Live",
-	TextAlignment = UITextAlignment.Center,
-	LineBreakMode = UILineBreakMode.TailTruncation,
-	Lines = 0,
-	BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
-	AdjustsFontSizeToFitWidth = false,
-	TranslatesAutoresizingMaskIntoConstraints = false,
-	BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-	Font = UIFont.SystemFontOfSize(17f),
-	TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
+    Frame = new CGRect(172, 74, 31, 20.5),
+    Hidden = true,
+    Opaque = false,
+    UserInteractionEnabled = false,
+    ContentMode = UIViewContentMode.Left,
+    Text = "Live",
+    TextAlignment = UITextAlignment.Center,
+    LineBreakMode = UILineBreakMode.TailTruncation,
+    Lines = 0,
+    BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
+    AdjustsFontSizeToFitWidth = false,
+    TranslatesAutoresizingMaskIntoConstraints = false,
+    BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+    Font = UIFont.SystemFontOfSize(17f),
+    TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
 };
 
 CapturingLivePhotoLabel.Layer.CornerRadius = 4f;
@@ -1743,200 +1743,200 @@ View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Lead
 private void InitUI()
 {
 
-	View.ContentMode = UIViewContentMode.ScaleToFill;
-	View.Frame = new CGRect(0, 0, 375, 667);
-	View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+    View.ContentMode = UIViewContentMode.ScaleToFill;
+    View.Frame = new CGRect(0, 0, 375, 667);
+    View.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 
-	CameraUnavailableLabel = new UILabel
-	{
-		Frame = new CGRect(83.5, 319, 208, 29),
-		Hidden = true,
-		UserInteractionEnabled = false,
-		ContentMode = UIViewContentMode.Left,
-		Text = "Camera Unavailable",
-		TextAlignment = UITextAlignment.Center,
-		LineBreakMode = UILineBreakMode.TailTruncation,
-		Lines = 0,
-		BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
-		AdjustsFontSizeToFitWidth = false,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1.0f),
-		Font = UIFont.SystemFontOfSize(24f),
-		TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
-	};
-	View.AddSubview(CameraUnavailableLabel);
+    CameraUnavailableLabel = new UILabel
+    {
+        Frame = new CGRect(83.5, 319, 208, 29),
+        Hidden = true,
+        UserInteractionEnabled = false,
+        ContentMode = UIViewContentMode.Left,
+        Text = "Camera Unavailable",
+        TextAlignment = UITextAlignment.Center,
+        LineBreakMode = UILineBreakMode.TailTruncation,
+        Lines = 0,
+        BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
+        AdjustsFontSizeToFitWidth = false,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+        BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1.0f),
+        Font = UIFont.SystemFontOfSize(24f),
+        TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
+    };
+    View.AddSubview(CameraUnavailableLabel);
 
-	PreviewView = new PreviewView
-	{
-		Frame = new CGRect(0, 0, 375, 667),
-		ContentMode = UIViewContentMode.ScaleToFill,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
-	};
-	View.AddSubview(PreviewView);
+    PreviewView = new PreviewView
+    {
+        Frame = new CGRect(0, 0, 375, 667),
+        ContentMode = UIViewContentMode.ScaleToFill,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+        BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f),
+    };
+    View.AddSubview(PreviewView);
 
-	PhotoButton = new UIButton(UIButtonType.RoundedRect)
-	{
-		Frame = new CGRect(147.5, 617, 80, 30),
-		Opaque = false,
-		ContentMode = UIViewContentMode.ScaleToFill,
-		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-		VerticalAlignment = UIControlContentVerticalAlignment.Center,
-		LineBreakMode = UILineBreakMode.MiddleTruncation,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-		Font = UIFont.SystemFontOfSize(20f),
-	};
-	PhotoButton.SetTitle("Photo", UIControlState.Normal);
-	PhotoButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
-	PhotoButton.Layer.CornerRadius = 4f;
-	PhotoButton.TouchUpInside += (s, e) => CapturePhoto();
-	PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 30));
-	PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 80));
-	View.AddSubview(PhotoButton);
+    PhotoButton = new UIButton(UIButtonType.RoundedRect)
+    {
+        Frame = new CGRect(147.5, 617, 80, 30),
+        Opaque = false,
+        ContentMode = UIViewContentMode.ScaleToFill,
+        HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+        VerticalAlignment = UIControlContentVerticalAlignment.Center,
+        LineBreakMode = UILineBreakMode.MiddleTruncation,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+        BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+        Font = UIFont.SystemFontOfSize(20f),
+    };
+    PhotoButton.SetTitle("Photo", UIControlState.Normal);
+    PhotoButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+    PhotoButton.Layer.CornerRadius = 4f;
+    PhotoButton.TouchUpInside += (s, e) => CapturePhoto();
+    PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 30));
+    PhotoButton.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 80));
+    View.AddSubview(PhotoButton);
 
-	CameraButton = new UIButton(UIButtonType.RoundedRect)
-	{
-		Frame = new CGRect(147.5, 617, 80, 30),
-		Opaque = false,
-		ContentMode = UIViewContentMode.ScaleToFill,
-		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-		VerticalAlignment = UIControlContentVerticalAlignment.Center,
-		LineBreakMode = UILineBreakMode.MiddleTruncation,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-		Font = UIFont.SystemFontOfSize(20f),
-	};
-	CameraButton.SetTitle("Camera", UIControlState.Normal);
-	CameraButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
-	CameraButton.Layer.CornerRadius = 4f;
-	CameraButton.TouchUpInside += (s, e) => ChangeCamera();
-	View.AddSubview(CameraButton);
+    CameraButton = new UIButton(UIButtonType.RoundedRect)
+    {
+        Frame = new CGRect(147.5, 617, 80, 30),
+        Opaque = false,
+        ContentMode = UIViewContentMode.ScaleToFill,
+        HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+        VerticalAlignment = UIControlContentVerticalAlignment.Center,
+        LineBreakMode = UILineBreakMode.MiddleTruncation,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+        BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+        Font = UIFont.SystemFontOfSize(20f),
+    };
+    CameraButton.SetTitle("Camera", UIControlState.Normal);
+    CameraButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+    CameraButton.Layer.CornerRadius = 4f;
+    CameraButton.TouchUpInside += (s, e) => ChangeCamera();
+    View.AddSubview(CameraButton);
 
-	RecordButton = new UIButton(UIButtonType.RoundedRect)
-	{
-		Frame = new CGRect(47.5, 617, 80, 30),
-		Opaque = false,
-		ContentMode = UIViewContentMode.ScaleToFill,
-		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-		VerticalAlignment = UIControlContentVerticalAlignment.Center,
-		LineBreakMode = UILineBreakMode.MiddleTruncation,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-		Font = UIFont.SystemFontOfSize(20f),
-	};
-	RecordButton.SetTitle("Record", UIControlState.Normal);
-	RecordButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
-	RecordButton.Layer.CornerRadius = 4f;
-	RecordButton.TouchUpInside += (s, e) => ToggleMovieRecording();
-	View.AddSubview(RecordButton);
+    RecordButton = new UIButton(UIButtonType.RoundedRect)
+    {
+        Frame = new CGRect(47.5, 617, 80, 30),
+        Opaque = false,
+        ContentMode = UIViewContentMode.ScaleToFill,
+        HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+        VerticalAlignment = UIControlContentVerticalAlignment.Center,
+        LineBreakMode = UILineBreakMode.MiddleTruncation,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+        BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+        Font = UIFont.SystemFontOfSize(20f),
+    };
+    RecordButton.SetTitle("Record", UIControlState.Normal);
+    RecordButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+    RecordButton.Layer.CornerRadius = 4f;
+    RecordButton.TouchUpInside += (s, e) => ToggleMovieRecording();
+    View.AddSubview(RecordButton);
 
-	ResumeButton = new UIButton(UIButtonType.RoundedRect)
-	{
-		Frame = new CGRect(105, 314, 165, 39),
-		Hidden = true,
-		Opaque = false,
-		ContentMode = UIViewContentMode.ScaleToFill,
-		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-		VerticalAlignment = UIControlContentVerticalAlignment.Center,
-		LineBreakMode = UILineBreakMode.MiddleTruncation,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-		Font = UIFont.SystemFontOfSize(24f),
-	};
-	ResumeButton.SetTitle("Tap to resume", UIControlState.Normal);
-	ResumeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
-	ResumeButton.Layer.CornerRadius = 4f;
-	ResumeButton.TouchUpInside += (s, e) => ResumeInterruptedSession();
-	View.AddSubview(ResumeButton);
+    ResumeButton = new UIButton(UIButtonType.RoundedRect)
+    {
+        Frame = new CGRect(105, 314, 165, 39),
+        Hidden = true,
+        Opaque = false,
+        ContentMode = UIViewContentMode.ScaleToFill,
+        HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+        VerticalAlignment = UIControlContentVerticalAlignment.Center,
+        LineBreakMode = UILineBreakMode.MiddleTruncation,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+        BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+        Font = UIFont.SystemFontOfSize(24f),
+    };
+    ResumeButton.SetTitle("Tap to resume", UIControlState.Normal);
+    ResumeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+    ResumeButton.Layer.CornerRadius = 4f;
+    ResumeButton.TouchUpInside += (s, e) => ResumeInterruptedSession();
+    View.AddSubview(ResumeButton);
 
-	CaptureModeControl = new UISegmentedControl
-	{
-		Frame = new CGRect(136, 569, 103, 29),
-		Opaque = false,
-		ContentMode = UIViewContentMode.ScaleToFill,
-		HorizontalAlignment = UIControlContentHorizontalAlignment.Left,
-		ControlStyle = UISegmentedControlStyle.Plain,
-		VerticalAlignment = UIControlContentVerticalAlignment.Top,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-	};
-	CaptureModeControl.InsertSegment("Photo", 0, true);
-	CaptureModeControl.InsertSegment("Movie", 1, true);
-	CaptureModeControl.SelectedSegment = 0;
-	CaptureModeControl.ValueChanged += (s, e) => ToggleCaptureMode();
-	View.AddSubview(CaptureModeControl);
+    CaptureModeControl = new UISegmentedControl
+    {
+        Frame = new CGRect(136, 569, 103, 29),
+        Opaque = false,
+        ContentMode = UIViewContentMode.ScaleToFill,
+        HorizontalAlignment = UIControlContentHorizontalAlignment.Left,
+        ControlStyle = UISegmentedControlStyle.Plain,
+        VerticalAlignment = UIControlContentVerticalAlignment.Top,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+    };
+    CaptureModeControl.InsertSegment("Photo", 0, true);
+    CaptureModeControl.InsertSegment("Movie", 1, true);
+    CaptureModeControl.SelectedSegment = 0;
+    CaptureModeControl.ValueChanged += (s, e) => ToggleCaptureMode();
+    View.AddSubview(CaptureModeControl);
 
-	LivePhotoModeButton = new UIButton(UIButtonType.RoundedRect)
-	{
-		Frame = new CGRect(96.5, 41, 182, 25),
-		Opaque = false,
-		ContentMode = UIViewContentMode.ScaleToFill,
-		HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
-		VerticalAlignment = UIControlContentVerticalAlignment.Center,
-		LineBreakMode = UILineBreakMode.MiddleTruncation,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-		Font = UIFont.SystemFontOfSize(20f),
-	};
+    LivePhotoModeButton = new UIButton(UIButtonType.RoundedRect)
+    {
+        Frame = new CGRect(96.5, 41, 182, 25),
+        Opaque = false,
+        ContentMode = UIViewContentMode.ScaleToFill,
+        HorizontalAlignment = UIControlContentHorizontalAlignment.Center,
+        VerticalAlignment = UIControlContentVerticalAlignment.Center,
+        LineBreakMode = UILineBreakMode.MiddleTruncation,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+        BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+        Font = UIFont.SystemFontOfSize(20f),
+    };
 
-	LivePhotoModeButton.SetTitle("Live Photo Mode: On", UIControlState.Normal);
-	LivePhotoModeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
-	LivePhotoModeButton.Layer.CornerRadius = 4f;
-	LivePhotoModeButton.TouchUpInside += (s, e) => ToggleLivePhotoMode();
+    LivePhotoModeButton.SetTitle("Live Photo Mode: On", UIControlState.Normal);
+    LivePhotoModeButton.SetTitleShadowColor(UIColor.FromRGBA(0.5f, 0.5f, 0.5f, 1f), UIControlState.Normal);
+    LivePhotoModeButton.Layer.CornerRadius = 4f;
+    LivePhotoModeButton.TouchUpInside += (s, e) => ToggleLivePhotoMode();
 
-	LivePhotoModeButton.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 25));
+    LivePhotoModeButton.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 25));
 
-	View.AddSubview(LivePhotoModeButton);
+    View.AddSubview(LivePhotoModeButton);
 
-	CapturingLivePhotoLabel = new UILabel
-	{
-		Frame = new CGRect(172, 74, 31, 20.5),
-		Hidden = true,
-		Opaque = false,
-		UserInteractionEnabled = false,
-		ContentMode = UIViewContentMode.Left,
-		Text = "Live",
-		TextAlignment = UITextAlignment.Center,
-		LineBreakMode = UILineBreakMode.TailTruncation,
-		Lines = 0,
-		BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
-		AdjustsFontSizeToFitWidth = false,
-		TranslatesAutoresizingMaskIntoConstraints = false,
-		BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
-		Font = UIFont.SystemFontOfSize(17f),
-		TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
-	};
-	CapturingLivePhotoLabel.Layer.CornerRadius = 4f;
+    CapturingLivePhotoLabel = new UILabel
+    {
+        Frame = new CGRect(172, 74, 31, 20.5),
+        Hidden = true,
+        Opaque = false,
+        UserInteractionEnabled = false,
+        ContentMode = UIViewContentMode.Left,
+        Text = "Live",
+        TextAlignment = UITextAlignment.Center,
+        LineBreakMode = UILineBreakMode.TailTruncation,
+        Lines = 0,
+        BaselineAdjustment = UIBaselineAdjustment.AlignBaselines,
+        AdjustsFontSizeToFitWidth = false,
+        TranslatesAutoresizingMaskIntoConstraints = false,
+        BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 0.3f),
+        Font = UIFont.SystemFontOfSize(17f),
+        TextColor = UIColor.FromRGBA(1.0f, 1.0f, 0.0f, 1.0f),
+    };
+    CapturingLivePhotoLabel.Layer.CornerRadius = 4f;
 
-	CapturingLivePhotoLabel.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 25));
-	CapturingLivePhotoLabel.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 40));
+    CapturingLivePhotoLabel.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1.0f, 25));
+    CapturingLivePhotoLabel.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1.0f, 40));
 
-	View.AddSubview(CapturingLivePhotoLabel);
+    View.AddSubview(CapturingLivePhotoLabel);
 
-	View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
-	View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, View, NSLayoutAttribute.Top, 1.0f, 80f));
-	View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
-	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Height, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Top, NSLayoutRelation.Equal, LivePhotoModeButton, NSLayoutAttribute.Bottom, 1.0f, 8.0f));
-	View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.Height, NSLayoutRelation.Equal, View, NSLayoutAttribute.Height, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, CameraButton, NSLayoutAttribute.Top, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(CaptureModeControl, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(CameraUnavailableLabel, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
-	View.AddConstraint(NSLayoutConstraint.Create(CameraUnavailableLabel, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
-	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, CameraButton, NSLayoutAttribute.Height, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, CaptureModeControl, NSLayoutAttribute.Bottom, 1.0f, 20f));
-	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Top, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(View, NSLayoutAttribute.Bottom, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.Bottom, 1.0f, 20f));
-	View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(CameraButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
-	View.AddConstraint(NSLayoutConstraint.Create(View, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.CenterX, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.Width, NSLayoutRelation.Equal, View, NSLayoutAttribute.Width, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
-	View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
+    View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+    View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, View, NSLayoutAttribute.Top, 1.0f, 80f));
+    View.AddConstraint(NSLayoutConstraint.Create(LivePhotoModeButton, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+    View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Height, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.Top, NSLayoutRelation.Equal, LivePhotoModeButton, NSLayoutAttribute.Bottom, 1.0f, 8.0f));
+    View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.Height, NSLayoutRelation.Equal, View, NSLayoutAttribute.Height, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, CameraButton, NSLayoutAttribute.Top, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(CaptureModeControl, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(CameraUnavailableLabel, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(CapturingLivePhotoLabel, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+    View.AddConstraint(NSLayoutConstraint.Create(CameraUnavailableLabel, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterX, 1.0f, 0));
+    View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Height, NSLayoutRelation.Equal, CameraButton, NSLayoutAttribute.Height, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, CaptureModeControl, NSLayoutAttribute.Bottom, 1.0f, 20f));
+    View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Top, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Top, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(View, NSLayoutAttribute.Bottom, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.Bottom, 1.0f, 20f));
+    View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(CameraButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
+    View.AddConstraint(NSLayoutConstraint.Create(View, NSLayoutAttribute.CenterX, NSLayoutRelation.Equal, PhotoButton, NSLayoutAttribute.CenterX, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(PreviewView, NSLayoutAttribute.Width, NSLayoutRelation.Equal, View, NSLayoutAttribute.Width, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Width, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Width, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(ResumeButton, NSLayoutAttribute.CenterY, NSLayoutRelation.Equal, View, NSLayoutAttribute.CenterY, 1.0f, 0f));
+    View.AddConstraint(NSLayoutConstraint.Create(PhotoButton, NSLayoutAttribute.Leading, NSLayoutRelation.Equal, RecordButton, NSLayoutAttribute.Trailing, 1.0f, 20f));
 }
 ```
 
@@ -1947,11 +1947,11 @@ private void InitUI()
 ```csharp
 public override void ViewDidLoad()
 {
-	base.ViewDidLoad();
+    base.ViewDidLoad();
 
-	View.BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f);
+    View.BackgroundColor = UIColor.FromRGBA(0.0f, 0.0f, 0.0f, 1f);
 
-	InitUI();
+    InitUI();
 ```
 
 
