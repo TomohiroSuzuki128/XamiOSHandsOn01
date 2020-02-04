@@ -200,17 +200,17 @@ using Photos;
 
 namespace AVCamSample
 {
-	public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
-	{
-		public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
+    public class PhotoCaptureDelegate : AVCapturePhotoCaptureDelegate
+    {
+        public AVCapturePhotoSettings RequestedPhotoSettings { get; private set; }
 
-		Action willCapturePhotoAnimation;
-		Action<bool> capturingLivePhoto;
-		Action<PhotoCaptureDelegate> completed;
+        Action willCapturePhotoAnimation;
+        Action<bool> capturingLivePhoto;
+        Action<PhotoCaptureDelegate> completed;
 
-		NSData photoData;
-		NSUrl livePhotoCompanionMovieUrl;
-	}
+        NSData photoData;
+        NSUrl livePhotoCompanionMovieUrl;
+    }
 }
 ```
 
