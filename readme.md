@@ -342,7 +342,6 @@ namespace AVCamSample
         NSData photoData;
         NSUrl livePhotoCompanionMovieUrl;
 
-
         public PhotoCaptureDelegate(AVCapturePhotoSettings requestedPhotoSettings,
                                      Action willCapturePhotoAnimation,
                                      Action<bool> capturingLivePhoto,
