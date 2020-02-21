@@ -412,7 +412,7 @@ extension PhotoCaptureProcessor: AVCapturePhotoCaptureDelegate {
 ```
 
 コールバックメソッドの名前が全て<code>photoOutput</code>と同じになっています。
-ここで、C#の対応するクラス<code>AVCapturePhotoCaptureDelegate</code>のコールバックメソッドのメタ情報を確認してみましょう。
+ここで、C# の対応するクラス<code>AVCapturePhotoCaptureDelegate</code>のコールバックメソッドのメタ情報を確認してみましょう。
 
 **C#**
 ```csharp
@@ -456,7 +456,7 @@ public virtual void WillBeginCapture (AVCapturePhotoOutput captureOutput, AVCapt
 public virtual void WillCapturePhoto (AVCapturePhotoOutput captureOutput, AVCaptureResolvedPhotoSettings resolvedSettings);
 ```
 
-メソッドは全て違う名前になっています。
+C# ではメソッドは全て違う名前になっています。
 
 ### コールバックメソッドの Swift, Xamarin.iOS の対応の判別 ###
 
