@@ -1,20 +1,20 @@
 # 準備 #
 
-今回はApple公式の写真撮影のサンプルアプリを題材にします。以下よりサンプルコードをダウンロードして下さい。
+今回は Apple 公式の写真撮影のサンプルアプリを題材にします。以下よりサンプルコードをダウンロードして下さい。
 
 [https://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html](https://developer.apple.com/library/content/samplecode/AVCam/Introduction/Intro.html "AVCam-iOS")
 
 
 # Xcodeでダミーアプリを実行 #
 
-プロビジョニングプロファイルや証明書の紐付けが自動で行われるようにXcodeでSwiftのダミーアプリを作成します。
+プロビジョニングプロファイルや証明書の紐付けが自動で行われるように Xcode で Swift のダミーアプリを作成します。
 
 [File]->[New]->[Project]でプロジェクトを作成します。
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/020.png?raw=true)
 
 
-iOSのSingle View Applicationを選択し、[Next]を押します。
+iOS の Single View Application を選択し、[Next]を押します。
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/021.png?raw=true)
 
