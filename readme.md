@@ -29,8 +29,8 @@ Organization Identifier はユニークな名前になるようにしてくだ�
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/023.png?raw=true)
 
 Product Name と　Organization Identifier が正しく設定されているのを確認して下さい。
-Signingの部分が自動で修正されて、Provisioning ProfileとSigning　Certificateが下記のように設定されているのを確認してください。
-左上のデバッグ実行の部分にご自分のiPhoneが認識されているのを確認してください。
+Signing の部分が自動で修正されて、Provisioning Profile と Signing Certificate が下記のように設定されているのを確認してください。
+左上のデバッグ実行の部分にご自分の iPhone が認識されているのを確認してください。
 全て確認できたらデバッグ実行します。
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/024.png?raw=true)
