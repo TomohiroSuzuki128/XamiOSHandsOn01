@@ -48,16 +48,16 @@ Signing の部分が自動で修正されて、Provisioning Profile と Signing 
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/013.png?raw=true)
 
-デベロッパAPPに[Xcodeに設定したApple ID]が表示されていますのでタップします。
+デベロッパ APP に[Xcode に設定した Apple ID]が表示されていますのでタップします。
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/014.png?raw=true)
 
-[Xcodeに設定したApple ID]を信頼をタップして信頼させます。
+[Xcode に設定した Apple ID]を信頼をタップして信頼させます。
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/015.png?raw=true)
 
 
-以下の表示が出た場合、ご自分のiPhoneの中にAVCamSampleと言う名前のアプリが既にインストールされているか確認し、インストールされている場合、アンインストールしてください。
+以下の表示が出た場合、ご自分の iPhone の中に AVCamSample と言う名前のアプリが既にインストールされているか確認し、インストールされている場合、アンインストールしてください。
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/027.png?raw=true)
 
@@ -154,7 +154,7 @@ namespace AVCamSample
 
 ### フィールド ###
 
-次に、インスタンス変数（C#ではフィールド）を移植します。
+次に、インスタンス変数（C# ではフィールド）を移植します。
 
 **Swift**
 ```swift
@@ -174,7 +174,7 @@ private var livePhotoCompanionMovieURL: URL?
 Swift では[アクセス修飾子] [var or let] [変数名] : [型名] の順で記述されています。
 
 よって、1行目で言えば、<code>requestedPhotoSettings</code>が変数名、<code>AVCapturePhotoSettings</code>が型名です。
-これは、C#に簡単に書き換えられます。
+これは、C# に簡単に書き換えられます。
 <code>AVCapturePhotoSettings</code>の型も Xamarin.iOS に定義済みです。
 もし「型が見つからない」とエラーが出る場合は、using を確認してみてください。
 
