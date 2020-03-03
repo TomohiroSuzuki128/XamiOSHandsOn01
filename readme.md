@@ -18,7 +18,7 @@ iOS の Single View Application を選択し、[Next]を押します。
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/021.png?raw=true)
 
-Product Name は　AVCamSample にして下さい。
+Product Name は AVCamSample にして下さい。
 Organization Identifier はユニークな名前になるようにしてください。
 [Next]を押します。
 
@@ -28,7 +28,7 @@ Organization Identifier はユニークな名前になるようにしてくだ�
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/023.png?raw=true)
 
-Product Name と　Organization Identifier が正しく設定されているのを確認して下さい。
+Product Name と Organization Identifier が正しく設定されているのを確認して下さい。
 Signing の部分が自動で修正されて、Provisioning Profile と Signing Certificate が下記のように設定されているのを確認してください。
 左上のデバッグ実行の部分にご自分の iPhone が認識されているのを確認してください。
 全て確認できたらデバッグ実行します。
