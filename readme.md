@@ -82,7 +82,7 @@ Signing の部分が自動で修正されて、Provisioning Profile と Signing 
 下記を設定し、[次へ]を押す。
 
 組織の識別子は、com.<ユニークな自分だけの名前>になるようにしてください。
-**バンドル識別子はさきほどXcodeで設定されたBundle Identifierと一字一句違わぬようにしてください。**
+**バンドル識別子はさきほど Xcode で設定された Bundle Identifier と一字一句違わぬようにしてください。**
 一文字でも違っているとアプリは起動しません！！
 
 ![](https://github.com/TomohiroSuzuki128/XamiOSHandsOn01/blob/master/images/002.png?raw=true)
@@ -302,7 +302,7 @@ Swift をそのまま移植できず、若干表現を変えなければなら�
 
 ここは、仕方ないので Swift のコードの処理を理解し、同等の処理を Xamarin.iOS で書かなくてはいけません。
 
-まず<code>if let</code>ですがこれは、Optional-Bindingと呼ばれており、OptionalのUnwrapを行っています。
+まず<code>if let</code>ですがこれは、Optional-Binding と呼ばれており、Optional の Unwrap を行っています。
 
 Optionalとは変数にnilの代入を許容するデータ型で、反対にNot Optionalはnilを代入できません。Optionalの変数にはデータ型の最後に「?」か「!」をつけます。
 
