@@ -1016,7 +1016,7 @@ class PreviewView: UIView {
 通常、<code>UIView</code>の<code>Layer</code>は自動的に作成され割り当てられます。
 デフォルトでは<code>Layer</code>は<code>CALayer</code>のインスタンスになりますが、overrideすることで<code>CALayer</code>派生の任意の型を使用できます。
 
-Xamarin.iOSで同じことを実現するには、<code>using ObjCRuntime;</code>を追加し、<code>CALayer</code>派生の任意の型を返す静的メソッド、または静的プロパティを作成し、<code>[Export("layerClass")]</code>を設定します。
+Xamarin.iOS で同じことを実現するには、<code>using ObjCRuntime;</code>を追加し、<code>CALayer</code>派生の任意の型を返す静的メソッド、または静的プロパティを作成し、<code>[Export("layerClass")]</code>を設定します。
 
 具体的には下記のようになります。
 
@@ -1105,9 +1105,9 @@ namespace AVCamSample
 
 # UI の Xamarin.iOS への移植 #
 
-UIについては、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、どうしてもコードでUIを記述する場面が出てきます。
+UI については、<code>storyboard</code>をそのまま利用できます。ですが、実際にアプリを開発すると、<code>storyboard</code>だけで完結するのは難しく、どうしてもコードで UI を記述する場面が出てきます。
 
-ところが、Xamarin.iOSでUIをコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なのでUIをコードで作成してみましょう。具体的には、<code>Main.storyboard</code>をXamarin.iOSに翻訳する作業になります。
+ところが、Xamarin.iOS で UI をコードで作成する方法の情報は非常に少ないです。そこで、今回はせっかくの機会なので UI をコードで作成してみましょう。具体的には、<code>Main.storyboard</code>を Xamarin.iOS に翻訳する作業になります。
 
 
 ## UIエレメントを割り当てるフィールドを追加 ##
